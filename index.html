@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chicago TOPA Tenant Rights Tool</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a1a;font-size:15px;line-height:1.6}
+a{color:#0F6E56;text-decoration:none}a:hover{text-decoration:underline}
+.nav{background:#fff;border-bottom:1px solid #e2e0d8;position:sticky;top:0;z-index:100;padding:0 1.5rem}
+.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center}
+.nav-brand{font-size:13px;font-weight:600;padding:14px 0;margin-right:1rem;white-space:nowrap}
+.nav-tabs{display:flex;overflow-x:auto;flex:1}
+.nav-tab{padding:14px 12px;font-size:13px;color:#666;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none}
+.nav-tab.active{color:#0F6E56;border-bottom-color:#0F6E56;font-weight:500}
+.lang-btn{padding:5px 11px;border:1px solid #ccc;border-radius:6px;font-size:12px;cursor:pointer;background:#fff;color:#555;flex-shrink:0;margin-left:.5rem}
+.page{display:none;max-width:980px;margin:0 auto;padding:1.5rem}
+.page.active{display:block}
+.section-title{font-size:19px;font-weight:600;margin-bottom:5px}
+.section-sub{font-size:13px;color:#666;margin-bottom:1.25rem}
+.card{background:#fff;border:1px solid #e2e0d8;border-radius:10px;overflow:hidden;margin-bottom:.875rem}
+.card-header{background:#f9f8f5;border-bottom:1px solid #e2e0d8;padding:10px 15px}
+.card-header h3{font-size:13px;font-weight:600}
+.card-body{padding:14px}
+.btn-group{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:.875rem}
+.btn-opt{padding:7px 14px;border:1px solid #d0cec6;border-radius:6px;background:#fff;font-size:13px;cursor:pointer}
+.btn-opt.active{background:#0F6E56;color:#fff;border-color:#0F6E56}
+.timeline{list-style:none}
+.step{display:grid;grid-template-columns:38px 1fr;position:relative}
+.step:not(:last-child)::after{content:'';position:absolute;left:18px;top:40px;bottom:0;width:1px;background:#e2e0d8}
+.step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;margin-top:2px}
+.step-body{padding:5px 0 18px 13px}
+.step-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.step-desc{font-size:12px;color:#555;line-height:1.5}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:4px}
+.tag-green{background:#E1F5EE;color:#085041}.tag-blue{background:#E6F1FB;color:#0C447C}
+.tag-amber{background:#FAEEDA;color:#633806}.tag-red{background:#FCEBEB;color:#791F1F}
+.rights-list{list-style:none}
+.rights-list li{font-size:12px;color:#444;padding:7px 0;border-bottom:1px solid #f0ede8;line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+.rights-list li:last-child{border-bottom:none}
+.rights-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:#1D9E75;flex-shrink:0;margin-top:5px}
+.alert{border-radius:7px;padding:10px 14px;margin-top:.625rem;font-size:12px;line-height:1.55}
+.alert-red{background:#FCEBEB;border:1px solid #F7C1C1;color:#791F1F}
+.alert-green{background:#E1F5EE;border:1px solid #9FE1CB;color:#085041}
+.alert-amber{background:#FAEEDA;border:1px solid #FAC775;color:#633806}
+.alert-blue{background:#E6F1FB;border:1px solid #B5D4F4;color:#0C447C}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:.875rem 0}
+.info-cell{background:#f9f8f5;border-radius:7px;padding:10px}
+.info-cell-label{font-size:10px;color:#888;margin-bottom:2px;text-transform:uppercase;letter-spacing:.04em}
+.info-cell-val{font-size:18px;font-weight:600}
+.info-cell-sub{font-size:10px;color:#888;margin-top:1px}
+label{font-size:11px;color:#555;display:block;margin-bottom:3px;font-weight:500}
+input[type=text],input[type=number],select{width:100%;padding:6px 9px;border:1px solid #d0cec6;border-radius:6px;font-size:13px;background:#fff;color:#1a1a1a}
+input:focus,select:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 2px rgba(29,158,117,.1)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-group{margin-bottom:10px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+.calc-result{background:#fff;border:1px solid #e2e0d8;border-radius:10px;padding:14px;margin-bottom:.875rem}
+.calc-result h4{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f5f4f0;font-size:12px}
+.result-row:last-child{border-bottom:none}
+.result-row.sub{font-weight:600;font-size:12px;color:#1a1a1a}
+.result-row.total{font-weight:700;font-size:13px;border-top:1.5px solid #e2e0d8;border-bottom:none;padding-top:7px;margin-top:3px}
+.result-row.gap{color:#A32D2D;font-weight:700;font-size:13px;border-top:1.5px solid #e2e0d8;border-bottom:none;padding-top:7px;margin-top:3px}
+.result-row.surplus{color:#0F6E56;font-weight:700;font-size:13px;border-top:1.5px solid #e2e0d8;border-bottom:none;padding-top:7px;margin-top:3px}
+.result-num{font-variant-numeric:tabular-nums;font-weight:500}
+.result-section{margin-bottom:.875rem}
+.result-section h5{font-size:10px;font-weight:700;color:#ccc;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.divider{border:none;border-top:1px solid #e2e0d8;margin:.875rem 0}
+.text-sm{font-size:11px;color:#888;line-height:1.5}
+.mt-1{margin-top:.4rem}.mt-2{margin-top:.875rem}
+.highlighted-box{background:#f0fdf8;border:1.5px solid #1D9E75;border-radius:8px;padding:10px 13px;margin:.625rem 0}
+.hb-label{font-size:10px;font-weight:700;color:#0F6E56;text-transform:uppercase;letter-spacing:.05em}
+.hb-val{font-size:20px;font-weight:700;color:#0F6E56}
+.hb-sub{font-size:11px;color:#3B6D11;margin-top:1px}
+.stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.stab{padding:4px 11px;border:1px solid #d0cec6;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;background:#fff;color:#666}
+.stab.active{background:#0F6E56;color:#fff;border-color:#0F6E56}
+.toggle-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.toggle{position:relative;width:34px;height:18px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.tog-sl{position:absolute;inset:0;background:#ccc;border-radius:9px;cursor:pointer;transition:.2s}
+.toggle input:checked+.tog-sl{background:#1D9E75}
+.tog-sl::before{content:'';position:absolute;width:12px;height:12px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.tog-sl::before{transform:translateX(16px)}
+.toggle-label{font-size:11px;color:#555;font-weight:500}
+.rr-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.rr-table th{background:#f9f8f5;padding:6px 7px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#888;border-bottom:1px solid #e2e0d8}
+.rr-table td{padding:4px 5px;border-bottom:1px solid #f5f4f0}
+.rr-table input,.rr-table select{padding:3px 6px;font-size:12px}
+.rr-total{font-size:12px;font-weight:700;color:#0F6E56;text-align:right;padding:6px 6px 0}
+.nbhd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:7px}
+.nbhd-card{border:1px solid #d0cec6;border-radius:8px;padding:10px;cursor:pointer;background:#fff;transition:all .15s}
+.nbhd-card:hover{border-color:#1D9E75;background:#f0fdf8}
+.nbhd-card.active{border-color:#1D9E75;background:#E1F5EE}
+.nbhd-card.outside{border-color:#f0ccc0}
+.nbhd-name{font-size:12px;font-weight:600}
+.nbhd-zips{font-size:10px;color:#888;margin-top:2px}
+.nbhd-status{font-size:10px;font-weight:600;margin-top:4px}
+.nbhd-card.active .nbhd-status{color:#0F6E56}
+.nbhd-card.outside .nbhd-status{color:#993C1D}
+.rt{width:100%;border-collapse:collapse;font-size:12px}
+.rt th{background:#f9f8f5;padding:6px 9px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#888;border-bottom:1px solid #e2e0d8}
+.rt td{padding:6px 9px;border-bottom:1px solid #f5f4f0;color:#444}
+.rt .hi{color:#0F6E56;font-weight:600}
+.resource-list{list-style:none}
+.resource-list li{padding:8px 0;border-bottom:1px solid #f0ede8;font-size:12px}
+.resource-list li:last-child{border-bottom:none}
+.resource-list a{font-weight:500;color:#0F6E56}
+.resource-list .rd{color:#888;font-size:11px;margin-top:1px}
+.chart-wrap{background:#f9f8f5;border-radius:7px;overflow:hidden;margin-top:.5rem}
+canvas{display:block;width:100%!important}
+.chart-legend{display:flex;gap:12px;flex-wrap:wrap;padding:6px 10px;font-size:11px}
+.legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px;vertical-align:middle}
+.rpill{display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid #d0cec6;background:#fff;color:#555;margin:2px}
+.rpill.active{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.resale-display{background:#f0fdf8;border-radius:6px;padding:7px 11px;font-size:11px;color:#085041;margin-top:5px;font-weight:500}
+@media(max-width:640px){.two-col,.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="nav-inner">
+  <div class="nav-brand">Chicago TOPA</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="goPage('rights',this)"><span class="en">Your Rights</span><span class="es" style="display:none">Tus Derechos</span></button>
+    <button class="nav-tab" onclick="goPage('neighborhood',this)"><span class="en">Neighborhood</span><span class="es" style="display:none">Vecindario</span></button>
+    <button class="nav-tab" onclick="goPage('finance',this)"><span class="en">Financial Feasibility</span><span class="es" style="display:none">Factibilidad</span></button>
+    <button class="nav-tab" onclick="goPage('coop',this)"><span class="en">Co-op Conversion</span><span class="es" style="display:none">Cooperativa</span></button>
+  </div>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">Español</button>
+</div></div>
+
+<!-- RIGHTS -->
+<div class="page active" id="page-rights">
+  <div class="section-title"><span class="en">Know your rights as a renter</span><span class="es" style="display:none">Conoce tus derechos como inquilino</span></div>
+  <div class="section-sub"><span class="en">Northwest Side Preservation Ordinance — TOPA, Block (606) District</span><span class="es" style="display:none">Ordenanza de Preservación del Lado Noroeste — TOPA, Distrito Bloque (606)</span></div>
+  <div class="card"><div class="card-body">
+    <div class="form-group">
+      <label><span class="en">Units in your building?</span><span class="es" style="display:none">¿Cuántas unidades tiene tu edificio?</span></label>
+      <div class="btn-group" id="unit-group">
+        <button class="btn-opt" onclick="setUnits('1-2',this)">1–2</button>
+        <button class="btn-opt" onclick="setUnits('3-4',this)">3–4</button>
+        <button class="btn-opt" onclick="setUnits('5+',this)">5+</button>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:0">
+      <label><span class="en">What situation applies?</span><span class="es" style="display:none">¿Cuál situación aplica?</span></label>
+      <div class="btn-group" style="margin-bottom:0" id="sit-group">
+        <button class="btn-opt" onclick="setSit('intent',this)"><span class="en">Owner wants to sell</span><span class="es" style="display:none">Dueño quiere vender</span></button>
+        <button class="btn-opt" onclick="setSit('offer',this)"><span class="en">Offer accepted</span><span class="es" style="display:none">Oferta aceptada</span></button>
+        <button class="btn-opt" onclick="setSit('purchase',this)"><span class="en">We want to buy</span><span class="es" style="display:none">Queremos comprar</span></button>
+        <button class="btn-opt" onclick="setSit('general',this)"><span class="en">General protections</span><span class="es" style="display:none">Protecciones generales</span></button>
+      </div>
+    </div>
+  </div></div>
+  <div id="rights-result"></div>
+</div>
+
+<!-- NEIGHBORHOOD -->
+<div class="page" id="page-neighborhood">
+  <div class="section-title"><span class="en">Is your building in the ordinance area?</span><span class="es" style="display:none">¿Tu edificio está en la zona de la ordenanza?</span></div>
+  <div class="section-sub"><span class="en">The Block (606) District covers six northwest side community areas. Click your neighborhood.</span><span class="es" style="display:none">El Distrito Bloque (606) cubre seis vecindarios. Haz clic en tu vecindario.</span></div>
+  <div class="nbhd-grid" id="nbhd-grid">
+    <div class="nbhd-card active" onclick="selNbhd('logan',this)"><div class="nbhd-name">Logan Square</div><div class="nbhd-zips">60647, 60618</div><div class="nbhd-status">✓ <span class="en">Covered</span><span class="es" style="display:none">Cubierto</span></div></div>
+    <div class="nbhd-card" onclick="selNbhd('avondale',this)"><div class="nbhd-name">Avondale</div><div class="nbhd-zips">60618, 60641</div><div class="nbhd-status">✓ <span class="en">Covered</span><span class="es" style="display:none">Cubierto</span></div></div>
+    <div class="nbhd-card" onclick="selNbhd('humboldt',this)"><div class="nbhd-name">Humboldt Park</div><div class="nbhd-zips">60651, 60612</div><div class="nbhd-status">✓ <span class="en">Covered</span><span class="es" style="display:none">Cubierto</span></div></div>
+    <div class="nbhd-card" onclick="selNbhd('hermosa',this)"><div class="nbhd-name">Hermosa</div><div class="nbhd-zips">60639, 60641</div><div class="nbhd-status">✓ <span class="en">Covered</span><span class="es" style="display:none">Cubierto</span></div></div>
+    <div class="nbhd-card" onclick="selNbhd('lowerwest',this)"><div class="nbhd-name">Lower West Side</div><div class="nbhd-zips">60608, 60616</div><div class="nbhd-status">✓ <span class="en">Covered</span><span class="es" style="display:none">Cubierto</span></div></div>
+    <div class="nbhd-card" onclick="selNbhd('westtown',this)"><div class="nbhd-name">West Town</div><div class="nbhd-zips">60622, 60647</div><div class="nbhd-status">✓ <span class="en">Covered</span><span class="es" style="display:none">Cubierto</span></div></div>
+    <div class="nbhd-card outside" onclick="selNbhd('outside',this)"><div class="nbhd-name"><span class="en">Not listed</span><span class="es" style="display:none">No está en la lista</span></div><div class="nbhd-zips"></div><div class="nbhd-status">? <span class="en">Check eligibility</span><span class="es" style="display:none">Verificar</span></div></div>
+  </div>
+  <div id="nbhd-detail" style="margin-top:.875rem"></div>
+</div>
+
+<!-- FINANCE -->
+<div class="page" id="page-finance">
+  <div class="section-title"><span class="en">Financial Feasibility Calculator</span><span class="es" style="display:none">Calculadora de Factibilidad Financiera</span></div>
+  <div class="section-sub"><span class="en">Mortgage is constrained by the lower of LTV or DSCR limit. Use that to drive the funding gap.</span><span class="es" style="display:none">La hipoteca está limitada por el menor del LTV o el límite de DSCR.</span></div>
+  <div class="two-col">
+  <div>
+    <div class="card"><div class="card-header"><h3><span class="en">Acquisition &amp; Rehab</span><span class="es" style="display:none">Adquisición y Rehabilitación</span></h3></div><div class="card-body">
+      <div class="form-row">
+        <div><label><span class="en">Purchase price</span><span class="es" style="display:none">Precio de compra</span></label><input type="number" id="f_price" value="1200000" oninput="calcF()"></div>
+        <div><label><span class="en">Number of units</span><span class="es" style="display:none">Núm. de unidades</span></label><input type="number" id="f_units" value="6" oninput="calcF();buildRoll()"></div>
+      </div>
+      <div class="form-group"><label><span class="en">Rehab / construction cost</span><span class="es" style="display:none">Costo de rehabilitación</span></label><input type="number" id="f_rehab" value="150000" oninput="calcF()"></div>
+      <div class="form-row">
+        <div><label><span class="en">Soft costs (%)</span><span class="es" style="display:none">Costos blandos (%)</span></label><input type="number" id="f_soft" value="15" oninput="calcF()"></div>
+        <div><label><span class="en">Contingency (%)</span><span class="es" style="display:none">Contingencia (%)</span></label><input type="number" id="f_cont" value="10" oninput="calcF()"></div>
+      </div>
+    </div></div>
+
+    <div class="card"><div class="card-header"><h3><span class="en">Mortgage Assumptions</span><span class="es" style="display:none">Supuestos del Préstamo</span></h3></div><div class="card-body">
+      <div class="form-row">
+        <div><label><span class="en">Max LTV (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="f_ltv" value="70" oninput="calcF()"></div>
+        <div><label><span class="en">Interest rate (%)</span><span class="es" style="display:none">Tasa de interés (%)</span></label><input type="number" id="f_rate" value="7.0" step="0.25" oninput="calcF()"></div>
+      </div>
+      <div class="form-row">
+        <div><label><span class="en">Amort. term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="f_term" value="30" oninput="calcF()"></div>
+        <div><label><span class="en">Min DSCR limit</span><span class="es" style="display:none">DSCR mínimo</span></label><input type="number" id="f_dscr_min" value="1.20" step="0.05" oninput="calcF()"></div>
+      </div>
+      <div class="highlighted-box">
+        <div class="hb-label"><span class="en">Max supportable mortgage</span><span class="es" style="display:none">Hipoteca máxima soportable</span></div>
+        <div class="hb-val" id="max-loan-val">—</div>
+        <div class="hb-sub" id="max-loan-why"></div>
+      </div>
+    </div></div>
+
+    <div class="card"><div class="card-header"><h3><span class="en">Operating Expenses</span><span class="es" style="display:none">Gastos Operativos</span></h3></div><div class="card-body">
+      <div class="form-row">
+        <div><label><span class="en">Property tax / yr</span><span class="es" style="display:none">Impuesto predial / año</span></label><input type="number" id="f_tax" value="12000" oninput="calcF()"></div>
+        <div><label><span class="en">Insurance / yr</span><span class="es" style="display:none">Seguro / año</span></label><input type="number" id="f_ins" value="6000" oninput="calcF()"></div>
+      </div>
+      <div class="form-row">
+        <div><label><span class="en">Maint. &amp; mgmt / yr</span><span class="es" style="display:none">Mant. &amp; admin / año</span></label><input type="number" id="f_maint" value="9000" oninput="calcF()"></div>
+        <div><label><span class="en">Reserve / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="f_reserve" value="500" oninput="calcF()"></div>
+      </div>
+      <div><label><span class="en">Vacancy rate (%)</span><span class="es" style="display:none">Tasa de vacancia (%)</span></label><input type="number" id="f_vac" value="5" oninput="calcF()"></div>
+    </div></div>
+
+    <div class="card"><div class="card-header"><h3><span class="en">Rent Scenario</span><span class="es" style="display:none">Escenario de Renta</span></h3></div><div class="card-body">
+      <div class="stabs" id="rent-mode-tabs">
+        <button class="stab active" onclick="setRentMode('avg',this)"><span class="en">Avg. rent</span><span class="es" style="display:none">Renta promedio</span></button>
+        <button class="stab" onclick="setRentMode('roll',this)"><span class="en">Full rent roll</span><span class="es" style="display:none">Lista completa</span></button>
+      </div>
+      <div id="rent-avg-block">
+        <div class="stabs" id="rent-bench-tabs">
+          <button class="stab active" onclick="setBench('current',this)"><span class="en">Current</span><span class="es" style="display:none">Actuales</span></button>
+          <button class="stab" onclick="setBench('60ami',this)">60% AMI</button>
+          <button class="stab" onclick="setBench('80ami',this)">80% AMI</button>
+          <button class="stab" onclick="setBench('fmr',this)">FMR</button>
+          <button class="stab" onclick="setBench('market',this)"><span class="en">Market</span><span class="es" style="display:none">Mercado</span></button>
+        </div>
+        <div id="bench-note" class="alert alert-blue text-sm" style="margin-top:0;margin-bottom:7px"></div>
+        <div class="form-row">
+          <div><label><span class="en">Avg. bedrooms</span><span class="es" style="display:none">Recámaras promedio</span></label>
+            <select id="f_br" onchange="applyBench();calcF()"><option value="0">Studio</option><option value="1">1 BR</option><option value="2" selected>2 BR</option><option value="3">3 BR</option></select>
+          </div>
+          <div><label><span class="en">Monthly rent / unit</span><span class="es" style="display:none">Renta mensual / unidad</span></label><input type="number" id="f_rent" value="900" oninput="calcF()"></div>
+        </div>
+      </div>
+      <div id="rent-roll-block" style="display:none">
+        <div id="rr-container"></div>
+        <div class="rr-total" id="rr-total"></div>
+      </div>
+    </div></div>
+  </div>
+  <div><div id="finance-output"></div></div>
+  </div>
+</div>
+
+<!-- CO-OP -->
+<div class="page" id="page-coop">
+  <div class="section-title"><span class="en">Converting to a Housing Cooperative</span><span class="es" style="display:none">Conversión a Cooperativa de Vivienda</span></div>
+  <div class="section-sub"><span class="en">Model the co-op structure, individual economics, and long-term share value.</span><span class="es" style="display:none">Modela la estructura cooperativa, la economía individual y el valor de la acción a largo plazo.</span></div>
+  <div class="card"><div class="card-header"><h3><span class="en">What is a limited-equity housing cooperative?</span><span class="es" style="display:none">¿Qué es una cooperativa de vivienda de capital limitado?</span></h3></div><div class="card-body">
+    <p class="text-sm"><span class="en">In a limited-equity co-op, residents collectively own the building through a nonprofit corporation. Each household buys a "share" and pays a monthly carrying charge covering mortgage, taxes, insurance, reserves, and operating costs — instead of rent. Share resale values are capped to keep housing permanently affordable.</span><span class="es" style="display:none">En una cooperativa de capital limitado, los residentes son copropietarios del edificio. Cada hogar compra una "acción" y paga una cuota mensual en lugar de renta. El valor de reventa de las acciones está limitado para mantener la vivienda asequible permanentemente.</span></p>
+  </div></div>
+
+  <div class="two-col">
+  <div>
+    <div class="card"><div class="card-header"><h3><span class="en">Co-op calculator</span><span class="es" style="display:none">Calculadora cooperativa</span></h3></div><div class="card-body">
+      <div class="form-row">
+        <div><label><span class="en">Total project cost</span><span class="es" style="display:none">Costo total del proyecto</span></label><input type="number" id="c_total" value="1400000" oninput="calcC()"></div>
+        <div><label><span class="en">Number of shares</span><span class="es" style="display:none">Número de acciones</span></label><input type="number" id="c_units" value="6" oninput="calcC()"></div>
+      </div>
+      <div class="form-row">
+        <div><label><span class="en">Share value (each)</span><span class="es" style="display:none">Valor de acción</span></label><input type="number" id="c_share" value="10000" oninput="calcC()"></div>
+        <div><label><span class="en">Current rent (status quo)</span><span class="es" style="display:none">Renta actual (status quo)</span></label><input type="number" id="c_curr_rent" value="1100" oninput="calcC()"></div>
+      </div>
+      <div><label><span class="en">Annual rent increase, status quo (%)</span><span class="es" style="display:none">Aumento anual de renta, status quo (%)</span></label><input type="number" id="c_rent_growth" value="4" step="0.5" oninput="calcC()"></div>
+      <hr class="divider">
+      <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px"><span class="en">Share loan</span><span class="es" style="display:none">Préstamo de acción</span></div>
+      <div class="toggle-row">
+        <label class="toggle"><input type="checkbox" id="c_amort" checked onchange="calcC()"><span class="tog-sl"></span></label>
+        <span class="toggle-label"><span class="en">Amortizing (principal + interest)</span><span class="es" style="display:none">Amortizante (capital + interés)</span></span>
+      </div>
+      <div id="io-note" class="text-sm" style="display:none;color:#BA7517;margin-bottom:7px"><span class="en">Interest-only: member pays interest monthly; full principal due at term end.</span><span class="es" style="display:none">Solo interés: el miembro paga interés mensualmente; capital completo al vencimiento.</span></div>
+      <div class="form-row">
+        <div><label><span class="en">Share loan rate (%)</span><span class="es" style="display:none">Tasa del préstamo (%)</span></label><input type="number" id="c_srate" value="3.0" step="0.25" oninput="calcC()"></div>
+        <div><label><span class="en">Share loan term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="c_sterm" value="15" oninput="calcC()"></div>
+      </div>
+      <hr class="divider">
+      <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px"><span class="en">Resale restriction formula</span><span class="es" style="display:none">Fórmula de restricción de reventa</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:7px">
+        <button class="rpill active" onclick="setResale('fixed',this)"><span class="en">Fixed</span><span class="es" style="display:none">Fijo</span></button>
+        <button class="rpill" onclick="setResale('cpi',this)">CPI-indexed</button>
+        <button class="rpill" onclick="setResale('ami',this)">AMI-indexed</button>
+        <button class="rpill" onclick="setResale('imprv',this)"><span class="en">+ Improvements</span><span class="es" style="display:none">+ Mejoras</span></button>
+      </div>
+      <div id="resale-inputs"></div>
+      <div class="resale-display" id="resale-display"></div>
+      <hr class="divider">
+      <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px"><span class="en">Blanket mortgage</span><span class="es" style="display:none">Hipoteca global</span></div>
+      <div class="form-row">
+        <div><label><span class="en">Mortgage amount</span><span class="es" style="display:none">Monto hipotecario</span></label><input type="number" id="c_mort" value="840000" oninput="calcC()"></div>
+        <div><label><span class="en">Rate (%)</span><span class="es" style="display:none">Tasa (%)</span></label><input type="number" id="c_mrate" value="7.0" step="0.25" oninput="calcC()"></div>
+      </div>
+      <div><label><span class="en">Term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="c_mterm" value="30" oninput="calcC()"></div>
+      <hr class="divider">
+      <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px"><span class="en">Operating costs</span><span class="es" style="display:none">Costos operativos</span></div>
+      <div class="form-row">
+        <div><label><span class="en">Other ops / yr</span><span class="es" style="display:none">Otros costos / año</span></label><input type="number" id="c_ops" value="27000" oninput="calcC()"></div>
+        <div><label><span class="en">Reserve / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="c_res" value="600" oninput="calcC()"></div>
+      </div>
+      <div class="form-row">
+        <div><label><span class="en">Training / yr</span><span class="es" style="display:none">Capacitación / año</span></label><input type="number" id="c_trainyr" value="2000" oninput="calcC()"></div>
+        <div><label><span class="en">Org/legal (one-time)</span><span class="es" style="display:none">Org./legal (único)</span></label><input type="number" id="c_org" value="15000" oninput="calcC()"></div>
+      </div>
+      <div><label><span class="en">Training upfront (one-time)</span><span class="es" style="display:none">Capacitación inicial (único)</span></label><input type="number" id="c_trainup" value="5000" oninput="calcC()"></div>
+    </div></div>
+  </div>
+
+  <div>
+    <div id="coop-output"></div>
+    <div class="card mt-2"><div class="card-header"><h3><span class="en">Member economic impact</span><span class="es" style="display:none">Impacto económico del miembro</span></h3></div><div class="card-body">
+      <p class="text-sm" style="margin-bottom:6px"><span class="en">Monthly housing cost: co-op total vs. projected status quo rent over 20 years.</span><span class="es" style="display:none">Costo mensual de vivienda: cooperativa vs. renta proyectada a 20 años.</span></p>
+      <div class="chart-wrap"><canvas id="costChart" height="180"></canvas></div>
+      <div class="chart-legend">
+        <span><span class="legend-dot" style="background:#1D9E75"></span><span class="en">Co-op total monthly cost</span><span class="es" style="display:none">Costo mensual cooperativa</span></span>
+        <span><span class="legend-dot" style="background:#D85A30"></span><span class="en">Status quo rent</span><span class="es" style="display:none">Renta status quo</span></span>
+      </div>
+      <div style="border-top:1px solid #e2e0d8;margin-top:.625rem;padding-top:.625rem">
+        <p class="text-sm" style="margin-bottom:6px"><span class="en">Share value over 20 years (gross and net of loan balance) under selected resale formula.</span><span class="es" style="display:none">Valor de la acción a 20 años (bruto y neto de saldo del préstamo) según fórmula de reventa.</span></p>
+        <div class="chart-wrap"><canvas id="shareChart" height="160"></canvas></div>
+        <div class="chart-legend">
+          <span><span class="legend-dot" style="background:#378ADD"></span><span class="en">Gross share value</span><span class="es" style="display:none">Valor bruto de acción</span></span>
+          <span><span class="legend-dot" style="background:#1D9E75"></span><span class="en">Net value (after loan payoff)</span><span class="es" style="display:none">Valor neto (tras préstamo)</span></span>
+        </div>
+      </div>
+    </div></div>
+    <div class="card mt-2"><div class="card-header"><h3><span class="en">Local &amp; national resources</span><span class="es" style="display:none">Recursos locales y nacionales</span></h3></div><div class="card-body">
+      <ul class="resource-list">
+        <li><a href="https://thecommunityweb.org/" target="_blank">The Community Web</a><div class="rd"><span class="en">TA, training, and organizing support for Chicago tenant co-op conversions.</span><span class="es" style="display:none">Asistencia técnica y apoyo organizativo para cooperativas en Chicago.</span></div></li>
+        <li><a href="https://resurrectionproject.org/co-op-share-loans/" target="_blank">The Resurrection Project — Co-op Share Loans</a><div class="rd"><span class="en">Affordable share loans for limited-equity co-op members on Chicago's northwest and southwest sides.</span><span class="es" style="display:none">Préstamos de acciones asequibles para miembros de cooperativas en Chicago.</span></div></li>
+        <li><a href="https://www.uhab.org/our-work/coop-support/resource-library/" target="_blank">UHAB Resource Library</a><div class="rd"><span class="en">Guides for co-op incorporation, governance, financing, and management.</span><span class="es" style="display:none">Guías para incorporación, gobernanza, financiamiento y gestión cooperativa.</span></div></li>
+        <li><a href="https://thecoalitiondc.org/wp-content/uploads/2023/11/CNHED_TOPAStudyNov09.pdf" target="_blank">D.C. TOPA Study — Co-op Lessons (CNHED)</a><div class="rd"><span class="en">Analysis of D.C.'s 40-year TOPA program and its use for cooperative housing creation.</span><span class="es" style="display:none">Análisis del programa TOPA de Washington D.C. y su uso para crear cooperativas.</span></div></li>
+        <li><a href="https://www.chicago.gov/areamedianincome" target="_blank">Chicago DOH — AMI Chart 2025</a><div class="rd"><span class="en">Current income limits. Effective April 1, 2025.</span><span class="es" style="display:none">Límites de ingresos actuales. Efectivo 1 de abril de 2025.</span></div></li>
+        <li><a href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html" target="_blank">HUD — Small Area FMRs by ZIP</a><div class="rd"><span class="en">ZIP-level rent benchmarks. Cook County uses SAFMRs.</span><span class="es" style="display:none">Benchmarks de renta por ZIP. El condado de Cook usa SAFMRs.</span></div></li>
+      </ul>
+    </div></div>
+  </div>
+  </div>
+
+  <div class="card mt-2"><div class="card-header"><h3><span class="en">Cooperative conversion pathway</span><span class="es" style="display:none">Ruta de conversión cooperativa</span></h3></div><div class="card-body">
+    <ul class="timeline">
+      <li class="step"><div class="step-num" style="background:#E1F5EE;color:#085041">1</div><div class="step-body"><div class="step-title"><span class="en">Exercise TOPA right of first refusal</span><span class="es" style="display:none">Ejercer el derecho TOPA</span></div><div class="step-desc"><span class="en">Form tenant association, respond to Notice of Sale, secure right to purchase.</span><span class="es" style="display:none">Formar la asociación de inquilinos y asegurar el derecho de compra.</span></div></div></li>
+      <li class="step"><div class="step-num" style="background:#E6F1FB;color:#0C447C">2</div><div class="step-body"><div class="step-title"><span class="en">Incorporate the cooperative</span><span class="es" style="display:none">Incorporar la cooperativa</span></div><div class="step-desc"><span class="en">File as an Illinois nonprofit housing corporation. Draft bylaws, occupancy agreements, share structure, and resale formula.</span><span class="es" style="display:none">Registrar como corporación sin fines de lucro. Redactar estatutos, acuerdos y fórmula de reventa.</span></div></div></li>
+      <li class="step"><div class="step-num" style="background:#FAEEDA;color:#633806">3</div><div class="step-body"><div class="step-title"><span class="en">Secure financing</span><span class="es" style="display:none">Asegurar financiamiento</span></div><div class="step-desc"><span class="en">Obtain blanket mortgage. Apply for share loans (Resurrection Project, CCLT). Identify equity/grant gap funding from DOH or IHDA.</span><span class="es" style="display:none">Obtener hipoteca general. Solicitar préstamos de acciones. Identificar fondos de subvención del DOH o IHDA.</span></div></div></li>
+      <li class="step"><div class="step-num" style="background:#FCEBEB;color:#791F1F">4</div><div class="step-body"><div class="step-title"><span class="en">Complete training &amp; close</span><span class="es" style="display:none">Completar capacitación y cierre</span></div><div class="step-desc"><span class="en">Complete governance and financial literacy training. Close on building. Issue share certificates. Establish carrying charge collection and reserve accounts.</span><span class="es" style="display:none">Completar la capacitación de gobernanza. Cerrar la compra. Emitir certificados de acciones.</span></div></div></li>
+      <li class="step"><div class="step-num" style="background:#EAF3DE;color:#3B6D11">5</div><div class="step-body"><div class="step-title"><span class="en">Ongoing self-governance</span><span class="es" style="display:none">Autogestión continua</span></div><div class="step-desc"><span class="en">Annual shareholder meetings, board elections, budget approvals. Maintain affordability restrictions and reserve fund. Access ongoing TA through UHAB or Community Web.</span><span class="es" style="display:none">Reuniones anuales, elecciones de junta, aprobaciones de presupuesto. Mantener restricciones de asequibilidad.</span></div></div></li>
+    </ul>
+  </div></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+var L='en', rentMode='avg', bench='current', resaleMode='fixed';
+var cCost=null, cShare=null;
+var RENT_REFS={'60ami':{0:873,1:935,2:1122,3:1297},'80ami':{0:1100,1:1200,2:1440,3:1660},'fmr':{0:1458,1:1560,2:1761,3:2262},'market':{0:1500,1:1750,2:2000,3:2500}};
+var NBHD={
+  logan:{name:'Logan Square',zips:'60647, 60618',pct:18,fmr:{s:1430,b1:1580,b2:1920,b3:2450},ami60:{s:873,b1:935,b2:1122,b3:1297},note_en:'Logan Square saw the sharpest decline in affordable rental housing of any Chicago PUMA (−15.3%) between 2012–2021, alongside an 18.9% drop in lower-income renters.',note_es:'Logan Square experimentó la mayor disminución en vivienda asequible de cualquier PUMA de Chicago (−15.3%), junto con una caída del 18.9% en inquilinos de bajos ingresos.'},
+  avondale:{name:'Avondale',zips:'60618, 60641',pct:31,fmr:{s:1380,b1:1540,b2:1880,b3:2350},ami60:{s:873,b1:935,b2:1122,b3:1297},note_en:'31% of Avondale housing units are naturally occurring affordable. The Logan Square-Avondale PUMA saw the largest decrease in lower-income renters citywide.',note_es:'El 31% de las unidades de Avondale son asequibles de forma natural. El PUMA Logan Square-Avondale tuvo la mayor disminución de inquilinos de bajos ingresos en la ciudad.'},
+  humboldt:{name:'Humboldt Park',zips:'60651, 60612',pct:39,fmr:{s:1300,b1:1440,b2:1720,b3:2180},ami60:{s:873,b1:935,b2:1122,b3:1297},note_en:'39% of Humboldt Park housing units are naturally occurring affordable — one of the highest concentrations in the district.',note_es:'El 39% de las unidades de Humboldt Park son naturalmente asequibles — una de las concentraciones más altas del distrito.'},
+  hermosa:{name:'Hermosa',zips:'60639, 60641',pct:45,fmr:{s:1320,b1:1460,b2:1740,b3:2200},ami60:{s:873,b1:935,b2:1122,b3:1297},note_en:'45% of Hermosa housing units are naturally occurring affordable — the highest rate among ordinance neighborhoods.',note_es:'El 45% de las unidades de Hermosa son naturalmente asequibles — la tasa más alta entre los vecindarios de la ordenanza.'},
+  lowerwest:{name:'Lower West Side (Pilsen)',zips:'60608, 60616',pct:54,fmr:{s:1350,b1:1490,b2:1820,b3:2280},ami60:{s:873,b1:935,b2:1122,b3:1297},note_en:'Lower West Side experienced the highest total assessed value increase of any community area 2018–2021 (+91%) and the highest residential tax levy increase in 2021 (+44.7%).',note_es:'El Lado Oeste Inferior experimentó el mayor aumento en valor catastral total de cualquier área comunitaria 2018–2021 (+91%) y el mayor aumento en impuestos residenciales en 2021 (+44.7%).'},
+  westtown:{name:'West Town',zips:'60622, 60647',pct:12,fmr:{s:1500,b1:1660,b2:2050,b3:2620},ami60:{s:873,b1:935,b2:1122,b3:1297},note_en:'West Town has a lower share of naturally occurring affordable housing (12%) but faces significant gentrification pressure.',note_es:'West Town tiene una menor proporción de viviendas naturalmente asequibles (12%) pero enfrenta presiones significativas de gentrificación.'}
+};
+
+function T(en,es){return L==='es'?es:en;}
+function fmt(n){return '$'+Math.round(n).toLocaleString();}
+function pmtFn(r,n,pv){if(r===0)return pv/n;return r*pv/(1-Math.pow(1+r,-n));}
+function loanBal(r,n,pv,paid){if(r===0)return Math.max(0,pv-pv/n*paid);return pv*Math.pow(1+r,paid)-pmtFn(r,n,pv)*((Math.pow(1+r,paid)-1)/r);}
+function getResaleRate(){var el=document.getElementById('rs_rate');return el?(+el.value||0)/100:0;}
+function shareAtYr(base,yr){if(resaleMode==='fixed')return base;var r=getResaleRate();return base*Math.pow(1+r,yr);}
+
+// LANG
+function toggleLang(){
+  L=L==='en'?'es':'en';
+  document.getElementById('langBtn').textContent=L==='en'?'Español':'English';
+  document.querySelectorAll('.en').forEach(function(e){e.style.display=L==='en'?'':'none';});
+  document.querySelectorAll('.es').forEach(function(e){e.style.display=L==='es'?'':'none';});
+  calcF(); calcC(); renderRights(); updateBenchNote();
+  var an=document.querySelector('.nbhd-card.active');
+  if(an&&!an.classList.contains('outside')){an.click();}
+}
+
+// NAV
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='finance')calcF();
+  if(id==='coop')calcC();
+  if(id==='neighborhood'){var ac=document.querySelector('.nbhd-card.active');if(ac)ac.click();}
+}
+
+// RIGHTS
+var cUnits=null,cSit=null;
+function setUnits(v,b){cUnits=v;document.querySelectorAll('#unit-group .btn-opt').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderRights();}
+function setSit(v,b){cSit=v;document.querySelectorAll('#sit-group .btn-opt').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderRights();}
+function stag(c,t){return '<span class="tag '+c+'">'+t+'</span>';}
+function ss(n,bg,fg,ti,desc,tags){return '<li class="step"><div class="step-num" style="background:'+bg+';color:'+fg+'">'+n+'</div><div class="step-body"><div class="step-title">'+ti+'</div><div class="step-desc">'+desc+'</div>'+(tags||'')+'</div></li>';}
+function renderRights(){
+  var el=document.getElementById('rights-result');
+  if(!cUnits||!cSit){el.innerHTML='';return;}
+  var u=cUnits,s=cSit;
+  if(s==='intent'){
+    var days=u==='5+'?'60':'30';
+    var who=u==='5+'?T('Tenant association + Dept. of Housing','Asociación de inquilinos + DOH'):T('Each tenant individually','Cada inquilino individualmente');
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Owner must notify you before selling','El dueño debe notificarte antes de vender')+'</h3></div><div class="card-body"><div class="info-grid"><div class="info-cell"><div class="info-cell-label">'+T('Notice required','Aviso requerido')+'</div><div class="info-cell-val">'+days+' '+T('days','días')+'</div><div class="info-cell-sub">'+T('before listing','antes de listar')+'</div></div><div class="info-cell"><div class="info-cell-label">'+T('Who gets notice','Quién recibe aviso')+'</div><div class="info-cell-val" style="font-size:12px">'+who+'</div></div></div><p class="text-sm mt-1">'+T('The notice must include: owner contact info, property address, number of units and bedrooms, proposed asking price, and a summary of tenant rights. The owner must also post notice at all public entrances.','El aviso debe incluir: contacto del dueño, dirección, número de unidades y recámaras, precio propuesto y resumen de derechos. El dueño también debe publicar el aviso en todas las entradas.')+'</p><p class="text-sm mt-1" style="font-weight:600">'+T('You can also request within 30 days:','Puedes solicitar dentro de 30 días:')+'</p><ul class="rights-list mt-1"><li>'+T('Most recent rent roll — unit numbers and monthly rent for each unit','Lista de rentas actual — número de unidad y renta mensual de cada una')+'</li><li>'+T('List of vacant units and 12-month vacancy rate','Lista de unidades vacías y tasa de vacancia')+'</li><li>'+T('Income and expense report for the prior 12 months','Reporte de ingresos y gastos de los 12 meses anteriores')+'</li><li>'+T('Architectural and engineering plans','Planos arquitectónicos y de ingeniería')+'</li><li>'+T('List of building code violations and litigation','Lista de violaciones al Código de Construcción y litigios')+'</li></ul><div class="alert alert-red">'+T('Failure to give proper notice: $200–$1,000 fine per day. Tenants may also sue in civil court for injunctive relief or treble damages.','Falta de aviso adecuado: multa de $200–$1,000 por día. Los inquilinos también pueden demandar en corte civil.')+'</div></div></div>';
+  }
+  if(s==='offer'){
+    var fw=u==='5+'?T('90 days','90 días'):u==='3-4'?T('30 days','30 días'):T('15 days','15 días');
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T("Owner accepted an offer — here's what happens","El dueño aceptó una oferta — aquí lo que ocurre")+'</h3></div><div class="card-body"><ul class="timeline">'+
+    ss(1,'#E1F5EE','#085041',T('Owner must notify you immediately','El dueño debe notificarte de inmediato'),T('Once the owner accepts a bona fide offer, they must send you a Notice of Sale with a copy of the purchase agreement.','Una vez que el dueño acepta una oferta, debe enviarte el Aviso de Venta con copia del contrato de compraventa.'),stag('tag-green',T('Owner obligation','Obligación del dueño')))+
+    ss(2,'#E6F1FB','#0C447C',T('Your right of first refusal activates','Tu derecho de primera negativa se activa'),T('The third-party purchase agreement is contingent on your right of first refusal. Any sale without following this process is null and void.','El contrato con el tercero está sujeto a tu derecho de primera negativa. Cualquier venta sin seguir este proceso es nula.'),stag('tag-blue',T('Legally binding','Legalmente vinculante')))+
+    ss(3,'#FAEEDA','#633806',T('Time to form a tenant association','Tiempo para formar asociación de inquilinos'),u==='5+'?T('You have <strong>90 days</strong> from the Notice of Sale to form a tenant association (75% of occupied units must consent) and notify the owner and DOH.','Tienes <strong>90 días</strong> para formar una asociación (75% de unidades ocupadas deben consentir) y notificar al dueño y al DOH.'):u==='3-4'?T('You have <strong>30 days</strong> to form a tenant association (50% of occupied units must consent).','Tienes <strong>30 días</strong> para formar una asociación (50% de unidades ocupadas).'):T('You have <strong>15 days</strong> to notify the owner of intent. No association required for 1–2 unit buildings.','Tienes <strong>15 días</strong> para notificar al dueño. No se requiere asociación para edificios de 1–2 unidades.'),stag('tag-amber',fw))+
+    ss(4,'#FCEBEB','#791F1F',T('Exercise your right of first refusal','Ejercer el derecho de primera negativa'),T('Send written notice to the owner electing to purchase. Attach earnest money deposit (max 5% of sale price). You purchase on the same terms as the third-party agreement.','Envía aviso escrito al dueño indicando que eliges comprar. Incluye el depósito de garantía (máx. 5% del precio de venta).'),stag('tag-red',T('Written notice + deposit required','Aviso escrito + depósito requerido')))+
+    '</ul><div class="alert alert-amber">'+T("The right of first refusal is a continuing right — it applies every time the owner tries to sell, even if you didn't exercise it before.","El derecho de primera negativa es continuo — aplica cada vez que el dueño intenta vender, incluso si no lo ejerciste antes.")+'</div></div></div>';
+  }
+  if(s==='purchase'){
+    var fd=u==='5+'?'90':u==='3-4'?'30':'15'; var cd=u==='5+'?'120':'60';
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Buying your building — your timeline','Comprando tu edificio — tu cronograma')+'</h3></div><div class="card-body"><div class="info-grid"><div class="info-cell"><div class="info-cell-label">'+T('To organize','Para organizar')+'</div><div class="info-cell-val">'+fd+' '+T('days','días')+'</div><div class="info-cell-sub">'+T('from Notice of Sale','desde el aviso')+'</div></div><div class="info-cell"><div class="info-cell-label">'+T('To close','Para cerrar')+'</div><div class="info-cell-val">'+cd+' '+T('days','días')+'</div><div class="info-cell-sub">'+T('due dil. + financing','diligencia + financiamiento')+'</div></div></div><ul class="timeline mt-1">'+
+    ss(1,'#E1F5EE','#085041',T('Receive Notice of Sale','Recibir aviso de venta'),T('Written notice from owner once third-party offer accepted, including full purchase agreement.','Aviso escrito del dueño una vez que acepta una oferta, incluyendo el contrato completo.'),stag('tag-green',T('Clock starts here','El reloj comienza')))+
+    ss(2,'#E6F1FB','#0C447C',T('Form tenant association','Formar la asociación'),u==='1-2'?T('At least one tenant exercises the right individually — no association needed.','Al menos un inquilino ejerce el derecho individualmente — no se requiere asociación.'):T('Get '+(u==='5+'?'75%':'50%')+' of occupied units to consent using the DOH form. Notify the owner and DOH.','Obtener el consentimiento del '+(u==='5+'?'75%':'50%')+' de las unidades ocupadas. Notificar al dueño y al DOH.'),stag('tag-blue',fd+T('-day window',' días')))+
+    ss(3,'#FAEEDA','#633806',T('Exercise right of first refusal','Ejercer derecho de primera negativa'),T('Send written notice and earnest money deposit (max 5%). Owner must refund on good-faith failure.','Envía aviso escrito y depósito de garantía (máx. 5%). El dueño debe devolverlo si no cierras por buena fe.'),stag('tag-amber',T('Written notice + deposit','Aviso + depósito')))+
+    ss(4,'#FCEBEB','#791F1F',T('Due diligence & financing','Diligencia y financiamiento'),T('You have '+cd+' days to inspect and arrange financing. Owner must provide full access and all requested records.','Tienes '+cd+' días para inspeccionar y asegurar financiamiento. El dueño debe dar acceso completo.'),stag('tag-red',cd+T(' days to close',' días para cerrar')))+
+    ss(5,'#EAF3DE','#3B6D11',T('Close on the property','Cerrar la compra'),T('Purchase on the same terms as the third-party agreement. If you use public funds, the property must remain affordable for at least 30 years under a restrictive covenant.','Compra en los mismos términos del contrato del tercero. Si usas fondos públicos, la propiedad debe permanecer asequible por al menos 30 años.'),stag('tag-green',T('Affordability covenant if public funds','Pacto de asequibilidad si fondos públicos')))+
+    '</ul><div class="alert alert-blue">'+T('You may assign your right of first refusal to a third party (nonprofit, housing trust, etc.) — notify the owner in writing within 10 business days.','Puedes ceder tu derecho de primera negativa a un tercero — notifica al dueño por escrito dentro de los 10 días hábiles.')+'</div></div></div>';
+  }
+  if(s==='general'){
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Your key protections under the ordinance','Tus protecciones clave bajo la ordenanza')+'</h3></div><div class="card-body"><ul class="rights-list"><li>'+T('Owner cannot evict you or disturb your tenancy during notice and negotiation periods — only "just cause" eviction is permitted.','El dueño NO puede desalojarte durante los períodos de aviso y negociación — solo un desalojo por "causa justificada" está permitido.')+'</li><li>'+T('Even if you waive the right of first refusal, a new owner must allow you to stay in your unit for at least 6 months from the sale, or until your lease expires — at the same rent and terms.','Incluso si renuncias al derecho de primera negativa, el nuevo comprador debe permitirte quedarte por al menos 6 meses, o hasta que expire tu contrato — al mismo precio y condiciones.')+'</li><li>'+T('Owner cannot ask you to waive your right of first refusal as a condition of anything.','El dueño NO puede pedirte que renuncies a tu derecho de primera negativa como condición de nada.')+'</li><li>'+T('Owner cannot require a deposit of more than 5% of the sale price. Deposit must be refunded on good-faith failure.','El dueño NO puede requerir un depósito mayor al 5% del precio de venta. El depósito debe devolverse si no cierras por razones de buena fe.')+'</li><li>'+T('You cannot be required to prove financial ability before entering into a purchase contract.','No se te puede exigir que pruebes capacidad financiera antes de firmar un contrato de compra.')+'</li><li>'+T('The right of first refusal is a continuing right — it applies every time the property is sold.','El derecho de primera negativa es continuo — aplica cada vez que la propiedad se vende.')+'</li><li>'+T('You may assign your rights to a nonprofit housing organization or government entity to facilitate the purchase.','Puedes ceder tus derechos a una organización de vivienda sin fines de lucro para facilitar la compra.')+'</li></ul><div class="alert alert-red">'+T('Owner violations: $200–$1,000 fine per day, per offense. You may also bring a civil lawsuit for injunctive relief, treble damages, and attorney\'s fees.','Violaciones del dueño: multa de $200–$1,000 por día, por infracción. También puedes demandar en corte civil.')+'</div></div></div>';
+  }
+}
+
+// NEIGHBORHOOD
+function selNbhd(key,el){
+  document.querySelectorAll('.nbhd-card').forEach(function(c){c.classList.remove('active');});
+  if(el)el.classList.add('active');
+  var d=document.getElementById('nbhd-detail');
+  if(key==='outside'){d.innerHTML='<div class="alert alert-amber"><strong>'+T('Outside the ordinance area','Fuera del área de la ordenanza')+'</strong><br>'+T('Your neighborhood is not within the Block (606) District boundaries. Contact the Chicago Department of Housing (DOH) or a housing legal counselor to verify your rights.','Tu vecindario no está dentro de los límites del Distrito Bloque (606). Contacta al Departamento de Vivienda de Chicago (DOH) para verificar tus derechos.')+'</div>';return;}
+  var n=NBHD[key],f=n.fmr,a=n.ami60;
+  d.innerHTML='<div class="card"><div class="card-header"><h3>'+n.name+' — '+T('Covered by ordinance','Cubierto por la ordenanza')+'</h3></div><div class="card-body"><div class="info-grid"><div class="info-cell"><div class="info-cell-label">'+T('Nat. affordable housing','Vivienda nat. asequible')+'</div><div class="info-cell-val">'+n.pct+'%</div><div class="info-cell-sub">'+T('of all units','del total de unidades')+'</div></div><div class="info-cell"><div class="info-cell-label">TOPA</div><div class="info-cell-val" style="font-size:12px;color:#0F6E56">✓ '+T('Covered','Cubierto')+'</div><div class="info-cell-sub">Block (606) District</div></div></div><div class="alert alert-blue mt-1 text-sm">'+(L==='es'?n.note_es:n.note_en)+'</div><hr class="divider"><p class="text-sm" style="font-weight:600;margin-bottom:6px">'+T('FY2025 rent benchmarks:','Benchmarks de renta FY2025:')+'</p><table class="rt"><thead><tr><th>'+T('Unit','Tipo')+'</th><th>'+T('Small Area FMR','FMR Área Pequeña')+'</th><th>60% AMI</th><th>80% AMI</th><th>'+T('Est. market','Mercado est.')+'</th></tr></thead><tbody><tr><td>Studio</td><td class="hi">'+fmt(f.s)+'</td><td>'+fmt(a.s)+'</td><td>'+fmt(Math.round(a.s*1.25))+'</td><td>'+fmt(Math.round(f.s*1.25))+'</td></tr><tr><td>1 BR</td><td class="hi">'+fmt(f.b1)+'</td><td>'+fmt(a.b1)+'</td><td>'+fmt(Math.round(a.b1*1.25))+'</td><td>'+fmt(Math.round(f.b1*1.25))+'</td></tr><tr><td>2 BR</td><td class="hi">'+fmt(f.b2)+'</td><td>'+fmt(a.b2)+'</td><td>'+fmt(Math.round(a.b2*1.25))+'</td><td>'+fmt(Math.round(f.b2*1.25))+'</td></tr><tr><td>3 BR</td><td class="hi">'+fmt(f.b3)+'</td><td>'+fmt(a.b3)+'</td><td>'+fmt(Math.round(a.b3*1.25))+'</td><td>'+fmt(Math.round(f.b3*1.25))+'</td></tr></tbody></table><p class="text-sm mt-1">'+T('FMR: HUD FY2025 Small Area data for Chicago metro. AMI per Chicago DOH 2025 chart (effective April 1, 2025). Market rents are estimates.','FMR: datos HUD FY2025 para el área metro de Chicago. AMI según Chicago DOH 2025 (efectivo 1 de abril de 2025). Las rentas de mercado son estimaciones.')+'</p></div></div>';
+}
+
+// RENT MODE / BENCH
+function setRentMode(m,btn){
+  rentMode=m;
+  document.querySelectorAll('#rent-mode-tabs .stab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('rent-avg-block').style.display=m==='avg'?'':'none';
+  document.getElementById('rent-roll-block').style.display=m==='roll'?'':'none';
+  if(m==='roll')buildRoll();
+  calcF();
+}
+function setBench(b,btn){
+  bench=b;
+  document.querySelectorAll('#rent-bench-tabs .stab').forEach(function(x){x.classList.remove('active');});
+  btn.classList.add('active');
+  applyBench();
+}
+function applyBench(){
+  if(bench!=='current'){
+    var br=parseInt(document.getElementById('f_br').value)||2;
+    var refs=RENT_REFS[bench];
+    if(refs)document.getElementById('f_rent').value=refs[br]||refs[2];
+  }
+  updateBenchNote(); calcF();
+}
+function updateBenchNote(){
+  var el=document.getElementById('bench-note'); if(!el)return;
+  var br=parseInt(document.getElementById('f_br').value)||2;
+  var brl=['studio','1-BR','2-BR','3-BR'][br];
+  var notes={
+    'current':T('Enter the building\'s current rents manually.','Ingresa las rentas actuales del edificio manualmente.'),
+    '60ami':T('60% AMI rent for a '+brl+' unit per Chicago DOH 2025 (income limit $71,940 for household of 4).','Renta al 60% AMI para unidad '+brl+' según DOH de Chicago 2025.'),
+    '80ami':T('80% AMI rent for '+brl+' per Chicago DOH 2025.','Renta al 80% AMI para '+brl+' según Chicago DOH 2025.'),
+    'fmr':T('HUD FY2025 FMR for Cook County for '+brl+'. Cook County uses zip-level SAFMRs — your neighborhood may differ.','Renta Justa de Mercado FY2025 del condado de Cook para '+brl+'. Cook County usa SAFMRs por ZIP.'),
+    'market':T('Estimated market rent for Chicago area — varies by neighborhood.','Renta de mercado estimada para Chicago — varía por vecindario.')
+  };
+  el.textContent=notes[bench]||'';
+}
+function buildRoll(){
+  var n=parseInt(document.getElementById('f_units').value)||6;
+  var c=document.getElementById('rr-container');
+  var rows='<table class="rr-table"><thead><tr><th>#</th><th>'+T('BR','Rec.')+'</th><th>'+T('Monthly rent','Renta mensual')+'</th><th>'+T('Notes','Notas')+'</th></tr></thead><tbody>';
+  for(var i=1;i<=n;i++){
+    rows+='<tr><td style="color:#888;font-weight:600">'+i+'</td><td><select class="rr-br" onchange="calcF()"><option value="0">Stu.</option><option value="1">1 BR</option><option value="2" selected>2 BR</option><option value="3">3 BR</option></select></td><td><input type="number" class="rr-rent" value="900" oninput="calcF()"></td><td><input type="text" class="rr-note" placeholder="'+T('optional...','opcional...')+'"></td></tr>';
+  }
+  rows+='</tbody></table>';
+  c.innerHTML=rows; calcF();
+}
+function getRollTotal(){var r=document.querySelectorAll('.rr-rent'),s=0;r.forEach(function(x){s+=parseFloat(x.value)||0;});return s;}
+
+// FINANCE
+function calcF(){
+  var price=+document.getElementById('f_price').value||0;
+  var numU=+document.getElementById('f_units').value||1;
+  var rehab=+document.getElementById('f_rehab').value||0;
+  var soft=(+document.getElementById('f_soft').value||0)/100;
+  var cont=(+document.getElementById('f_cont').value||0)/100;
+  var ltvPct=(+document.getElementById('f_ltv').value||70)/100;
+  var annRate=(+document.getElementById('f_rate').value||7)/100;
+  var termYrs=+document.getElementById('f_term').value||30;
+  var dscrMin=+document.getElementById('f_dscr_min').value||1.20;
+  var vac=(+document.getElementById('f_vac').value||5)/100;
+  var tax=+document.getElementById('f_tax').value||0;
+  var ins=+document.getElementById('f_ins').value||0;
+  var maint=+document.getElementById('f_maint').value||0;
+  var resv=(+document.getElementById('f_reserve').value||0)*numU;
+  var softC=rehab*soft, contC=(rehab+softC)*cont;
+  var totalRehab=rehab+softC+contC, totalCost=price+totalRehab;
+  var grossRent, rentPU;
+  if(rentMode==='roll'){
+    var tot=getRollTotal(); grossRent=tot*12; rentPU=numU>0?tot/numU:0;
+    var rt=document.getElementById('rr-total');
+    if(rt)rt.textContent=T('Total gross monthly rent: ','Renta bruta mensual total: ')+fmt(tot);
+  } else {
+    rentPU=+document.getElementById('f_rent').value||0; grossRent=rentPU*numU*12;
+  }
+  var egi=grossRent*(1-vac), opex=tax+ins+maint+resv, noi=egi-opex;
+  var moRate=annRate/12, termMo=termYrs*12;
+  var loanLTV=price*ltvPct;
+  var maxDebt=noi/dscrMin, maxMoPmt=maxDebt/12;
+  var factor=moRate===0?termMo:(1-Math.pow(1+moRate,-termMo))/moRate;
+  var loanDSCR=Math.max(0,maxMoPmt*factor);
+  var loan=Math.min(loanLTV,loanDSCR), limitBy=loan===loanLTV?'LTV':'DSCR';
+  var moPmt=pmtFn(moRate,termMo,loan), annDebt=moPmt*12;
+  var dscr=annDebt>0?noi/annDebt:0, equity=totalCost-loan, cf=noi-annDebt;
+  var cap=totalCost>0?(noi/totalCost)*100:0;
+  document.getElementById('max-loan-val').textContent=fmt(loan);
+  document.getElementById('max-loan-why').textContent=T('Limited by '+limitBy+' (LTV: '+fmt(loanLTV)+', DSCR: '+fmt(loanDSCR)+')','Limitado por '+limitBy+' (LTV: '+fmt(loanLTV)+', DSCR: '+fmt(loanDSCR)+')');
+  var dc=dscr>=1.2?'#0F6E56':dscr>=1.0?'#BA7517':'#A32D2D';
+  var cfcls=cf>=0?'surplus':'gap';
+  document.getElementById('finance-output').innerHTML=
+    '<div class="calc-result"><h4>'+T('Project summary','Resumen del proyecto')+'</h4>'+
+    '<div class="result-section">'+
+    '<div class="result-row"><span>'+T('Purchase price','Precio de compra')+'</span><span class="result-num">'+fmt(price)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Rehab (hard costs)','Rehabilitación (costos duros)')+'</span><span class="result-num">'+fmt(rehab)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Soft costs','Costos blandos')+' ('+Math.round(soft*100)+'%)</span><span class="result-num">'+fmt(softC)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Contingency','Contingencia')+' ('+Math.round(cont*100)+'%)</span><span class="result-num">'+fmt(contC)+'</span></div>'+
+    '<div class="result-row total"><span>'+T('Total project cost','Costo total del proyecto')+'</span><span class="result-num">'+fmt(totalCost)+'</span></div>'+
+    '</div><div class="result-section"><h5>'+T('Financing structure','Estructura de financiamiento')+'</h5>'+
+    '<div class="result-row"><span>'+T('Max LTV-based loan','Préstamo máx. por LTV')+'</span><span class="result-num">'+fmt(loanLTV)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Max DSCR-based loan','Préstamo máx. por DSCR')+' ('+dscrMin.toFixed(2)+'x NOI)</span><span class="result-num">'+fmt(loanDSCR)+'</span></div>'+
+    '<div class="result-row sub" style="color:'+(limitBy==='DSCR'?'#A32D2D':'#0F6E56')+'"><span>'+T('→ Loan amount (lower of LTV / DSCR)','→ Monto del préstamo (menor de LTV / DSCR)')+'</span><span class="result-num">'+fmt(loan)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Monthly mortgage payment','Pago mensual de hipoteca')+'</span><span class="result-num">'+fmt(moPmt)+'/mo</span></div>'+
+    '<div class="result-row total"><span>'+T('Required equity / subsidy','Capital propio / subsidio requerido')+'</span><span class="result-num">'+fmt(equity)+'</span></div>'+
+    '</div><div class="result-section"><h5>'+T('Income & expense pro forma','Pro forma de ingresos y gastos')+'</h5>'+
+    '<div class="result-row"><span>'+T('Gross potential rent','Renta bruta potencial')+'</span><span class="result-num">'+fmt(grossRent)+'/yr</span></div>'+
+    '<div class="result-row"><span>'+T('Effective gross income','Ingreso bruto efectivo')+' ('+Math.round(vac*100)+'% vac.)</span><span class="result-num">'+fmt(egi)+'/yr</span></div>'+
+    '<div class="result-row"><span>'+T('Operating expenses','Gastos operativos')+'</span><span class="result-num">('+fmt(opex)+')/yr</span></div>'+
+    '<div class="result-row sub"><span>'+T('Net operating income (NOI)','Ingreso operativo neto (NOI)')+'</span><span class="result-num">'+fmt(noi)+'/yr</span></div>'+
+    '<div class="result-row"><span>'+T('Annual debt service','Servicio de deuda anual')+'</span><span class="result-num">('+fmt(annDebt)+')/yr</span></div>'+
+    '<div class="result-row '+cfcls+'"><span>'+T('Cash flow','Flujo de efectivo')+'</span><span class="result-num">'+(cf>=0?'':'(')+fmt(Math.abs(cf))+'/yr'+(cf<0?')':'')+'</span></div>'+
+    '</div><div class="result-section"><h5>'+T('Key metrics','Indicadores clave')+'</h5>'+
+    '<div class="result-row"><span>'+T('Cap rate','Tasa de capitalización')+'</span><span class="result-num">'+cap.toFixed(2)+'%</span></div>'+
+    '<div class="result-row"><span>DSCR</span><span class="result-num" style="color:'+dc+';font-weight:700">'+dscr.toFixed(2)+'x</span></div>'+
+    '<div class="result-row"><span>'+T('Cost per unit','Costo por unidad')+'</span><span class="result-num">'+fmt(totalCost/numU)+'</span></div>'+
+    '</div>'+
+    (dscr<1.2?'<div class="alert alert-'+(dscr>=1.0?'amber':'red')+'">'+
+    (dscr<1.0?T('⚠ NOI does not cover debt service. Additional subsidy, higher rents, or lower loan required.','⚠ El NOI no cubre el servicio de deuda. Se requiere subsidio adicional, rentas más altas o préstamo menor.'):T('DSCR below typical lender threshold of 1.25. Consider reducing loan or seeking additional subsidy.','DSCR por debajo del umbral típico de 1.25 del prestamista. Considera reducir el préstamo o buscar subsidio adicional.'))+'</div>':
+    '<div class="alert alert-green">'+T('DSCR is in the lender-acceptable range (≥1.2). Project may be financeable with current assumptions.','El DSCR está en el rango aceptable para prestamistas (≥1.2). El proyecto puede ser financiable con los supuestos actuales.')+'</div>')+
+    '<p class="text-sm mt-1">'+T('Estimation tool only. Consult a housing advisor, lender, or accountant before making financial decisions.','Solo herramienta de estimación. Consulta a un asesor de vivienda, prestamista o contador antes de tomar decisiones financieras.')+'</p></div>';
+}
+
+// CO-OP
+function setResale(m,btn){
+  resaleMode=m;
+  document.querySelectorAll('.rpill').forEach(function(p){p.classList.remove('active');});
+  btn.classList.add('active');
+  renderResaleInputs(); calcC();
+}
+function renderResaleInputs(){
+  var el=document.getElementById('resale-inputs'); if(!el)return;
+  if(resaleMode==='fixed'){el.innerHTML='';}
+  else if(resaleMode==='cpi'){el.innerHTML='<div class="form-row" style="margin-bottom:7px"><div><label>'+T('Annual CPI / appreciation rate (%)','Tasa anual de IPC (%)')+'</label><input type="number" id="rs_rate" value="2.5" step="0.1" oninput="calcC()"></div></div>';}
+  else if(resaleMode==='ami'){el.innerHTML='<div class="form-row" style="margin-bottom:7px"><div><label>'+T('Annual AMI growth rate (%)','Tasa anual de crecimiento del AMI (%)')+'</label><input type="number" id="rs_rate" value="3.0" step="0.1" oninput="calcC()"></div></div>';}
+  else if(resaleMode==='imprv'){el.innerHTML='<div class="form-row" style="margin-bottom:7px"><div><label>'+T('Annual appreciation rate (%)','Tasa anual de apreciación (%)')+'</label><input type="number" id="rs_rate" value="2.0" step="0.1" oninput="calcC()"></div><div><label>'+T('Improvement credit (%)','Crédito por mejoras (%)')+'</label><input type="number" id="rs_imprv" value="50" step="5" oninput="calcC()"></div></div>';}
+}
+function calcC(){
+  var total=+document.getElementById('c_total').value||0;
+  var numU=+document.getElementById('c_units').value||1;
+  var sv=+document.getElementById('c_share').value||0;
+  var currRent=+document.getElementById('c_curr_rent').value||0;
+  var rg=(+document.getElementById('c_rent_growth').value||4)/100;
+  var sr=(+document.getElementById('c_srate').value||3)/100/12;
+  var st=(+document.getElementById('c_sterm').value||15)*12;
+  var amortEl=document.getElementById('c_amort'); var amort=amortEl?amortEl.checked:true;
+  document.getElementById('io-note').style.display=amort?'none':'';
+  var org=+document.getElementById('c_org').value||0;
+  var tup=+document.getElementById('c_trainup').value||0;
+  var tyr=+document.getElementById('c_trainyr').value||0;
+  var res=(+document.getElementById('c_res').value||0)*numU;
+  var ops=+document.getElementById('c_ops').value||0;
+  var mort=+document.getElementById('c_mort').value||0;
+  var mr=(+document.getElementById('c_mrate').value||7)/100/12;
+  var mt=(+document.getElementById('c_mterm').value||30)*12;
+  var totalShares=sv*numU;
+  var shareMo=amort?pmtFn(sr,st,sv):(sv*sr);
+  var mortMo=pmtFn(mr,mt,mort);
+  var annOps=ops+res+tyr;
+  var carry=(mortMo*12+annOps)/numU/12;
+  var totalMo=carry+shareMo;
+  var gap=Math.max(0,total-mort-totalShares);
+  var cc=carry<1300?'#0F6E56':carry<1900?'#BA7517':'#A32D2D';
+  // resale display
+  var yr5=shareAtYr(sv,5),yr10=shareAtYr(sv,10),yr20=shareAtYr(sv,20);
+  var rlab={fixed:T('Fixed (no appreciation)','Fijo (sin apreciación)'),cpi:T('CPI-indexed','Indexado al IPC'),ami:T('AMI-indexed','Indexado al AMI'),imprv:T('Base + improvements','Base + mejoras')};
+  document.getElementById('resale-display').innerHTML=T('Formula:','Fórmula:')+' <strong>'+rlab[resaleMode]+'</strong> &nbsp;|&nbsp; Yr 5 = '+fmt(yr5)+' &nbsp; Yr 10 = '+fmt(yr10)+' &nbsp; Yr 20 = '+fmt(yr20);
+  document.getElementById('coop-output').innerHTML=
+    '<div class="calc-result"><h4>'+T('Co-op capital structure','Estructura de capital cooperativo')+'</h4>'+
+    '<div class="result-section">'+
+    '<div class="result-row"><span>'+T('Total project cost','Costo total del proyecto')+'</span><span class="result-num">'+fmt(total)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Blanket mortgage (co-op corp.)','Hipoteca global (corp. cooperativa)')+'</span><span class="result-num">('+fmt(mort)+')</span></div>'+
+    '<div class="result-row"><span>'+T('Total share equity','Capital de acciones total')+' ('+numU+' × '+fmt(sv)+')</span><span class="result-num">('+fmt(totalShares)+')</span></div>'+
+    '<div class="result-row '+(gap>0?'gap':'surplus')+'"><span>'+T('Remaining gap (subsidy needed)','Brecha restante (subsidio necesario)')+'</span><span class="result-num">'+fmt(gap)+'</span></div>'+
+    '</div><div class="result-section"><h5>'+T('Monthly member economics','Economía mensual del miembro')+'</h5>'+
+    '<div class="result-row"><span>'+T('Monthly carrying charge (building share)','Cuota mensual del edificio')+'</span><span class="result-num" style="color:'+cc+'">'+fmt(carry)+'/mo</span></div>'+
+    '<div class="result-row"><span>'+T('Share loan payment','Pago del préstamo de acción')+(amort?'':' ('+T('interest-only','solo interés)'))+'</span><span class="result-num">'+fmt(shareMo)+'/mo</span></div>'+
+    '<div class="result-row total"><span>'+T('Total monthly cost (co-op)','Costo mensual total (cooperativa)')+'</span><span class="result-num" style="font-size:15px">'+fmt(totalMo)+'/mo</span></div>'+
+    '<div class="result-row"><span>'+T('Status quo rent (current)','Renta actual (status quo)')+'</span><span class="result-num">'+fmt(currRent)+'/mo</span></div>'+
+    '<div class="result-row '+(totalMo<=currRent?'surplus':'gap')+'"><span>'+T('Difference vs. rent','Diferencia vs. renta')+'</span><span class="result-num">'+(totalMo<=currRent?'−':'+')+fmt(Math.abs(totalMo-currRent))+'/mo</span></div>'+
+    '</div><div class="result-section"><h5>'+T('Share & entry','Acción y entrada')+'</h5>'+
+    '<div class="result-row"><span>'+T('Share value','Valor de la acción')+'</span><span class="result-num">'+fmt(sv)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Share loan type','Tipo de préstamo de acción')+'</span><span class="result-num">'+(amort?T('Amortizing','Amortizante'):T('Interest-only','Solo interés'))+'</span></div>'+
+    '<div class="result-row"><span>'+T('Resale formula','Fórmula de reventa')+'</span><span class="result-num">'+rlab[resaleMode]+'</span></div>'+
+    '<div class="result-row"><span>'+T('Projected share value (yr 10)','Valor proyectado (año 10)')+'</span><span class="result-num">'+fmt(yr10)+'</span></div>'+
+    '</div><div class="result-section"><h5>'+T('One-time costs','Costos únicos')+'</h5>'+
+    '<div class="result-row"><span>'+T('Org. & legal','Organización y legal')+'</span><span class="result-num">'+fmt(org)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Upfront training','Capacitación inicial')+'</span><span class="result-num">'+fmt(tup)+'</span></div>'+
+    '<div class="result-row total"><span>'+T('Total one-time','Total únicos')+'</span><span class="result-num">'+fmt(org+tup)+'</span></div>'+
+    '</div><p class="text-sm">'+T('Share loans: Resurrection Project, CCLT. Carrying charge replaces rent and covers all building expenses.','Préstamos de acciones: Resurrection Project, CCLT. La cuota mensual reemplaza a la renta e incluye todos los gastos del edificio.')+'</p></div>';
+  drawCharts(currRent,rg,carry,shareMo,sv,sr,st,amort);
+}
+
+function drawCharts(currRent,rg,carry,shareMo,sv,sr,st,amort){
+  var yrs=Array.from({length:21},function(_,i){return i;});
+  var coopC=yrs.map(function(y){
+    var sm=shareMo;
+    if(!amort&&y*12>=st)sm=0;
+    return Math.round(carry+sm);
+  });
+  var rentC=yrs.map(function(y){return Math.round(currRent*Math.pow(1+rg,y));});
+  var cCtx=document.getElementById('costChart'); if(!cCtx)return;
+  if(cCost){cCost.destroy();}
+  cCost=new Chart(cCtx.getContext('2d'),{
+    type:'line',
+    data:{labels:yrs.map(function(y){return 'Yr '+y;}),datasets:[
+      {label:T('Co-op','Coop'),data:coopC,borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,.07)',tension:.3,borderWidth:2,pointRadius:2},
+      {label:T('Rent','Renta'),data:rentC,borderColor:'#D85A30',backgroundColor:'rgba(216,90,48,.05)',tension:.3,borderWidth:2,borderDash:[5,3],pointRadius:2}
+    ]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+Math.round(c.parsed.y).toLocaleString()+'/mo';}}}},scales:{y:{ticks:{callback:function(v){return '$'+v.toLocaleString();}},grid:{color:'#f0ede8'}},x:{grid:{display:false}}}}
+  });
+  var sgross=yrs.map(function(y){return Math.round(shareAtYr(sv,y));});
+  var snet=yrs.map(function(y){
+    var g=shareAtYr(sv,y);
+    var bal=amort?Math.max(0,loanBal(sr,st,sv,y*12)):(y*12>=st?0:sv);
+    return Math.round(Math.max(0,g-bal));
+  });
+  var sCtx=document.getElementById('shareChart'); if(!sCtx)return;
+  if(cShare){cShare.destroy();}
+  cShare=new Chart(sCtx.getContext('2d'),{
+    type:'line',
+    data:{labels:yrs.map(function(y){return 'Yr '+y;}),datasets:[
+      {label:T('Gross','Bruto'),data:sgross,borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,.07)',tension:.3,borderWidth:2,pointRadius:2},
+      {label:T('Net','Neto'),data:snet,borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,.1)',tension:.3,borderWidth:2,fill:true,pointRadius:2}
+    ]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+Math.round(c.parsed.y).toLocaleString();}}}},scales:{y:{ticks:{callback:function(v){return '$'+v.toLocaleString();}},grid:{color:'#f0ede8'}},x:{grid:{display:false}}}}
+  });
+}
+
+// INIT
+window.addEventListener('load',function(){
+  document.querySelectorAll('.es').forEach(function(e){e.style.display='none';});
+  updateBenchNote(); renderResaleInputs();
+  calcF(); calcC();
+  selNbhd('logan',document.querySelector('.nbhd-card.active'));
+});
+</script>
+</body>
+</html>
