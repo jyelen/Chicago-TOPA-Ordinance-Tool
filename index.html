@@ -138,7 +138,7 @@ canvas{display:block;width:100%!important}
 .step-hover{display:none;background:#f0fdf8;border:1px solid #9FE1CB;border-radius:6px;padding:7px 9px;margin-top:5px;font-size:11px;color:#085041;line-height:1.5}
 .step:hover .step-hover{display:block}
 /* MAP */
-#topa-map{border-radius:8px;border:1px solid #e2e0d8;margin-top:.75rem;overflow:hidden}
+#topa-map{border-radius:8px;border:1px solid #e2e0d8;margin-top:.75rem;height:320px;z-index:0}
 /* COMPARISON */
 .compare-col{background:#fff;border:1px solid #e2e0d8;border-radius:10px;padding:14px}
 .compare-col.rental-col{border-top:4px solid #378ADD}
@@ -223,7 +223,7 @@ canvas{display:block;width:100%!important}
       <button class="btn-opt active" onclick="checkAddr()" style="height:33px;padding:0 14px;flex-shrink:0;font-size:12px"><span class="en">Check</span><span class="es" style="display:none">Verificar</span></button>
     </div>
     <div id="addr-result"></div>
-    <div id="topa-map" style="margin-top:.75rem;border-radius:8px;border:1px solid #e2e0d8;overflow:hidden;height:320px"></div>
+    <div id="topa-map"></div>
     <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin-top:6px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
     <p class="text-xs mt-1"><span class="en">OpenStreetMap basemap. Boundaries based on ordinance descriptions — tap districts for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa base OpenStreetMap. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
   </div></div>
@@ -388,8 +388,9 @@ canvas{display:block;width:100%!important}
     </div></div>
 
     <!-- STEP 2: AFFORDABILITY TARGET -->
-    <div class="card" style="border-color:#1D9E75"><div class="card-header" style="background:#f0fdf8;border-color:#B5DFC9"><h3 style="color:#085041">② <span class="en">Affordability target — carrying charge</span><span class="es" style="display:none">② Objetivo de asequibilidad — cuota mensual</span></h3></div><div class="card-body">
-      <p class="text-sm" style="margin-bottom:8px"><span class="en">The carrying charge is the member's monthly building fee — it replaces rent and covers mortgage debt service, operating costs, and reserves. Set a target below, or pick an AMI benchmark to auto-populate. Everything downstream is sized from this number.</span><span class="es" style="display:none">La cuota mensual es el cargo mensual del edificio del miembro — reemplaza la renta y cubre el servicio de deuda, costos operativos y reservas. Establece un objetivo o selecciona un nivel de AMI.</span></p>
+    <div class="card" style="border-color:#1D9E75"><div class="card-header" style="background:#f0fdf8;border-color:#B5DFC9"><h3 style="color:#085041">② <span class="en">Affordability target</span><span class="es" style="display:none">② Objetivo de asequibilidad</span></h3></div><div class="card-body">
+      <p class="text-sm" style="margin-bottom:8px"><span class="en">Select the AMI level the co-op should be affordable to. The tool calculates the maximum carrying charge consistent with that target — accounting for utilities and the share loan payment (if any) from step ⑤. You can also set a custom carrying charge cap below.</span><span class="es" style="display:none">Selecciona el nivel de AMI al que debe ser asequible la cooperativa. La herramienta calcula la cuota máxima consistente con ese objetivo, considerando servicios y el préstamo de acción (si aplica) del paso ⑤.</span></p>
+
       <div class="stabs" id="ami-bench-tabs">
         <button class="stab" onclick="setAmiBench('30',this)">30% AMI</button>
         <button class="stab" onclick="setAmiBench('50',this)">50% AMI</button>
@@ -399,15 +400,25 @@ canvas{display:block;width:100%!important}
         <button class="stab" onclick="setAmiBench('fmr',this)">FMR</button>
         <button class="stab active" onclick="setAmiBench('custom',this)"><span class="en">Custom</span><span class="es" style="display:none">Personalizado</span></button>
       </div>
+
       <div class="form-row" style="margin-bottom:5px">
-        <div><label><span class="en">Target carrying charge / unit / mo</span><span class="es" style="display:none">Cuota objetivo / unidad / mes</span></label><input type="number" id="c_target_carry" value="1100" oninput="calcC()"></div>
-        <div><label><span class="en">Per-unit utilities / mo</span><span class="es" style="display:none">Servicios / unidad / mes</span> <span class="text-xs" style="color:#0C447C">(not in carry)</span></label><input type="number" id="c_unit_util" value="75" oninput="calcC()"></div>
+        <div>
+          <label><span class="en">Per-unit utilities / mo</span><span class="es" style="display:none">Servicios / unidad / mes</span> <span class="text-xs" style="color:#888">(not in carry)</span></label>
+          <input type="number" id="c_unit_util" value="75" oninput="calcC()">
+        </div>
+        <div>
+          <label><span class="en">Carrying charge cap / unit / mo</span><span class="es" style="display:none">Tope de cuota / unidad / mes</span> <span class="text-xs" style="color:#888">(override or leave 0)</span></label>
+          <input type="number" id="c_carry_cap" value="0" min="0" oninput="calcC()" placeholder="0 = auto from AMI">
+        </div>
       </div>
+
       <div id="ami-ref-box" class="alert alert-blue text-sm" style="margin-top:0;margin-bottom:6px"></div>
-      <div class="hbox" id="ami-result-box">
-        <div class="hbox-label"><span class="en">Carrying charge corresponds to approx.</span><span class="es" style="display:none">La cuota corresponde aprox. a</span></div>
-        <div class="hbox-val" id="ami-result-val">—</div>
-        <div class="hbox-sub" id="ami-result-sub"></div>
+
+      <!-- Derived carrying charge — the key output of this section -->
+      <div class="hbox" id="ami-result-box" style="border-color:#1D9E75;background:#f0fdf8">
+        <div class="hbox-label" style="color:#085041"><span class="en">Max affordable carrying charge / unit / mo</span><span class="es" style="display:none">Cuota máxima asequible / unidad / mes</span></div>
+        <div class="hbox-val" id="ami-result-val" style="color:#085041">—</div>
+        <div class="hbox-sub" id="ami-result-sub" style="color:#2D7055"></div>
       </div>
     </div></div>
 
@@ -448,7 +459,7 @@ canvas{display:block;width:100%!important}
 
     <!-- STEP 5: SHARE PRICING -->
     <div class="card" style="border-color:#378ADD"><div class="card-header" style="background:#EBF3FC;border-color:#B5D4F4"><h3 style="color:#0C447C">⑤ <span class="en">Share price &amp; loan</span><span class="es" style="display:none">⑤ Precio de acción y préstamo</span></h3></div><div class="card-body">
-      <p class="text-sm" style="margin-bottom:10px"><span class="en">Set the share price directly — co-ops vary widely based on what members can pay upfront, whether share loans are available, and program goals. The tool calculates the resulting total monthly cost and shows what AMI level that corresponds to.</span><span class="es" style="display:none">Establece el precio de la acción directamente — las cooperativas varían ampliamente según lo que los miembros pueden pagar por adelantado, si los préstamos de acciones están disponibles y los objetivos del programa.</span></p>
+      <p class="text-sm" style="margin-bottom:10px"><span class="en">The share loan payment is subtracted from the AMI income ceiling to arrive at the max affordable carrying charge shown in step ②. A higher share price (or share loan rate) leaves less room for the carrying charge — and vice versa. If no share loan is available, the full income ceiling goes to the carrying charge.</span><span class="es" style="display:none">El pago del préstamo de acción se resta del techo de ingresos AMI para llegar a la cuota máxima asequible mostrada en el paso ②. Un precio de acción más alto deja menos margen para la cuota mensual.</span></p>
 
       <div class="form-group"><label><span class="en">Share price / unit ($)</span><span class="es" style="display:none">Precio de acción / unidad ($)</span></label><input type="number" id="c_share" value="10000" step="500" oninput="calcC()"></div>
 
@@ -468,16 +479,14 @@ canvas{display:block;width:100%!important}
           <span class="toggle-label"><span class="en">Amortizing (vs. interest-only)</span><span class="es" style="display:none">Amortizante (vs. solo interés)</span></span>
         </div>
         <div id="io-note" class="text-sm" style="display:none;color:#BA7517;margin-bottom:4px"><span class="en">Interest-only: principal due at term end. Lower monthly payment but equity builds slowly.</span><span class="es" style="display:none">Solo interés: capital completo al vencimiento. Pago mensual más bajo pero el capital crece lentamente.</span></div>
+        <!-- Share loan monthly payment shown inline -->
+        <div class="hbox" style="border-color:#378ADD;background:#EBF3FC;margin-top:6px">
+          <div class="hbox-label" style="color:#0C447C"><span class="en">Monthly share loan payment / member</span><span class="es" style="display:none">Pago mensual del préstamo de acción / miembro</span></div>
+          <div class="hbox-val" id="c-share-pmt" style="color:#0C447C;font-size:16px">—</div>
+          <div class="hbox-sub" id="c-share-pmt-sub" style="color:#2563a0"></div>
+        </div>
       </div>
-      <div class="alert alert-amber text-sm" id="no-loan-note" style="display:none;margin-top:0"><span class="en">No share loan — members pay the full share price upfront. Monthly housing cost = carrying charge + utilities only. Share price should be kept low enough that members can pay it in cash or savings.</span><span class="es" style="display:none">Sin préstamo de acción — los miembros pagan el precio completo de la acción por adelantado. Costo mensual = cuota + servicios solamente.</span></div>
-
-      <hr class="divider">
-      <div class="hbox" id="share-afford-box" style="margin-top:0">
-        <div class="hbox-label"><span class="en">Total monthly housing cost implies</span><span class="es" style="display:none">El costo mensual total implica</span></div>
-        <div class="hbox-val" id="c-share-ami">—</div>
-        <div class="hbox-sub" id="c-share-sub"></div>
-      </div>
-      <div id="c-share-warn" style="margin-top:5px"></div>
+      <div class="alert alert-amber text-sm" id="no-loan-note" style="display:none;margin-top:0"><span class="en">No share loan — members pay the full share price upfront. The full AMI income ceiling is available for the carrying charge.</span><span class="es" style="display:none">Sin préstamo de acción — los miembros pagan el precio completo por adelantado. El techo de ingresos AMI completo está disponible para la cuota mensual.</span></div>
 
       <hr class="divider">
       <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px"><span class="en">Resale restriction formula</span><span class="es" style="display:none">Fórmula de restricción de reventa</span></div>
@@ -845,7 +854,7 @@ function goPage(id,btn){
   if(id==='coop'){calcC();renderResaleInputs();}
   if(id==='compare')renderCompare();
   if(id==='neighborhood'){var ac=document.querySelector('.nbhd-card.active');if(ac)ac.click();}
-  if(id==='home'){initLeafletMap();if(leafletMap)leafletMap.invalidateSize();}
+  if(id==='home'){initLeafletMap();setTimeout(function(){if(leafletMap)leafletMap.invalidateSize();},100);}
 }
 
 // ═══════════════════════════════════════════════
@@ -890,13 +899,20 @@ var LBOUND_JP=[
 function initLeafletMap(){
   var el=document.getElementById('topa-map');
   if(!el||leafletMap)return;
-  // Centre on Chicago, zoom 11 shows both districts
+  if(typeof L==='undefined'){
+    // Leaflet not loaded yet — retry after a short delay
+    setTimeout(initLeafletMap, 300);
+    return;
+  }
+  // Centre on Chicago, zoom 11 shows both districts comfortably
   leafletMap=L.map('topa-map',{zoomControl:true,scrollWheelZoom:false})
     .setView([41.860,-87.670],11);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom:18
+    maxZoom:19
   }).addTo(leafletMap);
+  // Force Leaflet to recalculate container size after render
+  setTimeout(function(){leafletMap.invalidateSize();},200);
 
   // Block (606) district polygon
   var p606=L.polygon(LBOUND_606,{
@@ -1086,12 +1102,6 @@ function calcF(){
 function setAmiBench(pct,btn){
   document.querySelectorAll('#ami-bench-tabs .stab').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  if(pct==='custom')return;
-  var br=parseInt(document.getElementById('c_br').value)||2;
-  var ref;
-  if(pct==='fmr'){ref=RENT_REFS['fmr']?RENT_REFS['fmr'][br]:null;}
-  else{ref=AMI_RENTS[pct]?AMI_RENTS[pct][br]:null;}
-  if(ref)document.getElementById('c_target_carry').value=ref;
   calcC();
 }
 
@@ -1111,216 +1121,248 @@ function renderResaleInputs(){
 }
 
 function calcC(){
-  var cprice=+document.getElementById('c_price').value||0;
-  var numU=+document.getElementById('c_units').value||1;
-  var rehabPU=+document.getElementById('c_rehab').value||0;
-  var rehab=rehabPU*numU;
-  var soft=(+document.getElementById('c_soft').value||0)/100;
-  var cont=(+document.getElementById('c_cont').value||0)/100;
-  var cOrg=+document.getElementById('c_org').value||0;
-  var cTup=+document.getElementById('c_trainup').value||0;
-  var targetCarry=+document.getElementById('c_target_carry').value||0;
-  var unitUtil=+document.getElementById('c_unit_util').value||0;
-  var br=parseInt(document.getElementById('c_br').value)||2;
-  var cg=(+document.getElementById('c_carry_growth').value||2.5)/100;
-  var tax=+document.getElementById('c_tax').value||0;
-  var ins=+document.getElementById('c_ins').value||0;
-  var maint=+document.getElementById('c_maint').value||0;
-  var resv=(+document.getElementById('c_reserve').value||0)*numU;
+  // ── READ INPUTS ────────────────────────────────
+  var cprice  = +document.getElementById('c_price').value||0;
+  var numU    = +document.getElementById('c_units').value||1;
+  var rehabPU = +document.getElementById('c_rehab').value||0;
+  var soft    = (+document.getElementById('c_soft').value||0)/100;
+  var cont    = (+document.getElementById('c_cont').value||0)/100;
+  var cOrg    = +document.getElementById('c_org').value||0;
+  var cTup    = +document.getElementById('c_trainup').value||0;
+  var br      = parseInt(document.getElementById('c_br').value)||2;
+  var unitUtil= +document.getElementById('c_unit_util').value||0;
+  var carryCap= +document.getElementById('c_carry_cap').value||0;
+  var cg      = (+document.getElementById('c_carry_growth').value||2.5)/100;
+  var tax     = +document.getElementById('c_tax').value||0;
+  var ins     = +document.getElementById('c_ins').value||0;
+  var maint   = +document.getElementById('c_maint').value||0;
+  var resv    = (+document.getElementById('c_reserve').value||0)*numU;
   var utilities=+document.getElementById('c_utilities').value||0;
-  var trainYr=+document.getElementById('c_trainyr').value||0;
-  var vac=(+document.getElementById('c_vac').value||5)/100;
-  var mltv=(+document.getElementById('c_ltv').value||70)/100;
-  var mr=(+document.getElementById('c_mrate').value||7)/100/12;
-  var mt=(+document.getElementById('c_mterm').value||30)*12;
-  var mdscr=+document.getElementById('c_mdscr').value||1.15;
-  var amortEl=document.getElementById('c_amort');var amort=amortEl?amortEl.checked:true;
+  var trainYr = +document.getElementById('c_trainyr').value||0;
+  var vac     = (+document.getElementById('c_vac').value||5)/100;
+  var mltv    = (+document.getElementById('c_ltv').value||70)/100;
+  var mr      = (+document.getElementById('c_mrate').value||7)/100/12;
+  var mt      = (+document.getElementById('c_mterm').value||30)*12;
+  var mdscr   = +document.getElementById('c_mdscr').value||1.15;
+  var sv      = Math.max(0,+document.getElementById('c_share').value||0);
+  var hasLoanEl=document.getElementById('c_has_loan');
+  var hasLoan = hasLoanEl?hasLoanEl.checked:true;
+  var amortEl = document.getElementById('c_amort');
+  var amort   = amortEl?amortEl.checked:true;
   document.getElementById('io-note').style.display=amort?'none':'';
-  var sr=(+document.getElementById('c_srate').value||3)/100/12;
-  var st=(+document.getElementById('c_sterm').value||15)*12;
+  var sr      = (+document.getElementById('c_srate').value||3)/100/12;
+  var st      = (+document.getElementById('c_sterm').value||15)*12;
 
   // ── PROJECT COSTS ──────────────────────────────
-  var softC=rehab*soft, contC=(rehab+softC)*cont;
+  var rehab   = rehabPU*numU;
+  var softC   = rehab*soft, contC=(rehab+softC)*cont;
   var totalCost=cprice+rehab+softC+contC+cOrg+cTup;
 
-  // ── AMI AFFORDABILITY DISPLAY ──────────────────
-  // Carrying charge only (not including utilities or share loan) maps to AMI income level
-  // via 30% of income rule, using Chicago DOH standard occupancy (1.5 occupants/bedroom)
+  // ── SHARE LOAN PAYMENT (step ⑤ feeds into step ②) ──
+  // Compute this first because it directly reduces the available carrying charge budget.
+  var shareMo = 0;
+  if(hasLoan && sv>0){
+    shareMo = amort ? pmtFn(sr,st,sv) : (sv*sr);
+  }
+  // Update share loan payment display in step ⑤
+  var spmtEl=document.getElementById('c-share-pmt');
+  var spmtSub=document.getElementById('c-share-pmt-sub');
+  if(spmtEl) spmtEl.textContent = hasLoan&&sv>0 ? fmt(shareMo)+'/mo' : T('None','Ninguno');
+  if(spmtSub && hasLoan && sv>0){
+    spmtSub.textContent = T((amort?'Amortizing':'Interest-only')+' over '+(st/12)+' yrs at '+((sr*12)*100).toFixed(2)+'%.',
+      (amort?'Amortizante':'Solo interés')+' a lo largo de '+(st/12)+' años al '+((sr*12)*100).toFixed(2)+'%.');
+  }
+
+  // ── AMI TARGET & DERIVED CARRYING CHARGE (step ②) ──
+  // Identify which AMI button is active to get amiBadge & income ceiling.
+  // For AMI tiers: maxTotalMo = 30% of that tier's annual income / 12
+  // For FMR: use FMR value directly as the rent ceiling (analogous to 30% rule)
+  // For Custom: carrying charge comes from c_carry_cap directly, amiBadge inferred.
   var amiLevels=['30','50','60','80','100'];
-  var amiLabel='', amiBadge='';
+  var activeStab=document.querySelector('#ami-bench-tabs .stab.active');
+  var selectedBench=activeStab?activeStab.textContent.trim():'Custom';
+
+  var amiBadge='', amiLabel='', maxTotalMo=0;
+
+  if(selectedBench==='Custom'){
+    // Custom: the carry cap IS the target carrying charge (plus loans/utils on top)
+    // Infer amiBadge from the cap value if provided, else leave unset
+    amiBadge=''; amiLabel=T('Custom target','Objetivo personalizado');
+    maxTotalMo = carryCap>0 ? carryCap+shareMo+unitUtil : 0;
+  } else if(selectedBench==='FMR'){
+    amiBadge='fmr'; amiLabel='FMR';
+    var fmrVal = RENT_REFS['fmr']?RENT_REFS['fmr'][br]:0;
+    // FMR is used as the carry ceiling; total = carry+loan+util so maxTotal = fmrVal+loan+util
+    maxTotalMo = fmrVal + shareMo + unitUtil;
+  } else {
+    // Extract numeric AMI from button label e.g. "60% AMI" → "60"
+    var pct = selectedBench.replace(/[^0-9]/g,'');
+    if(AMI_INC_BR[pct]){
+      amiBadge = pct;
+      amiLabel = pct+'% AMI';
+      var annualInc = AMI_INC_BR[pct][br]||0;
+      maxTotalMo = annualInc*0.30/12;
+    }
+  }
+
+  // Derived max carrying charge = total budget minus share loan and utilities
+  var derivedCarry = Math.max(0, maxTotalMo - shareMo - unitUtil);
+  // Apply optional cap (tightens only, never loosens)
+  var targetCarry = (carryCap>0) ? Math.min(derivedCarry, carryCap) : derivedCarry;
+
+  // AMI reference row for info box
   var amiRef=document.getElementById('ami-ref-box');
   if(amiRef){
-    var refRows=amiLevels.map(function(p){return p+'% = '+fmt(AMI_RENTS[p][br]||0);}).join(' &nbsp;&middot;&nbsp; ');
     var fmrRef=RENT_REFS['fmr']?RENT_REFS['fmr'][br]:0;
-    amiRef.innerHTML=T('30% of income benchmarks for ','Benchmarks (30% de ingresos) para ')+(br===0?'studio':br+' BR')+': &nbsp;'+refRows
-      +(fmrRef?' &nbsp;&middot;&nbsp; <strong>FMR = '+fmt(fmrRef)+'</strong>':'')
-      +'<br><span style="font-size:10px;color:#0C447C">'+T('Chicago DOH 2025 standard: 1.5 occupants per bedroom (studio=1). FMR: HUD FY2025 Cook County Small Area.','DOH Chicago 2025: 1.5 ocupantes por recámara (studio=1). FMR: HUD FY2025 condado de Cook.')+'</span>';
+    var refRows=amiLevels.map(function(p){return p+'% = '+fmt(AMI_RENTS[p][br]||0);}).join(' &middot; ');
+    amiRef.innerHTML=T('Income ceilings (30% of income) for ','Techos de ingresos (30% de ingresos) para ')
+      +(br===0?'studio':br+' BR')+': '+refRows
+      +(fmrRef?' &middot; FMR = <strong>'+fmt(fmrRef)+'</strong>':'')
+      +'<br><span style="font-size:10px;color:#0C447C">'
+      +T('Chicago DOH 2025: 1.5 occupants/bedroom (studio=1). Total budget shown is for carry only; share loan and utilities subtracted first.',
+         'DOH Chicago 2025: 1.5 ocupantes/recámara (studio=1). El presupuesto total es solo para cuota; el préstamo de acción y servicios se restan primero.')
+      +'</span>';
   }
-  for(var i=0;i<amiLevels.length;i++){
-    if(targetCarry<=(AMI_RENTS[amiLevels[i]][br]||0)){amiLabel=amiLevels[i]+'% AMI';amiBadge=amiLevels[i];break;}
-  }
-  if(!amiLabel){amiLabel=T('Above 100% AMI','Por encima del 100% AMI');amiBadge='100';}
+
+  // Display derived carrying charge in step ② output box
   var rval=document.getElementById('ami-result-val');
   var rsub=document.getElementById('ami-result-sub');
-  if(rval){rval.textContent='~'+amiLabel;}
-  if(rsub){rsub.textContent=T('Carrying charge of ','Cuota de ')+fmt(targetCarry)+T('/mo is at or below the 30%-of-income rent limit for this AMI and bedroom type.','/mes está en o por debajo del límite de renta al 30% de ingreso para este AMI y tipo de unidad.');}
+  if(rval) rval.textContent = targetCarry>0 ? fmt(targetCarry)+'/mo' : '—';
+  if(rsub && targetCarry>0){
+    var breakdown='';
+    if(selectedBench!=='Custom'){
+      breakdown = T('Budget: ','Presupuesto: ')+fmt(maxTotalMo)
+        +T(' (30% of ','  (30% de ')+amiLabel+T(' income)',  ' de ingresos)')
+        +' − '+T('share loan ','préstamo ')+fmt(shareMo)
+        +' − '+T('utilities ','servicios ')+fmt(unitUtil)
+        +' = '+fmt(derivedCarry);
+      if(carryCap>0 && carryCap<derivedCarry)
+        breakdown += T(' → capped at ','  → tope en ')+fmt(carryCap);
+    } else {
+      breakdown = T('Custom cap','Tope personalizado')+': '+fmt(carryCap);
+    }
+    rsub.textContent=breakdown;
+  }
 
-  // ── OPERATING PRO FORMA ──────────────────────
-  // Gross carrying charge income = carrying charge * units * 12
-  // Effective gross income (EGI) = gross * (1 - vacancy)  [accounts for unit turnover]
-  // NOI = EGI - total operating expenses
-  var grossCarryIncome = targetCarry * numU * 12;
-  var egi = grossCarryIncome * (1 - vac);
-  var annOps = tax + ins + maint + resv + utilities + trainYr;
-  var noi = egi - annOps;
+  // ── OPERATING PRO FORMA ───────────────────────
+  var grossCarryIncome = targetCarry*numU*12;
+  var egi  = grossCarryIncome*(1-vac);
+  var annOps= tax+ins+maint+resv+utilities+trainYr;
+  var noi  = egi-annOps;
 
-  // ── MORTGAGE SIZING — DSCR based on NOI (same as rental) ──
-  // DSCR = NOI / Annual Debt Service  ≥  mdscr
-  // Max annual DS = NOI / mdscr  →  max loan via annuity factor
-  var loanLTV = cprice * mltv;
-  var mFactor = mr===0 ? mt : (1 - Math.pow(1+mr,-mt)) / mr;
-  var loanDSCR = Math.max(0, (noi / mdscr / 12) * mFactor);
-  var mort = Math.min(loanLTV, loanDSCR);
-  var limitBy = mort===loanLTV ? 'LTV' : 'DSCR';
+  // ── MORTGAGE SIZING (DSCR = NOI / Debt Service) ──
+  var loanLTV  = cprice*mltv;
+  var mFactor  = mr===0?mt:(1-Math.pow(1+mr,-mt))/mr;
+  var loanDSCR = Math.max(0,(noi/mdscr/12)*mFactor);
+  var mort     = Math.min(loanLTV,loanDSCR);
+  var limitBy  = mort===loanLTV?'LTV':'DSCR';
 
   var mlv=document.getElementById('c-max-loan'), mlw=document.getElementById('c-max-loan-why');
   if(mlv) mlv.textContent=fmt(mort);
   if(mlw) mlw.textContent=T('Limited by '+limitBy+'. LTV cap: '+fmt(loanLTV)+'. NOI-based DSCR cap: '+fmt(loanDSCR)+'.',
-    'Limitado por '+limitBy+'. LTV: '+fmt(loanLTV)+'. DSCR basado en NOI: '+fmt(loanDSCR)+'.');
+    'Limitado por '+limitBy+'. LTV: '+fmt(loanLTV)+'. DSCR NOI: '+fmt(loanDSCR)+'.');
 
-  var mortMo = pmtFn(mr, mt, mort);
-  var annDebt = mortMo * 12;
-  var actualDSCR = annDebt > 0 ? noi / annDebt : 0;
-  var dscrCol = actualDSCR>=1.2?'#0F6E56':actualDSCR>=1.0?'#BA7517':'#A32D2D';
+  var mortMo   = pmtFn(mr,mt,mort);
+  var annDebt  = mortMo*12;
+  var actualDSCR = annDebt>0?noi/annDebt:0;
+  var dscrCol  = actualDSCR>=1.2?'#0F6E56':actualDSCR>=1.0?'#BA7517':'#A32D2D';
 
-  // Actual carrying charge backed into from mortgage + ops (may differ from target if LTV binds)
-  var actualCarry = (annDebt + annOps) / numU / 12;
+  // Actual carrying charge backed into from mortgage payment + ops
+  // This can be HIGHER than targetCarry if LTV binds the mortgage upward
+  var actualCarry = annDebt>0 ? (annDebt+annOps)/numU/12 : targetCarry;
+  var ltv_bound   = actualCarry > targetCarry+1;
 
-  // ── SHARE PRICING — user input, affordability check as output ──
-  var sv = Math.max(0, +document.getElementById('c_share').value||0);
-  var hasLoanEl = document.getElementById('c_has_loan');
-  var hasLoan = hasLoanEl ? hasLoanEl.checked : true;
+  // Total monthly cost for a member
+  var totalMoActual = actualCarry+shareMo+unitUtil;
+  var totalShares   = sv*numU;
+  var gap           = Math.max(0,totalCost-mort-totalShares);
 
-  // Share loan payment: only if share loan enabled
-  var shareMo = 0;
-  if (hasLoan && sv > 0) {
-    shareMo = amort ? pmtFn(sr, st, sv) : (sv * sr);
+  // What AMI does the total monthly cost correspond to?
+  var impliedInc = totalMoActual/0.30*12;
+  var totalAmiLabel='', totalAmiPct=0;
+  var amiOrder=[['30',AMI_INC_BR['30']],['50',AMI_INC_BR['50']],['60',AMI_INC_BR['60']],['80',AMI_INC_BR['80']],['100',AMI_INC_BR['100']]];
+  for(var k=0;k<amiOrder.length;k++){
+    if(impliedInc<=(amiOrder[k][1][br]||0)){totalAmiLabel=amiOrder[k][0]+'% AMI';totalAmiPct=parseInt(amiOrder[k][0]);break;}
   }
+  if(!totalAmiLabel){totalAmiLabel=T('Above 100% AMI','Más del 100% AMI');totalAmiPct=101;}
 
-  var totalMoActual = actualCarry + shareMo + unitUtil;
-  var totalShares = sv * numU;
-  var gap = Math.max(0, totalCost - mort - totalShares);
+  var targetAmiPct = amiBadge ? parseInt(amiBadge) : 0;
+  var overBudget   = maxTotalMo>0 && totalMoActual>maxTotalMo+1;
+  var amiCol       = totalAmiPct<=60?'#0F6E56':totalAmiPct<=80?'#BA7517':'#A32D2D';
+  var cc           = actualCarry<1500?'#0F6E56':actualCarry<2100?'#BA7517':'#A32D2D';
+  var gapClass     = gap>0?'gap-r':'surplus-r';
 
-  // Affordability check: what AMI level does total monthly cost correspond to?
-  // Total monthly cost / 0.30 * 12 = implied annual income
-  // Compare against AMI_INC_BR for the selected BR type
-  var impliedAnnualInc = totalMoActual / 0.30 * 12;
-  var totalAmiLabel = '', totalAmiBadge = '', totalAmiPct = 0;
-  var amiOrder = [['30',AMI_INC_BR['30']],['50',AMI_INC_BR['50']],['60',AMI_INC_BR['60']],['80',AMI_INC_BR['80']],['100',AMI_INC_BR['100']]];
-  for (var k=0; k<amiOrder.length; k++) {
-    var inc = amiOrder[k][1][br] || 0;
-    if (impliedAnnualInc <= inc) {
-      totalAmiLabel = amiOrder[k][0]+'% AMI';
-      totalAmiBadge = amiOrder[k][0];
-      totalAmiPct = parseInt(amiOrder[k][0]);
-      break;
-    }
-  }
-  if (!totalAmiLabel) { totalAmiLabel = T('Above 100% AMI','Por encima del 100% AMI'); totalAmiBadge='100'; totalAmiPct=101; }
-
-  // Reference: what is the max affordable total at the target carrying charge AMI level?
-  var targetAnnualInc = AMI_INC_BR[amiBadge] ? (AMI_INC_BR[amiBadge][br]||0) : 0;
-  var maxTotalMo = targetAnnualInc * 0.30 / 12;
-  var headroomMo = maxTotalMo - totalMoActual;
-
-  // Update share affordability display
-  var sami = document.getElementById('c-share-ami');
-  var ssub = document.getElementById('c-share-sub');
-  var swarn = document.getElementById('c-share-warn');
-  var amiCol = totalAmiPct<=60?'#0F6E56':totalAmiPct<=80?'#BA7517':'#A32D2D';
-  if(sami) { sami.textContent='~'+totalAmiLabel; sami.style.color=amiCol; }
-  if(ssub) {
-    var headroomStr = headroomMo>=0
-      ? T(fmt(headroomMo)+'/mo headroom below 30%-of-income limit for '+amiBadge+'% AMI target.',
-          fmt(headroomMo)+'/mes de margen por debajo del límite del 30% de ingresos para el objetivo de '+amiBadge+'% AMI.')
-      : T(fmt(Math.abs(headroomMo))+'/mo over the 30%-of-income limit for '+amiBadge+'% AMI target.',
-          fmt(Math.abs(headroomMo))+'/mes por encima del límite del 30% de ingresos para el objetivo de '+amiBadge+'% AMI.');
-    ssub.textContent = T('Total cost ','Costo total ')+fmt(totalMoActual)+'/mo. '+headroomStr;
-  }
-  if(swarn) {
-    if (totalAmiPct > parseInt(amiBadge||'60')) {
-      swarn.innerHTML='<div class="alert alert-amber text-sm">'+T('Total monthly cost exceeds 30% of income at your target AMI level ('+amiBadge+'% AMI). Consider a lower share price, no-loan structure, or subsidy to cover the gap.','El costo mensual total supera el 30% de los ingresos a su nivel AMI objetivo ('+amiBadge+'% AMI). Considera un precio de acción menor, estructura sin préstamo o subsidio.')+'</div>';
-    } else {
-      swarn.innerHTML='<div class="alert alert-green text-sm">'+T('Total monthly cost is within the 30%-of-income limit for '+amiBadge+'% AMI households.','El costo mensual total está dentro del límite del 30% de ingresos para hogares al '+amiBadge+'% AMI.')+'</div>';
-    }
-  }
-
-  // Resale display
-  var yr5=shareAtYr(sv,5), yr10=shareAtYr(sv,10), yr20=shareAtYr(sv,20);
+  // ── RESALE ────────────────────────────────────
+  var yr5=shareAtYr(sv,5),yr10=shareAtYr(sv,10),yr20=shareAtYr(sv,20);
   var rlab={fixed:T('Fixed','Fijo'),cpi:'CPI-indexed',ami:'AMI-indexed',imprv:T('Base + improvements','Base + mejoras')};
   var rd=document.getElementById('resale-display');
   if(rd) rd.innerHTML=T('Formula: ','Fórmula: ')+'<strong>'+rlab[resaleMode]+'</strong> &nbsp;|&nbsp; Yr 5: '+fmt(yr5)+' &nbsp; Yr 10: '+fmt(yr10)+' &nbsp; Yr 20: '+fmt(yr20);
 
-  // Store for comparison tab
-  cData={totalCost:totalCost,mort:mort,totalShares:totalShares,gap:gap,targetCarry:targetCarry,
-    actualCarry:actualCarry,shareMo:shareMo,unitUtil:unitUtil,totalMo:totalMoActual,
-    numU:numU,annDebt:annDebt,annOps:annOps,noi:noi,egi:egi,dscr:actualDSCR,
-    amiLabel:amiLabel,amiBadge:amiBadge,totalAmiLabel:totalAmiLabel,
-    cg:cg,sr:sr,st:st,amort:amort,sv:sv,hasLoan:hasLoan,
-    rehabPU:rehabPU,rehab:rehab,maxTotalMo:maxTotalMo};
+  // ── STORE FOR COMPARE TAB ─────────────────────
+  cData={totalCost,mort,totalShares,gap,targetCarry,actualCarry,shareMo,
+    unitUtil,totalMo:totalMoActual,numU,annDebt,annOps,noi,egi,dscr:actualDSCR,
+    amiLabel,amiBadge,totalAmiLabel,cg,sr,st,amort,sv,hasLoan,
+    rehabPU,rehab,maxTotalMo};
 
-  var cc=actualCarry<1500?'#0F6E56':actualCarry<2100?'#BA7517':'#A32D2D';
-  var gapClass=gap>0?'gap-r':'surplus-r';
-
+  // ── OUTPUT PANEL ──────────────────────────────
   document.getElementById('coop-output').innerHTML=
     '<div class="calc-result"><h4>'+T('Co-op pro forma summary','Resumen del pro forma cooperativo')+'</h4>'+
+
     // SOURCES & USES
-    '<div class="result-section"><h5>'+T('Project costs (uses)','Costos del proyecto (usos)')+'</h5>'+
+    '<div class="result-section"><h5>'+T('Project costs','Costos del proyecto')+'</h5>'+
     '<div class="result-row"><span>'+T('Purchase price','Precio de compra')+'</span><span class="result-num">'+fmt(cprice)+'</span></div>'+
     '<div class="result-row"><span>'+T('Rehab','Rehab')+' ('+fmt(rehabPU)+'/unit × '+numU+')</span><span class="result-num">'+fmt(rehab)+'</span></div>'+
-    '<div class="result-row"><span>'+T('Soft costs','Costos blandos')+' ('+Math.round(soft*100)+'%)</span><span class="result-num">'+fmt(softC)+'</span></div>'+
-    '<div class="result-row"><span>'+T('Contingency','Contingencia')+' ('+Math.round(cont*100)+'%)</span><span class="result-num">'+fmt(contC)+'</span></div>'+
-    '<div class="result-row"><span>'+T('Co-op org / training (one-time)','Org. / capacitación (único)')+'</span><span class="result-num">'+fmt(cOrg+cTup)+'</span></div>'+
-    '<div class="result-row total"><span>'+T('Total development cost','Costo total de desarrollo')+'</span><span class="result-num">'+fmt(totalCost)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Soft costs','Costos blandos')+' + '+T('contingency','contingencia')+'</span><span class="result-num">'+fmt(softC+contC)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Co-op org / training','Org. / capacitación')+'</span><span class="result-num">'+fmt(cOrg+cTup)+'</span></div>'+
+    '<div class="result-row total"><span>'+T('Total development cost','Costo total')+'</span><span class="result-num">'+fmt(totalCost)+'</span></div>'+
     '</div>'+
-    // SOURCES
+
     '<div class="result-section"><h5>'+T('Sources','Fuentes')+'</h5>'+
     '<div class="result-row"><span>'+T('Blanket mortgage','Hipoteca global')+' ('+limitBy+'-limited)</span><span class="result-num">'+fmt(mort)+'</span></div>'+
     '<div class="result-row"><span>'+T('Share equity','Capital de acciones')+' ('+numU+' × '+fmt(sv)+')</span><span class="result-num">'+fmt(totalShares)+'</span></div>'+
-    '<div class="result-row '+gapClass+'"><span>'+T('Gap — subsidy / soft equity needed','Brecha — subsidio / capital blando necesario')+'</span><span class="result-num">'+fmt(gap)+'</span></div>'+
+    '<div class="result-row '+gapClass+'"><span>'+T('Gap / subsidy needed','Brecha / subsidio')+'</span><span class="result-num">'+fmt(gap)+'</span></div>'+
     '</div>'+
+
     // OPERATING PRO FORMA
     '<div class="result-section"><h5>'+T('Operating pro forma (annual)','Pro forma operativo (anual)')+'</h5>'+
     '<div class="result-row"><span>'+T('Gross carrying charge income','Ingreso bruto de cuotas')+'</span><span class="result-num">'+fmt(grossCarryIncome)+'/yr</span></div>'+
-    '<div class="result-row"><span>'+T('Effective gross income','Ingreso bruto efectivo')+' ('+Math.round(vac*100)+'% vac.)</span><span class="result-num">'+fmt(egi)+'/yr</span></div>'+
+    '<div class="result-row"><span>'+T('Effective gross income','EGI')+' ('+Math.round(vac*100)+'% vacancy)</span><span class="result-num">'+fmt(egi)+'/yr</span></div>'+
     '<div class="result-row"><span>'+T('Operating expenses','Gastos operativos')+'</span><span class="result-num">('+fmt(annOps)+')/yr</span></div>'+
-    '<div class="result-row sub"><span>'+T('Net operating income (NOI)','Ingreso operativo neto (NOI)')+'</span><span class="result-num">'+fmt(noi)+'/yr</span></div>'+
-    '<div class="result-row"><span>'+T('Annual debt service','Servicio de deuda anual')+'</span><span class="result-num">('+fmt(annDebt)+')/yr</span></div>'+
-    '<div class="result-row"><span>DSCR (NOI / debt service)</span><span class="result-num" style="color:'+dscrCol+';font-weight:700">'+actualDSCR.toFixed(2)+'x</span></div>'+
-    '<div class="result-row"><span>'+T('Net cash flow','Flujo de efectivo neto')+'</span><span class="result-num '+(noi-annDebt>=0?'':'gap-r')+'">'+fmt(noi-annDebt)+'/yr</span></div>'+
+    '<div class="result-row sub"><span>NOI</span><span class="result-num">'+fmt(noi)+'/yr</span></div>'+
+    '<div class="result-row"><span>'+T('Annual debt service','Servicio de deuda')+'</span><span class="result-num">('+fmt(annDebt)+')/yr</span></div>'+
+    '<div class="result-row"><span>DSCR</span><span class="result-num" style="color:'+dscrCol+';font-weight:700">'+actualDSCR.toFixed(2)+'x</span></div>'+
     '</div>'+
-    // MEMBER ECONOMICS
-    '<div class="result-section"><h5>'+T('Member monthly economics','Economía mensual del miembro')+'</h5>'+
-    '<div class="result-row"><span>'+T('Carrying charge / unit / mo','Cuota / unidad / mes')+'</span><span class="result-num" style="color:'+cc+'">'+fmt(actualCarry)+'/mo</span></div>'+
-    (Math.abs(actualCarry-targetCarry)>5?'<div class="result-row"><span class="text-xs">'+T('↑ LTV-limited — actual carry slightly above target','↑ Limitado por LTV — cuota ligeramente mayor al objetivo')+'</span></div>':'')+
-    (hasLoan?'<div class="result-row"><span>'+T('Share loan payment / mo','Préstamo de acción / mes')+(amort?'':' (I/O)')+'</span><span class="result-num">'+fmt(shareMo)+'/mo</span></div>':
-              '<div class="result-row"><span>'+T('Share loan','Préstamo de acción')+'</span><span class="result-num" style="color:#888">'+T('None — paid upfront','Ninguno — pago adelantado')+'</span></div>')+
-    '<div class="result-row"><span>'+T('Per-unit utilities / mo','Servicios / unidad / mes')+'</span><span class="result-num">'+fmt(unitUtil)+'/mo</span></div>'+
-    '<div class="result-row total"><span>'+T('Total monthly housing cost','Costo mensual total')+'</span><span class="result-num" style="font-size:14px">'+fmt(totalMoActual)+'/mo</span></div>'+
-    '<div class="result-row"><span>'+T('Affordability (total cost = ~30% of income for)','Asequibilidad (costo total ≈ 30% de ingresos para)')+'</span><span class="result-num" style="color:'+amiCol+';font-weight:700">~'+totalAmiLabel+'</span></div>'+
-    '<div class="result-row"><span>'+T('30%-of-income limit at target ('+amiBadge+'% AMI)','Límite 30% de ingresos a '+amiBadge+'% AMI')+'</span><span class="result-num">'+fmt(maxTotalMo)+'/mo</span></div>'+
-    '<div class="result-row '+(headroomMo>=0?'surplus-r':'gap-r')+'"><span>'+(headroomMo>=0?T('Headroom below limit','Margen bajo el límite'):T('Over limit','Por encima del límite'))+'</span><span class="result-num">'+(headroomMo>=0?'':'-')+fmt(Math.abs(headroomMo))+'/mo</span></div>'+
+
+    // MEMBER MONTHLY ECONOMICS — the key summary
+    '<div class="result-section"><h5>'+T('Member monthly cost','Costo mensual del miembro')+'</h5>'+
+    // AMI target row
+    (amiBadge?'<div class="result-row"><span>'+T('AMI target','Objetivo AMI')+'</span><span class="result-num">'+amiLabel+'</span></div>':'')
+    +(maxTotalMo>0?'<div class="result-row"><span>'+T('30%-of-income budget','Presupuesto 30% de ingresos')+'</span><span class="result-num">'+fmt(maxTotalMo)+'/mo</span></div>':'')+
+    '<div class="result-row"><span>'+T('Share loan payment','Préstamo de acción')+(amort?'':' I/O')+'</span><span class="result-num">'+(hasLoan&&sv>0?'('+fmt(shareMo)+'/mo)':T('none','ninguno'))+'</span></div>'+
+    '<div class="result-row"><span>'+T('Per-unit utilities','Servicios / unidad')+'</span><span class="result-num">('+fmt(unitUtil)+'/mo)</span></div>'+
+    (maxTotalMo>0?'<div class="result-row sub"><span>'+T('Derived carrying charge ceiling','Techo de cuota derivado')+'</span><span class="result-num">'+fmt(derivedCarry)+'/mo</span></div>':'')+
+    (carryCap>0&&carryCap<derivedCarry?'<div class="result-row"><span>'+T('Cap applied','Tope aplicado')+'</span><span class="result-num">'+fmt(targetCarry)+'/mo</span></div>':'')+
+    '<div class="result-row" style="margin-top:4px;padding-top:6px;border-top:1px solid #e8e4de"><span style="font-weight:600">'+T('Carrying charge used for sizing','Cuota usada para dimensionamiento')+'</span><span class="result-num" style="color:'+cc+';font-weight:700">'+fmt(targetCarry)+'/mo</span></div>'+
+    '<div class="result-row sub"><span>'+T('Actual carry (backed into from mortgage + ops)','Cuota real (de hipoteca + costos)')+'</span><span class="result-num" style="color:'+(ltv_bound?'#BA7517':cc)+'">'+(ltv_bound?'⚠ ':'')+fmt(actualCarry)+'/mo</span></div>'+
+    (ltv_bound?'<div class="result-row"><span class="text-xs" style="color:#BA7517">'+T('LTV constraint raises actual carry above target. Consider a lower purchase price or more equity.','La restricción LTV eleva la cuota real sobre el objetivo.')+'</span></div>':'')+
+    '<div class="result-row total" style="margin-top:4px"><span>'+T('Total monthly housing cost','Costo mensual total')+'</span><span class="result-num" style="font-size:15px">'+fmt(totalMoActual)+'/mo</span></div>'+
+    '<div class="result-row"><span>'+T('Total cost implies affordability at','El costo total implica asequibilidad a')+'</span><span class="result-num" style="color:'+amiCol+';font-weight:700">~'+totalAmiLabel+'</span></div>'+
+    (overBudget?'<div class="result-row gap-r"><span>'+T('Over AMI budget by','Por encima del presupuesto AMI por')+'</span><span class="result-num">'+fmt(totalMoActual-maxTotalMo)+'/mo</span></div>':
+      maxTotalMo>0?'<div class="result-row surplus-r"><span>'+T('Headroom within AMI budget','Margen dentro del presupuesto AMI')+'</span><span class="result-num">'+fmt(maxTotalMo-totalMoActual)+'/mo</span></div>':'')+
     '</div>'+
+
     // SHARE
     '<div class="result-section"><h5>'+T('Share structure','Estructura de acciones')+'</h5>'+
     '<div class="result-row"><span>'+T('Share price / unit','Precio de acción / unidad')+'</span><span class="result-num">'+fmt(sv)+'</span></div>'+
-    '<div class="result-row"><span>'+T('Share loan','Préstamo de acción')+'</span><span class="result-num">'+(hasLoan?(amort?T('Amortizing','Amortizante'):T('Interest-only','Solo interés')):T('None','Ninguno'))+'</span></div>'+
+    '<div class="result-row"><span>'+T('Financing','Financiamiento')+'</span><span class="result-num">'+(hasLoan?(amort?T('Amortizing loan','Préstamo amortizante'):T('Interest-only loan','Solo interés')):T('Paid upfront','Pago adelantado'))+'</span></div>'+
     '<div class="result-row"><span>'+T('Resale formula','Fórmula de reventa')+'</span><span class="result-num">'+rlab[resaleMode]+'</span></div>'+
-    '<div class="result-row"><span>'+T('Projected share value yr 10','Valor proyectado año 10')+'</span><span class="result-num">'+fmt(yr10)+'</span></div>'+
+    '<div class="result-row"><span>'+T('Projected value yr 10','Valor proyectado año 10')+'</span><span class="result-num">'+fmt(yr10)+'</span></div>'+
     '</div>'+
-    (actualDSCR<mdscr?'<div class="alert alert-red">'+T('NOI is insufficient to meet minimum DSCR. Reduce operating costs, raise carrying charge, or reduce loan size.','El NOI es insuficiente para cumplir el DSCR mínimo. Reduce costos operativos, aumenta la cuota o reduce el préstamo.')+'</div>':
-    '<div class="alert alert-green">'+T('DSCR meets minimum. Carrying charge income covers debt service with adequate cushion.','El DSCR cumple el mínimo. El ingreso de cuotas cubre el servicio de deuda con margen adecuado.')+'</div>')+
-    '<p class="text-sm mt-1">'+T('Estimation tool only. Consult a housing advisor, CDFI lender, and accountant.','Solo herramienta de estimación. Consulte a un asesor de vivienda, prestamista CDFI y contador.')+'</p></div>';
+
+    (actualDSCR<mdscr?
+      '<div class="alert alert-red">'+T('DSCR is below minimum — the carrying charge does not cover debt service at this mortgage level. Raise the carrying charge target, reduce operating costs, or accept a smaller mortgage.','El DSCR está por debajo del mínimo. Sube la cuota, reduce costos operativos, o acepta una hipoteca menor.')+'</div>':
+      '<div class="alert alert-green">'+T('DSCR meets minimum. Carrying charge income covers debt service with adequate margin.','El DSCR cumple el mínimo. El ingreso de cuotas cubre el servicio de deuda con margen adecuado.')+'</div>')+
+    '<p class="text-sm mt-1">'+T('Estimation tool only — not legal or financial advice.','Solo herramienta de estimación — no es asesoramiento legal o financiero.')+'</p></div>';
 
   drawShareChart(sv,sr,st,amort);
   renderCompare();
