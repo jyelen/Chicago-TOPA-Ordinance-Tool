@@ -228,7 +228,7 @@ canvas{display:block;width:100%!important}
   <!-- MAP — outside the card so overflow:hidden doesn't clip Leaflet tiles -->
   <div id="topa-map"></div>
   <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin-top:6px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
-  <p class="text-xs mt-1"><span class="en">Basemap: CARTO Positron / OpenStreetMap contributors. District boundaries from ordinance descriptions — click polygons for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa base: CARTO / OpenStreetMap. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
+  <p class="text-xs mt-1"><span class="en">Vector map — no external tile server. District boundaries from ordinance descriptions — click polygons for details. Official boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa vectorial. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
 
   <!-- PROGRAM SELECTOR FOR RIGHTS -->
   <div class="card"><div class="card-header"><h3><span class="en">Select your program to see your rights</span><span class="es" style="display:none">Selecciona tu programa para ver tus derechos</span></h3></div><div class="card-body">
@@ -903,42 +903,77 @@ function initLeafletMap(){
   if(!el||leafletMap)return;
   if(typeof L==='undefined'){setTimeout(initLeafletMap,300);return;}
 
+  // No tile layer — pure vector map, zero network requests
   leafletMap=L.map('topa-map',{
     zoomControl:true,
-    scrollWheelZoom:false
+    scrollWheelZoom:false,
+    attributionControl:false
   }).setView([41.860,-87.670],11);
 
-  // CARTO Positron — free, no API key, no referrer restrictions
-  // Falls back gracefully to gray if network unavailable
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains:'abcd',
-    maxZoom:19,
-    r: L.Browser.retina ? '@2x' : ''
+  // Solid background via a full-world rectangle
+  L.rectangle([[-90,-180],[90,180]],{
+    fillColor:'#e8e4de',fillOpacity:1,stroke:false,interactive:false
   }).addTo(leafletMap);
+
+  // Lake Michigan — polygon of the western shore
+  L.polygon([
+    [42.5,-87.53],[42.5,-86.5],[41.3,-86.5],[41.3,-87.53],
+    [41.55,-87.525],[41.65,-87.525],[41.72,-87.535],
+    [41.78,-87.555],[41.83,-87.565],[41.89,-87.585],
+    [41.95,-87.608],[42.05,-87.622],[42.15,-87.63],[42.5,-87.63]
+  ],{fillColor:'#c8dff0',fillOpacity:1,stroke:false,interactive:false}).addTo(leafletMap);
+
+  // Chicago River — simple polylines
+  var rS={color:'#a8cfe0',weight:3,opacity:0.9,interactive:false};
+  L.polyline([[41.900,-87.636],[41.892,-87.636],[41.888,-87.638],[41.889,-87.626],[41.890,-87.615]],rS).addTo(leafletMap);
+  L.polyline([[41.888,-87.638],[41.875,-87.636],[41.858,-87.636],[41.840,-87.640]],rS).addTo(leafletMap);
+
+  // Land fill over lake rectangle to show Chicago landmass properly
+  // (just colour the map area — districts will be clearly visible on neutral ground)
 
   // ── TOPA DISTRICT POLYGONS ──────────────────────
   var p606=L.polygon(LBOUND_606,{
-    color:'#0F6E56',weight:2.5,fillColor:'#1D9E75',fillOpacity:0.28
+    color:'#0F6E56',weight:2.5,fillColor:'#1D9E75',fillOpacity:0.35
   }).addTo(leafletMap);
   p606.bindPopup(
     '<strong style="color:#085041">Block (606) District</strong><br>'+
     'NW Side &mdash; eff. March 1, 2025<br>'+
-    '<span style="font-size:11px">Addison (N) · N Branch River + Western (E) · Division / California / North Ave (SE) · Kedzie / Hirsch / Kostner (SW) · Fullerton / Pulaski (W)<br>'+
+    '<span style="font-size:11px">'+
+    'Addison (N) · N Branch River + Western (E) · Division / California / North Ave (SE) · Kedzie / Hirsch / Kostner (SW) · Fullerton / Pulaski (W)<br>'+
     'Neighborhoods: Logan Square · Avondale · Humboldt Park · Hermosa · Lower West Side · West Town</span>'
   );
   p606.on('click',function(){showMapTip('606');});
 
   var pJP=L.polygon(LBOUND_JP,{
-    color:'#6B3FA0',weight:2.5,fillColor:'#8B6BAF',fillOpacity:0.28
+    color:'#6B3FA0',weight:2.5,fillColor:'#8B6BAF',fillOpacity:0.35
   }).addTo(leafletMap);
   pJP.bindPopup(
     '<strong style="color:#4A235A">Jackson Park District</strong><br>'+
     'South Side &mdash; eff. April 6, 2026<br>'+
-    '<span style="font-size:11px">60th St (N) · DuSable Lake Shore Dr (E) · 71st St (S) · South Chicago Ave (SW) · MLK Dr (W)<br>'+
+    '<span style="font-size:11px">'+
+    '60th St (N) · DuSable Lake Shore Dr (E) · 71st St (S) · South Chicago Ave (SW) · MLK Dr (W)<br>'+
     'Neighborhoods: Woodlawn · South Shore · Greater Grand Crossing</span>'
   );
   pJP.on('click',function(){showMapTip('jp');});
+
+  // Persistent district labels via DivIcon markers
+  function distLabel(latlng, html){
+    return L.marker(latlng,{
+      icon:L.divIcon({className:'',html:html,iconSize:[0,0]}),
+      interactive:false
+    });
+  }
+  distLabel([41.928,-87.700],
+    '<div style="font:700 11px/-apple-system,sans-serif;color:#085041;background:rgba(255,255,255,.88);padding:3px 7px;border-radius:5px;border:1.5px solid #1D9E75;white-space:nowrap;transform:translateX(-50%)">Block (606) District</div>'
+  ).addTo(leafletMap);
+  distLabel([41.775,-87.603],
+    '<div style="font:700 11px/-apple-system,sans-serif;color:#4A235A;background:rgba(255,255,255,.88);padding:3px 7px;border-radius:5px;border:1.5px solid #8B6BAF;white-space:nowrap;transform:translateX(-50%)">Jackson Park District</div>'
+  ).addTo(leafletMap);
+
+  // Custom attribution
+  L.control.attribution({prefix:false})
+    .addAttribution('Vector map · Chicago TOPA Tool')
+    .addTo(leafletMap);
 
   setTimeout(function(){leafletMap.invalidateSize();},100);
 }
