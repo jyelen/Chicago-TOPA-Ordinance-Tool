@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Chicago TOPA Tenant Rights Tool</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a1a;font-size:15px;line-height:1.6}
@@ -222,159 +223,9 @@ canvas{display:block;width:100%!important}
       <button class="btn-opt active" onclick="checkAddr()" style="height:33px;padding:0 14px;flex-shrink:0;font-size:12px"><span class="en">Check</span><span class="es" style="display:none">Verificar</span></button>
     </div>
     <div id="addr-result"></div>
-    <div id="topa-map" style="margin-top:.75rem;border-radius:8px;border:1px solid #e2e0d8;overflow:hidden;background:#eef3ee;position:relative">
-      <!-- Zoom controls -->
-      <div style="position:absolute;top:8px;right:8px;z-index:10;display:flex;flex-direction:column;gap:3px">
-        <button onclick="mapZoom(1.4)" style="width:26px;height:26px;border:1px solid #ccc;border-radius:5px;background:rgba(255,255,255,.92);font-size:15px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center">+</button>
-        <button onclick="mapZoom(1/1.4)" style="width:26px;height:26px;border:1px solid #ccc;border-radius:5px;background:rgba(255,255,255,.92);font-size:15px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center">−</button>
-        <button onclick="mapReset()" style="width:26px;height:26px;border:1px solid #ccc;border-radius:5px;background:rgba(255,255,255,.92);font-size:10px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center" title="Reset view">⤢</button>
-      </div>
-      <svg id="map-svg" viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg"
-           style="width:100%;display:block;font-family:-apple-system,sans-serif;cursor:grab"
-           onmousedown="mapDragStart(event)" onmousemove="mapDragMove(event)" onmouseup="mapDragEnd()" onmouseleave="mapDragEnd()"
-           ontouchstart="mapTouchStart(event)" ontouchmove="mapTouchMove(event)" ontouchend="mapDragEnd()">
-        <g id="map-g">
-          <!-- Background -->
-          <rect x="-1000" y="-1000" width="3000" height="3000" fill="#eef3ee"/>
-
-          <!-- Lake Michigan -->
-          <path d="M475,0 Q480,50 477,100 Q483,160 479,210 Q484,260 478,310 Q481,335 475,360 L600,360 L600,-10 Z" fill="#c5dcf0" opacity="0.85"/>
-
-          <!-- North Branch Chicago River -->
-          <path d="M187,23 Q190,40 185,60 Q183,80 188,100 Q192,120 180,140 Q170,155 165,170" stroke="#9fc5d8" stroke-width="2.5" fill="none" opacity="0.7"/>
-
-          <!-- City grid reference lines — drawn before districts so districts sit on top -->
-          <g stroke="#d0e4d0" stroke-width="0.5" opacity="0.9">
-            <line x1="-200" y1="22.5" x2="700" y2="22.5"/>
-            <line x1="-200" y1="62.5" x2="700" y2="62.5"/>
-            <line x1="-200" y1="87.8" x2="700" y2="87.8"/>
-            <line x1="-200" y1="99"   x2="700" y2="99"/>
-            <line x1="-200" y1="137"  x2="700" y2="137"  stroke-dasharray="3,3"/>
-            <line x1="-200" y1="193"  x2="700" y2="193"  stroke-dasharray="3,3"/>
-            <line x1="-200" y1="308"  x2="700" y2="308"/>
-            <line x1="-200" y1="340"  x2="700" y2="340"/>
-            <line x1="33"   y1="-200" x2="33"   y2="700"/>
-            <line x1="56.2" y1="-200" x2="56.2" y2="700"/>
-            <line x1="117.1" y1="-200" x2="117.1" y2="700"/>
-            <line x1="143.5" y1="-200" x2="143.5" y2="700"/>
-            <line x1="170"  y1="-200" x2="170"  y2="700"/>
-            <line x1="348"  y1="-200" x2="348"  y2="700"  stroke-dasharray="3,3"/>
-            <line x1="386.3" y1="280" x2="386.3" y2="700"/>
-          </g>
-
-          <!-- Street name labels — on white pill backgrounds so they're always readable -->
-          <!-- E-W streets (labels left of center) -->
-          <rect x="1" y="16" width="38" height="11" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="3" y="25" font-size="7" fill="#888">Addison</text>
-          <rect x="1" y="56" width="40" height="11" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="3" y="65" font-size="7" fill="#888">Fullerton</text>
-          <rect x="1" y="82" width="43" height="11" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="3" y="91" font-size="7" fill="#888">North Ave</text>
-          <rect x="1" y="93" width="35" height="11" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="3" y="102" font-size="7" fill="#888">Division</text>
-          <rect x="192" y="130" width="50" height="11" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="194" y="139" font-size="7" fill="#aaa">Chicago Ave</text>
-          <rect x="192" y="186" width="55" height="11" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="194" y="195" font-size="7" fill="#aaa">Roosevelt Rd</text>
-          <!-- 60th / 71st labels near Jackson Park district -->
-          <rect x="390" y="301" width="34" height="11" rx="2" fill="white" fill-opacity="0.85"/>
-          <text x="392" y="310" font-size="7" fill="#6B3FA0">60th St</text>
-          <rect x="390" y="333" width="34" height="11" rx="2" fill="white" fill-opacity="0.85"/>
-          <text x="392" y="342" font-size="7" fill="#6B3FA0">71st St</text>
-          <!-- N-S street labels — bottom of each line -->
-          <rect x="27" y="346" width="32" height="10" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="29" y="354" font-size="6.5" fill="#888">Kostner</text>
-          <rect x="50" y="352" width="28" height="10" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="52" y="360" font-size="6.5" fill="#888">Pulaski</text>
-          <rect x="111" y="346" width="28" height="10" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="113" y="354" font-size="6.5" fill="#888">Kedzie</text>
-          <rect x="137" y="352" width="38" height="10" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="139" y="360" font-size="6.5" fill="#888">California</text>
-          <rect x="164" y="346" width="32" height="10" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="166" y="354" font-size="6.5" fill="#888">Western</text>
-          <rect x="340" y="346" width="30" height="10" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="342" y="354" font-size="6.5" fill="#aaa">State St</text>
-          <rect x="381" y="285" width="28" height="10" rx="2" fill="white" fill-opacity="0.78"/>
-          <text x="383" y="293" font-size="6.5" fill="#888">MLK Dr</text>
-
-          <!-- ══ BLOCK (606) DISTRICT ══ -->
-          <polygon
-            points="187.2,22.5 56.2,22.5 56.2,62.5 33,62.5 33,93.2 117.1,93.2 117.1,87.8 143.5,87.8 143.5,99 170,99 170,22.5 187.2,22.5"
-            fill="#1D9E75" fill-opacity="0.22" stroke="#0F6E56" stroke-width="2"
-            style="cursor:pointer" onclick="showMapTip('606')"/>
-
-          <!-- 606 Trail marker — dashed line only, no overlapping text -->
-          <line x1="145" y1="85" x2="185" y2="85" stroke="#0F6E56" stroke-width="3" stroke-dasharray="6,3" opacity="0.7"/>
-          <rect x="110" y="78" width="33" height="9" rx="2" fill="white" fill-opacity="0.8"/>
-          <text x="112" y="86" font-size="6.5" fill="#0F6E56" font-weight="600">606 Trail</text>
-
-          <!-- 606 district label — centred in the widest open area of the polygon (upper portion) -->
-          <rect x="60" y="27" width="95" height="30" rx="4" fill="rgba(255,255,255,0.72)"/>
-          <text x="107" y="41" font-size="11" font-weight="700" fill="#085041" text-anchor="middle">Block (606)</text>
-          <text x="107" y="53" font-size="8.5" fill="#2D7055" text-anchor="middle">NW Side · tap for info</text>
-
-          <!-- ══ JACKSON PARK DISTRICT ══ -->
-          <polygon
-            points="386.3,308.2 469.5,308.2 469.5,340 416,340 371.4,323.1 386.3,308.2"
-            fill="#8B6BAF" fill-opacity="0.22" stroke="#6B3FA0" stroke-width="2"
-            style="cursor:pointer" onclick="showMapTip('jp')"/>
-
-          <!-- JP label — fits inside polygon, no POI clutter -->
-          <rect x="389" y="314" width="77" height="20" rx="3" fill="rgba(255,255,255,0.72)"/>
-          <text x="427" y="324" font-size="9" font-weight="700" fill="#4A235A" text-anchor="middle">Jackson Park</text>
-          <text x="427" y="333" font-size="7.5" fill="#6B3FA0" text-anchor="middle">South Side · tap for info</text>
-
-          <!-- Obama Presidential Center — small dot + pill label, carefully positioned -->
-          <circle cx="413" cy="323" r="3.5" fill="#6B3FA0" opacity="0.9"/>
-
-          <!-- Jackson Park green space indicator -->
-          <rect x="452" y="312" width="14" height="22" fill="#7ab87a" opacity="0.45" rx="2"/>
-
-          <!-- Loop reference -->
-          <rect x="332" y="130" width="32" height="16" fill="#d0cfc4" opacity="0.7" rx="3"/>
-          <text x="348" y="141" font-size="8" fill="#555" text-anchor="middle" font-weight="600">Loop</text>
-
-          <!-- Lake Michigan label — rotated, well inside the lake fill area -->
-          <text x="498" y="190" font-size="8.5" fill="#6a9fc0" text-anchor="middle" transform="rotate(90,498,190)" opacity="0.8">Lake Michigan</text>
-
-          <!-- Geocoded address marker (hidden until address lookup returns a result) -->
-          <g id="map-pin" style="display:none">
-            <circle id="map-pin-circle" cx="0" cy="0" r="7" fill="#D85A30" stroke="white" stroke-width="2" opacity="0.9"/>
-            <line id="map-pin-line" x1="0" y1="7" x2="0" y2="14" stroke="#D85A30" stroke-width="2"/>
-          </g>
-        </g>
-
-        <!-- North arrow — fixed position outside the pan group -->
-        <g transform="translate(494,25)">
-          <circle r="14" fill="white" fill-opacity="0.92" stroke="#ccc" stroke-width="1"/>
-          <path d="M0,-9 L3,3 L0,1 L-3,3 Z" fill="#333"/>
-          <text y="9" font-size="7" text-anchor="middle" fill="#666">S</text>
-          <text y="-11" font-size="7.5" text-anchor="middle" font-weight="700" fill="#222">N</text>
-        </g>
-
-        <!-- Legend — fixed bottom-left, clean pill boxes -->
-        <rect x="4" y="4" width="170" height="52" rx="5" fill="white" fill-opacity="0.93" stroke="#ddd" stroke-width="1"/>
-        <rect x="10" y="11" width="11" height="11" rx="2" fill="#1D9E75" fill-opacity="0.7" stroke="#0F6E56" stroke-width="1"/>
-        <text x="26" y="20" font-size="9" fill="#085041" font-weight="700">Block (606) District</text>
-        <text x="26" y="30" font-size="7.5" fill="#5a9070">NW Side · eff. Mar 1, 2025</text>
-        <rect x="10" y="35" width="11" height="11" rx="2" fill="#8B6BAF" fill-opacity="0.7" stroke="#6B3FA0" stroke-width="1"/>
-        <text x="26" y="44" font-size="9" fill="#4A235A" font-weight="700">Jackson Park District</text>
-        <text x="26" y="54" font-size="7.5" fill="#6B3FA0">South Side · eff. Apr 6, 2026</text>
-
-        <!-- "You are here" legend entry — hidden until address found -->
-        <g id="map-legend-pin" style="display:none">
-          <circle cx="15" cy="66" r="4.5" fill="#D85A30" stroke="white" stroke-width="1.5"/>
-          <text x="26" y="70" font-size="8.5" fill="#D85A30" font-weight="600" id="map-legend-pin-label">Your address</text>
-        </g>
-      </svg>
-
-      <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin:0 10px 10px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
-      <p style="font-size:10px;color:#888;padding:4px 10px 8px;margin:0">
-        <span class="en">Boundaries from ordinance descriptions. Drag or pinch to pan/zoom. Tap districts for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span>
-        <span class="es" style="display:none">Límites según ordenanzas. Arrastra para explorar. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span>
-      </p>
-    </div>
-    <p class="text-xs mt-1"><span class="en">Map shows approximate pilot area boundaries based on ordinance descriptions. Official boundaries govern.</span><span class="es" style="display:none">El mapa muestra límites aproximados. Los límites oficiales prevalecen.</span></p>
+    <div id="topa-map" style="margin-top:.75rem;border-radius:8px;border:1px solid #e2e0d8;overflow:hidden;height:320px"></div>
+    <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin-top:6px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
+    <p class="text-xs mt-1"><span class="en">OpenStreetMap basemap. Boundaries based on ordinance descriptions — tap districts for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa base OpenStreetMap. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
   </div></div>
 
   <!-- PROGRAM SELECTOR FOR RIGHTS -->
@@ -810,6 +661,7 @@ canvas{display:block;width:100%!important}
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.0.1/chartjs-plugin-annotation.min.js"></script>
 <script>
@@ -993,6 +845,7 @@ function goPage(id,btn){
   if(id==='coop'){calcC();renderResaleInputs();}
   if(id==='compare')renderCompare();
   if(id==='neighborhood'){var ac=document.querySelector('.nbhd-card.active');if(ac)ac.click();}
+  if(id==='home'){initLeafletMap();if(leafletMap)leafletMap.invalidateSize();}
 }
 
 // ═══════════════════════════════════════════════
@@ -1019,81 +872,59 @@ function setProg2(p,btn){
 }
 
 // ═══════════════════════════════════════════════
-// MAP PAN / ZOOM
+// LEAFLET MAP
 // ═══════════════════════════════════════════════
-var mapScale=1, mapTx=0, mapTy=0;
-var mapDragging=false, mapDragX=0, mapDragY=0, mapDragTx=0, mapDragTy=0;
-function mapApply(){
-  var g=document.getElementById('map-g');
-  if(g)g.setAttribute('transform','translate('+mapTx+','+mapTy+') scale('+mapScale+')');
+var leafletMap=null, addressMarker=null;
+
+// Boundary polygons as LatLng arrays for Leaflet [lat,lng]
+var LBOUND_606=[
+  [41.9472,-87.6820],[41.9472,-87.7261],[41.9244,-87.7261],[41.9244,-87.7339],
+  [41.9069,-87.7339],[41.9069,-87.7056],[41.9100,-87.7056],[41.9100,-87.6967],
+  [41.9036,-87.6967],[41.9036,-87.6878],[41.9472,-87.6878],[41.9472,-87.6820]
+];
+var LBOUND_JP=[
+  [41.7845,-87.6150],[41.7845,-87.5870],[41.7664,-87.5870],
+  [41.7710,-87.6050],[41.7760,-87.6200],[41.7845,-87.6150]
+];
+
+function initLeafletMap(){
+  var el=document.getElementById('topa-map');
+  if(!el||leafletMap)return;
+  // Centre on Chicago, zoom 11 shows both districts
+  leafletMap=L.map('topa-map',{zoomControl:true,scrollWheelZoom:false})
+    .setView([41.860,-87.670],11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom:18
+  }).addTo(leafletMap);
+
+  // Block (606) district polygon
+  var p606=L.polygon(LBOUND_606,{
+    color:'#0F6E56',weight:2.5,fillColor:'#1D9E75',fillOpacity:0.22
+  }).addTo(leafletMap);
+  p606.bindPopup('<strong style="color:#085041">Block (606) District</strong><br>NW Side &mdash; eff. March 1, 2025<br><span style="font-size:11px">Addison (N) &middot; N Branch River + Western (E) &middot; Division, California, North Ave (SE) &middot; Kedzie, Hirsch, Kostner (SW) &middot; Fullerton, Pulaski (W)<br>Neighborhoods: Logan Square &middot; Avondale &middot; Humboldt Park &middot; Hermosa &middot; Lower West Side &middot; West Town</span>');
+  p606.on('click',function(){showMapTip('606');});
+
+  // Jackson Park district polygon
+  var pJP=L.polygon(LBOUND_JP,{
+    color:'#6B3FA0',weight:2.5,fillColor:'#8B6BAF',fillOpacity:0.22
+  }).addTo(leafletMap);
+  pJP.bindPopup('<strong style="color:#4A235A">Jackson Park District</strong><br>South Side &mdash; eff. April 6, 2026<br><span style="font-size:11px">60th St (N) &middot; DuSable Lake Shore Dr (E) &middot; 71st St (S) &middot; South Chicago Ave (SW) &middot; MLK Dr (W)<br>Neighborhoods: Woodlawn &middot; South Shore &middot; Greater Grand Crossing</span>');
+  pJP.on('click',function(){showMapTip('jp');});
 }
-function mapZoom(factor){
-  var svg=document.getElementById('map-svg');
-  if(!svg)return;
-  var bb=svg.getBoundingClientRect();
-  var cx=(260-mapTx)/mapScale, cy=(180-mapTy)/mapScale;
-  mapScale=Math.min(8,Math.max(0.5,mapScale*factor));
-  mapTx=260-cx*mapScale; mapTy=180-cy*mapScale;
-  mapApply();
-}
-function mapReset(){mapScale=1;mapTx=0;mapTy=0;mapApply();}
-function mapDragStart(e){
-  if(e.button!==0)return;
-  mapDragging=true;mapDragX=e.clientX;mapDragY=e.clientY;
-  mapDragTx=mapTx;mapDragTy=mapTy;
-  var svg=document.getElementById('map-svg');if(svg)svg.style.cursor='grabbing';
-}
-function mapDragMove(e){
-  if(!mapDragging)return;
-  mapTx=mapDragTx+(e.clientX-mapDragX);
-  mapTy=mapDragTy+(e.clientY-mapDragY);
-  mapApply();
-}
-function mapDragEnd(){
-  mapDragging=false;
-  var svg=document.getElementById('map-svg');if(svg)svg.style.cursor='grab';
-}
-var mapPinch0=null;
-function mapTouchStart(e){
-  if(e.touches.length===1){mapDragStart({button:0,clientX:e.touches[0].clientX,clientY:e.touches[0].clientY});}
-  else if(e.touches.length===2){
-    mapPinch0=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-  }
-}
-function mapTouchMove(e){
-  e.preventDefault();
-  if(e.touches.length===1){mapDragMove({clientX:e.touches[0].clientX,clientY:e.touches[0].clientY});}
-  else if(e.touches.length===2&&mapPinch0){
-    var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-    mapZoom(d/mapPinch0);mapPinch0=d;
-  }
-}
-// Convert lat/lng to SVG coordinates
-function latLngToSVG(lat,lng){
-  var LAT_MIN=41.755,LAT_MAX=41.960,LNG_MIN=-87.745,LNG_MAX=-87.570;
-  var x=(lng-LNG_MIN)/(LNG_MAX-LNG_MIN)*520;
-  var y=360-(lat-LAT_MIN)/(LAT_MAX-LAT_MIN)*360;
-  return {x:x,y:y};
-}
+
 function mapShowPin(lat,lng,label){
-  var pt=latLngToSVG(lat,lng);
-  var pin=document.getElementById('map-pin');
-  var circ=document.getElementById('map-pin-circle');
-  var line=document.getElementById('map-pin-line');
-  var legPin=document.getElementById('map-legend-pin');
-  var legLabel=document.getElementById('map-legend-pin-label');
-  if(!pin)return;
-  circ.setAttribute('cx',pt.x);circ.setAttribute('cy',pt.y);
-  line.setAttribute('x1',pt.x);line.setAttribute('y1',pt.y+7);
-  line.setAttribute('x2',pt.x);line.setAttribute('y2',pt.y+14);
-  pin.style.display='';
-  if(legPin){legPin.style.display='';}
-  if(legLabel&&label){legLabel.textContent=label.split(',')[0];}
-  // Zoom to center on the pin
-  mapScale=3.5;
-  mapTx=260-pt.x*mapScale;
-  mapTy=180-pt.y*mapScale;
-  mapApply();
+  if(!leafletMap)return;
+  if(addressMarker){addressMarker.remove();}
+  // Small circle marker — unobtrusive but clearly visible
+  addressMarker=L.circleMarker([lat,lng],{
+    radius:6, color:'#D85A30', weight:2,
+    fillColor:'#D85A30', fillOpacity:0.85
+  }).addTo(leafletMap);
+  var short=label.split(',').slice(0,2).join(',');
+  addressMarker.bindPopup('<strong>'+short+'</strong>').openPopup();
+  // Zoom to show the pin with enough context to see both districts
+  leafletMap.setView([lat,lng],13);
 }
 
 // ═══════════════════════════════════════════════
@@ -1111,7 +942,9 @@ function showMapTip(prog){
 }
 
 // ═══════════════════════════════════════════════
-// RIGHTS RENDERER(v,b){cUnits=v;document.querySelectorAll('#unit-group .btn-opt').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderRights();}
+// RIGHTS RENDERER
+// ═══════════════════════════════════════════════
+function setUnits(v,b){cUnits=v;document.querySelectorAll('#unit-group .btn-opt').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderRights();}
 function setSit(v,b){cSit=v;document.querySelectorAll('#sit-group .btn-opt').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderRights();}
 function setUnits2(v,b){cUnits2=v;document.querySelectorAll('#unit-group2 .btn-opt').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderRights2();}
 function setSit2(v,b){cSit2=v;document.querySelectorAll('#sit-group2 .btn-opt').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderRights2();}
@@ -1627,6 +1460,7 @@ window.addEventListener('load',function(){
   calcF();
   calcC();
   selNbhd('logan',document.querySelector('.nbhd-card.active'));
+  initLeafletMap();
   renderCompare();
 });
 </script>
