@@ -211,7 +211,7 @@ canvas{display:block;width:100%!important}
       <span class="hero-pill">🏘 Block (606) District <span class="en">— NW Side, eff. Mar 1 2025</span><span class="es" style="display:none">— Lado NW, vigente 1 mar 2025</span></span>
       <span class="hero-pill">🌳 Jackson Park District <span class="en">— South Side, eff. Apr 6 2026</span><span class="es" style="display:none">— Lado Sur, vigente 6 abr 2026</span></span>
     </div>
-    <div class="hero-updated"><span class="en">Updated April 15, 2026</span><span class="es" style="display:none">Actualizado: 15 de abril de 2026</span></div>
+    <div class="hero-updated"><span class="en">Updated April 15, 2026 &nbsp;·&nbsp; Created by <strong>James Yelen</strong> &nbsp;·&nbsp; Working draft — intended for public education and tenant support. Not legal or financial advice.</span><span class="es" style="display:none">Actualizado: 15 de abril de 2026 &nbsp;·&nbsp; Creado por <strong>James Yelen</strong> &nbsp;·&nbsp; Borrador de trabajo — para educación pública y apoyo a inquilinos. No es asesoramiento legal ni financiero.</span></div>
   </div>
 
   <!-- ADDRESS LOOKUP -->
@@ -222,139 +222,157 @@ canvas{display:block;width:100%!important}
       <button class="btn-opt active" onclick="checkAddr()" style="height:33px;padding:0 14px;flex-shrink:0;font-size:12px"><span class="en">Check</span><span class="es" style="display:none">Verificar</span></button>
     </div>
     <div id="addr-result"></div>
-    <div id="topa-map" style="margin-top:.75rem;border-radius:8px;border:1px solid #e2e0d8;overflow:hidden;background:#eef3ee">
-      <!--
-        Coordinate system: viewBox 0 0 520 360
-        Lat range: 41.755 (S) to 41.960 (N) = 0.205 degrees
-        Lng range: -87.745 (W) to -87.570 (E) = 0.175 degrees
-        toX(lng) = (lng - (-87.745)) / 0.175 * 520
-        toY(lat) = 360 - (lat - 41.755) / 0.205 * 360
+    <div id="topa-map" style="margin-top:.75rem;border-radius:8px;border:1px solid #e2e0d8;overflow:hidden;background:#eef3ee;position:relative">
+      <!-- Zoom controls -->
+      <div style="position:absolute;top:8px;right:8px;z-index:10;display:flex;flex-direction:column;gap:3px">
+        <button onclick="mapZoom(1.4)" style="width:26px;height:26px;border:1px solid #ccc;border-radius:5px;background:rgba(255,255,255,.92);font-size:15px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center">+</button>
+        <button onclick="mapZoom(1/1.4)" style="width:26px;height:26px;border:1px solid #ccc;border-radius:5px;background:rgba(255,255,255,.92);font-size:15px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center">−</button>
+        <button onclick="mapReset()" style="width:26px;height:26px;border:1px solid #ccc;border-radius:5px;background:rgba(255,255,255,.92);font-size:10px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center" title="Reset view">⤢</button>
+      </div>
+      <svg id="map-svg" viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg"
+           style="width:100%;display:block;font-family:-apple-system,sans-serif;cursor:grab"
+           onmousedown="mapDragStart(event)" onmousemove="mapDragMove(event)" onmouseup="mapDragEnd()" onmouseleave="mapDragEnd()"
+           ontouchstart="mapTouchStart(event)" ontouchmove="mapTouchMove(event)" ontouchend="mapDragEnd()">
+        <g id="map-g">
+          <!-- Background -->
+          <rect x="-1000" y="-1000" width="3000" height="3000" fill="#eef3ee"/>
 
-        Key street coordinates (lat/lng → SVG x,y):
-        Addison (3600N)   = 41.9472 → y=22.5
-        Fullerton (2400N) = 41.9244 → y=62.5
-        Hirsch (~1350N)   = 41.9069 → y=93.2
-        North Ave (1600N) = 41.9100 → y=87.8
-        Division (1200N)  = 41.9036 → y=99.0
-        Western (2400W)   = -87.6878 → x=170.0
-        California (2800W)= -87.6967 → x=143.5
-        Kedzie (3200W)    = -87.7056 → x=117.1
-        Pulaski (4000W)   = -87.7261 → x=56.2
-        Kostner (4400W)   = -87.7339 → x=33.0
-        N Branch River    ≈ -87.6820 → x=187.2
-        60th St (S side)  = 41.7845 → y=308.2
-        71st St           = 41.7664 → y=340.0
-        MLK Dr            = -87.6150 → x=386.3
-        Lake Shore Dr     = -87.5870 → x=469.5
-      -->
-      <svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;font-family:-apple-system,sans-serif">
-        <!-- Background -->
-        <rect width="520" height="360" fill="#eef3ee"/>
+          <!-- Lake Michigan -->
+          <path d="M475,0 Q480,50 477,100 Q483,160 479,210 Q484,260 478,310 Q481,335 475,360 L600,360 L600,-10 Z" fill="#c5dcf0" opacity="0.85"/>
 
-        <!-- Lake Michigan -->
-        <path d="M475,0 Q480,50 477,100 Q483,160 479,210 Q484,260 478,310 Q481,335 475,360 L520,360 L520,0 Z" fill="#c5dcf0" opacity="0.85"/>
-        <text x="500" y="180" font-size="9" fill="#4a7fab" text-anchor="middle" transform="rotate(90,500,180)">Lake Michigan</text>
+          <!-- North Branch Chicago River -->
+          <path d="M187,23 Q190,40 185,60 Q183,80 188,100 Q192,120 180,140 Q170,155 165,170" stroke="#9fc5d8" stroke-width="2.5" fill="none" opacity="0.7"/>
 
-        <!-- North Branch Chicago River (approximate path near east edge of 606) -->
-        <path d="M187,23 Q190,40 185,60 Q183,80 188,100 Q192,120 180,140 Q170,155 165,170" stroke="#9fc5d8" stroke-width="3" fill="none" opacity="0.7"/>
+          <!-- City grid reference lines — drawn before districts so districts sit on top -->
+          <g stroke="#d0e4d0" stroke-width="0.5" opacity="0.9">
+            <line x1="-200" y1="22.5" x2="700" y2="22.5"/>
+            <line x1="-200" y1="62.5" x2="700" y2="62.5"/>
+            <line x1="-200" y1="87.8" x2="700" y2="87.8"/>
+            <line x1="-200" y1="99"   x2="700" y2="99"/>
+            <line x1="-200" y1="137"  x2="700" y2="137"  stroke-dasharray="3,3"/>
+            <line x1="-200" y1="193"  x2="700" y2="193"  stroke-dasharray="3,3"/>
+            <line x1="-200" y1="308"  x2="700" y2="308"/>
+            <line x1="-200" y1="340"  x2="700" y2="340"/>
+            <line x1="33"   y1="-200" x2="33"   y2="700"/>
+            <line x1="56.2" y1="-200" x2="56.2" y2="700"/>
+            <line x1="117.1" y1="-200" x2="117.1" y2="700"/>
+            <line x1="143.5" y1="-200" x2="143.5" y2="700"/>
+            <line x1="170"  y1="-200" x2="170"  y2="700"/>
+            <line x1="348"  y1="-200" x2="348"  y2="700"  stroke-dasharray="3,3"/>
+            <line x1="386.3" y1="280" x2="386.3" y2="700"/>
+          </g>
 
-        <!-- Subtle city grid reference lines -->
-        <g stroke="#d8e8d8" stroke-width="0.4" opacity="0.9">
-          <!-- E-W: Addison=y22.5, Fullerton=y62.5, Armitage=y82, North=y87.8, Division=y99, Chicago=y137, Roosevelt=y193 -->
-          <line x1="0" y1="22.5" x2="480" y2="22.5"/><text x="2" y="21" font-size="7" fill="#aaa">Addison</text>
-          <line x1="0" y1="62.5" x2="480" y2="62.5"/><text x="2" y="61" font-size="7" fill="#aaa">Fullerton</text>
-          <line x1="0" y1="87.8" x2="480" y2="87.8"/><text x="2" y="86" font-size="7" fill="#aaa">North Ave</text>
-          <line x1="0" y1="99" x2="480" y2="99"/><text x="2" y="97.5" font-size="7" fill="#aaa">Division</text>
-          <line x1="0" y1="137" x2="480" y2="137" stroke-dasharray="3,3"/><text x="2" y="135.5" font-size="7" fill="#aaa">Chicago Ave</text>
-          <line x1="0" y1="193" x2="480" y2="193" stroke-dasharray="3,3"/><text x="2" y="191.5" font-size="7" fill="#aaa">Roosevelt Rd</text>
-          <line x1="0" y1="308" x2="480" y2="308"/><text x="390" y="306.5" font-size="7" fill="#aaa">60th St</text>
-          <line x1="0" y1="340" x2="480" y2="340"/><text x="390" y="338.5" font-size="7" fill="#aaa">71st St</text>
-          <!-- N-S: Kostner=x33, Pulaski=x56.2, Kedzie=x117.1, California=x143.5, Western=x170, N Branch=x187.2, State=x348, Lake Shore=x469.5 -->
-          <line x1="33" y1="0" x2="33" y2="360"/><text x="34" y="356" font-size="7" fill="#aaa">Kostner</text>
-          <line x1="56.2" y1="0" x2="56.2" y2="360"/><text x="57" y="350" font-size="7" fill="#aaa">Pulaski</text>
-          <line x1="117.1" y1="0" x2="117.1" y2="360"/><text x="118" y="356" font-size="7" fill="#aaa">Kedzie</text>
-          <line x1="143.5" y1="0" x2="143.5" y2="360"/><text x="144" y="350" font-size="7" fill="#aaa">California</text>
-          <line x1="170" y1="0" x2="170" y2="360"/><text x="171" y="356" font-size="7" fill="#aaa">Western</text>
-          <line x1="348" y1="0" x2="348" y2="360" stroke-dasharray="3,3"/><text x="349" y="350" font-size="7" fill="#aaa">State St</text>
-          <line x1="386.3" y1="290" x2="386.3" y2="360"/><text x="387" y="356" font-size="7" fill="#aaa">MLK Dr</text>
+          <!-- Street name labels — on white pill backgrounds so they're always readable -->
+          <!-- E-W streets (labels left of center) -->
+          <rect x="1" y="16" width="38" height="11" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="3" y="25" font-size="7" fill="#888">Addison</text>
+          <rect x="1" y="56" width="40" height="11" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="3" y="65" font-size="7" fill="#888">Fullerton</text>
+          <rect x="1" y="82" width="43" height="11" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="3" y="91" font-size="7" fill="#888">North Ave</text>
+          <rect x="1" y="93" width="35" height="11" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="3" y="102" font-size="7" fill="#888">Division</text>
+          <rect x="192" y="130" width="50" height="11" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="194" y="139" font-size="7" fill="#aaa">Chicago Ave</text>
+          <rect x="192" y="186" width="55" height="11" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="194" y="195" font-size="7" fill="#aaa">Roosevelt Rd</text>
+          <!-- 60th / 71st labels near Jackson Park district -->
+          <rect x="390" y="301" width="34" height="11" rx="2" fill="white" fill-opacity="0.85"/>
+          <text x="392" y="310" font-size="7" fill="#6B3FA0">60th St</text>
+          <rect x="390" y="333" width="34" height="11" rx="2" fill="white" fill-opacity="0.85"/>
+          <text x="392" y="342" font-size="7" fill="#6B3FA0">71st St</text>
+          <!-- N-S street labels — bottom of each line -->
+          <rect x="27" y="346" width="32" height="10" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="29" y="354" font-size="6.5" fill="#888">Kostner</text>
+          <rect x="50" y="352" width="28" height="10" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="52" y="360" font-size="6.5" fill="#888">Pulaski</text>
+          <rect x="111" y="346" width="28" height="10" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="113" y="354" font-size="6.5" fill="#888">Kedzie</text>
+          <rect x="137" y="352" width="38" height="10" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="139" y="360" font-size="6.5" fill="#888">California</text>
+          <rect x="164" y="346" width="32" height="10" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="166" y="354" font-size="6.5" fill="#888">Western</text>
+          <rect x="340" y="346" width="30" height="10" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="342" y="354" font-size="6.5" fill="#aaa">State St</text>
+          <rect x="381" y="285" width="28" height="10" rx="2" fill="white" fill-opacity="0.78"/>
+          <text x="383" y="293" font-size="6.5" fill="#888">MLK Dr</text>
+
+          <!-- ══ BLOCK (606) DISTRICT ══ -->
+          <polygon
+            points="187.2,22.5 56.2,22.5 56.2,62.5 33,62.5 33,93.2 117.1,93.2 117.1,87.8 143.5,87.8 143.5,99 170,99 170,22.5 187.2,22.5"
+            fill="#1D9E75" fill-opacity="0.22" stroke="#0F6E56" stroke-width="2"
+            style="cursor:pointer" onclick="showMapTip('606')"/>
+
+          <!-- 606 Trail marker — dashed line only, no overlapping text -->
+          <line x1="145" y1="85" x2="185" y2="85" stroke="#0F6E56" stroke-width="3" stroke-dasharray="6,3" opacity="0.7"/>
+          <rect x="110" y="78" width="33" height="9" rx="2" fill="white" fill-opacity="0.8"/>
+          <text x="112" y="86" font-size="6.5" fill="#0F6E56" font-weight="600">606 Trail</text>
+
+          <!-- 606 district label — centred in the widest open area of the polygon (upper portion) -->
+          <rect x="60" y="27" width="95" height="30" rx="4" fill="rgba(255,255,255,0.72)"/>
+          <text x="107" y="41" font-size="11" font-weight="700" fill="#085041" text-anchor="middle">Block (606)</text>
+          <text x="107" y="53" font-size="8.5" fill="#2D7055" text-anchor="middle">NW Side · tap for info</text>
+
+          <!-- ══ JACKSON PARK DISTRICT ══ -->
+          <polygon
+            points="386.3,308.2 469.5,308.2 469.5,340 416,340 371.4,323.1 386.3,308.2"
+            fill="#8B6BAF" fill-opacity="0.22" stroke="#6B3FA0" stroke-width="2"
+            style="cursor:pointer" onclick="showMapTip('jp')"/>
+
+          <!-- JP label — fits inside polygon, no POI clutter -->
+          <rect x="389" y="314" width="77" height="20" rx="3" fill="rgba(255,255,255,0.72)"/>
+          <text x="427" y="324" font-size="9" font-weight="700" fill="#4A235A" text-anchor="middle">Jackson Park</text>
+          <text x="427" y="333" font-size="7.5" fill="#6B3FA0" text-anchor="middle">South Side · tap for info</text>
+
+          <!-- Obama Presidential Center — small dot + pill label, carefully positioned -->
+          <circle cx="413" cy="323" r="3.5" fill="#6B3FA0" opacity="0.9"/>
+
+          <!-- Jackson Park green space indicator -->
+          <rect x="452" y="312" width="14" height="22" fill="#7ab87a" opacity="0.45" rx="2"/>
+
+          <!-- Loop reference -->
+          <rect x="332" y="130" width="32" height="16" fill="#d0cfc4" opacity="0.7" rx="3"/>
+          <text x="348" y="141" font-size="8" fill="#555" text-anchor="middle" font-weight="600">Loop</text>
+
+          <!-- Lake Michigan label — rotated, well inside the lake fill area -->
+          <text x="498" y="190" font-size="8.5" fill="#6a9fc0" text-anchor="middle" transform="rotate(90,498,190)" opacity="0.8">Lake Michigan</text>
+
+          <!-- Geocoded address marker (hidden until address lookup returns a result) -->
+          <g id="map-pin" style="display:none">
+            <circle id="map-pin-circle" cx="0" cy="0" r="7" fill="#D85A30" stroke="white" stroke-width="2" opacity="0.9"/>
+            <line id="map-pin-line" x1="0" y1="7" x2="0" y2="14" stroke="#D85A30" stroke-width="2"/>
+          </g>
         </g>
 
-        <!-- ══ BLOCK (606) DISTRICT — street-accurate boundary ══
-             Based on: Addison (N), N Branch River (E), Western (E→SE),
-             Division (S-portion), California (S-portion), North Ave,
-             Kedzie, Hirsch, Kostner (SW), Fullerton, Pulaski (W)
-        -->
-        <polygon
-          points="187.2,22.5 56.2,22.5 56.2,62.5 33,62.5 33,93.2 117.1,93.2 117.1,87.8 143.5,87.8 143.5,99 170,99 170,22.5 187.2,22.5"
-          fill="#1D9E75" fill-opacity="0.25" stroke="#0F6E56" stroke-width="2.5"
-          style="cursor:pointer"
-          onclick="showMapTip('606')"/>
-
-        <!-- 606 Bloomingdale Trail marker (runs E-W at approx 41.912, y≈86) -->
-        <line x1="145" y1="87" x2="187" y2="87" stroke="#0F6E56" stroke-width="3.5" stroke-dasharray="7,3" opacity="0.8"/>
-        <text x="175" y="82" font-size="8.5" fill="#085041" font-weight="700" text-anchor="end">The 606 Trail</text>
-
-        <!-- 606 label (centroid approx x=105, y=55) -->
-        <text x="100" y="48" font-size="11.5" font-weight="700" fill="#085041" text-anchor="middle">Block (606)</text>
-        <text x="100" y="61" font-size="9.5" fill="#2D7055" text-anchor="middle">District</text>
-        <text x="100" y="73" font-size="8" fill="#3B8060" text-anchor="middle">NW Side · click for info</text>
-
-        <!-- Boundary street labels for 606 -->
-        <text x="120" y="19" font-size="7.5" fill="#0F6E56" text-anchor="middle" font-style="italic">Addison St (N)</text>
-        <text x="44" y="58" font-size="7" fill="#0F6E56" text-anchor="middle" transform="rotate(-90,44,58)">Pulaski (W)</text>
-        <text x="176" y="65" font-size="7" fill="#0F6E56" text-anchor="middle" transform="rotate(90,176,65)">Western (E)</text>
-
-        <!-- ══ JACKSON PARK DISTRICT — street-accurate boundary ══
-             N: 60th St (y=308.2), E: DuSable Lake Shore Dr (x=469.5),
-             S: 71st St (y=340), SW: South Chicago Ave (diagonal),
-             W: MLK Jr Dr (x=386.3)
-        -->
-        <polygon
-          points="386.3,308.2 469.5,308.2 469.5,340 416,340 371.4,323.1 386.3,308.2"
-          fill="#8B6BAF" fill-opacity="0.25" stroke="#6B3FA0" stroke-width="2.5"
-          style="cursor:pointer"
-          onclick="showMapTip('jp')"/>
-
-        <!-- Obama Presidential Center marker -->
-        <circle cx="413" cy="318" r="5" fill="#6B3FA0" opacity="0.85"/>
-        <text x="413" y="311" font-size="7.5" fill="#4A235A" text-anchor="middle" font-weight="600">Obama</text>
-        <text x="413" y="320.5" font-size="7" fill="#4A235A" text-anchor="middle">Presidential Ctr</text>
-
-        <!-- Jackson Park green space -->
-        <rect x="450" y="310" width="17" height="27" fill="#90c490" opacity="0.5" rx="2"/>
-        <text x="458" y="322" font-size="6.5" fill="#3a6a3a" text-anchor="middle">Jackson</text>
-        <text x="458" y="330" font-size="6.5" fill="#3a6a3a" text-anchor="middle">Park</text>
-
-        <!-- JP boundary labels -->
-        <text x="428" y="305" font-size="7.5" fill="#6B3FA0" text-anchor="middle" font-style="italic">60th St (N)</text>
-        <text x="428" y="345" font-size="7.5" fill="#6B3FA0" text-anchor="middle" font-style="italic">71st St (S)</text>
-        <!-- JP label -->
-        <text x="418" y="328" font-size="9" font-weight="700" fill="#4A235A" text-anchor="middle">Jackson Park</text>
-        <text x="418" y="338" font-size="7.5" fill="#6B3FA0" text-anchor="middle">District · click for info</text>
-
-        <!-- Loop / Downtown reference -->
-        <rect x="334" y="130" width="28" height="22" fill="#c8c8b8" opacity="0.6" rx="3"/>
-        <text x="348" y="144" font-size="8.5" fill="#555" text-anchor="middle" font-weight="600">Loop</text>
-
-        <!-- North arrow -->
+        <!-- North arrow — fixed position outside the pan group -->
         <g transform="translate(494,25)">
-          <circle r="16" fill="white" fill-opacity="0.9" stroke="#bbb" stroke-width="1"/>
-          <path d="M0,-11 L3.5,3 L0,1 L-3.5,3 Z" fill="#222"/>
-          <text y="10" font-size="7.5" text-anchor="middle" fill="#555">S</text>
-          <text y="-13" font-size="8" text-anchor="middle" font-weight="700" fill="#222">N</text>
+          <circle r="14" fill="white" fill-opacity="0.92" stroke="#ccc" stroke-width="1"/>
+          <path d="M0,-9 L3,3 L0,1 L-3,3 Z" fill="#333"/>
+          <text y="9" font-size="7" text-anchor="middle" fill="#666">S</text>
+          <text y="-11" font-size="7.5" text-anchor="middle" font-weight="700" fill="#222">N</text>
         </g>
 
-        <!-- Legend -->
-        <rect x="4" y="266" width="178" height="54" rx="5" fill="white" fill-opacity="0.92" stroke="#ccc" stroke-width="1"/>
-        <rect x="10" y="274" width="12" height="12" rx="2" fill="#1D9E75" fill-opacity="0.7" stroke="#0F6E56" stroke-width="1"/>
-        <text x="27" y="284" font-size="9.5" fill="#085041" font-weight="700">Block (606) District</text>
-        <text x="27" y="294" font-size="8" fill="#5a9070">NW Side · eff. March 1, 2025</text>
-        <rect x="10" y="301" width="12" height="12" rx="2" fill="#8B6BAF" fill-opacity="0.7" stroke="#6B3FA0" stroke-width="1"/>
-        <text x="27" y="311" font-size="9.5" fill="#4A235A" font-weight="700">Jackson Park District</text>
-        <text x="27" y="321" font-size="8" fill="#6B3FA0">South Side · eff. April 6, 2026</text>
+        <!-- Legend — fixed bottom-left, clean pill boxes -->
+        <rect x="4" y="4" width="170" height="52" rx="5" fill="white" fill-opacity="0.93" stroke="#ddd" stroke-width="1"/>
+        <rect x="10" y="11" width="11" height="11" rx="2" fill="#1D9E75" fill-opacity="0.7" stroke="#0F6E56" stroke-width="1"/>
+        <text x="26" y="20" font-size="9" fill="#085041" font-weight="700">Block (606) District</text>
+        <text x="26" y="30" font-size="7.5" fill="#5a9070">NW Side · eff. Mar 1, 2025</text>
+        <rect x="10" y="35" width="11" height="11" rx="2" fill="#8B6BAF" fill-opacity="0.7" stroke="#6B3FA0" stroke-width="1"/>
+        <text x="26" y="44" font-size="9" fill="#4A235A" font-weight="700">Jackson Park District</text>
+        <text x="26" y="54" font-size="7.5" fill="#6B3FA0">South Side · eff. Apr 6, 2026</text>
+
+        <!-- "You are here" legend entry — hidden until address found -->
+        <g id="map-legend-pin" style="display:none">
+          <circle cx="15" cy="66" r="4.5" fill="#D85A30" stroke="white" stroke-width="1.5"/>
+          <text x="26" y="70" font-size="8.5" fill="#D85A30" font-weight="600" id="map-legend-pin-label">Your address</text>
+        </g>
       </svg>
+
       <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin:0 10px 10px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
-      <p style="font-size:10px;color:#888;padding:4px 10px 8px;margin:0"><span class="en">Boundaries based on ordinance street descriptions. The 606 boundary follows: Addison St (N), North Branch Chicago River + Western Ave (E), Division St, California Ave, North Ave, Kedzie Ave, Hirsch St, Kostner Ave (SW), Fullerton Ave, Pulaski Rd (W). Jackson Park: 60th St (N), DuSable Lake Shore Dr (E), 71st St (S), South Chicago Ave (SW), MLK Dr (W). For the definitive legal boundary, see: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Límites basados en las calles de las ordenanzas. Para el límite legal definitivo, ver: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
+      <p style="font-size:10px;color:#888;padding:4px 10px 8px;margin:0">
+        <span class="en">Boundaries from ordinance descriptions. Drag or pinch to pan/zoom. Tap districts for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span>
+        <span class="es" style="display:none">Límites según ordenanzas. Arrastra para explorar. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span>
+      </p>
     </div>
     <p class="text-xs mt-1"><span class="en">Map shows approximate pilot area boundaries based on ordinance descriptions. Official boundaries govern.</span><span class="es" style="display:none">El mapa muestra límites aproximados. Los límites oficiales prevalecen.</span></p>
   </div></div>
@@ -775,6 +793,11 @@ canvas{display:block;width:100%!important}
     </ol>
     <p class="text-sm mt-1"><span class="en">The remaining gap (total project cost − mortgage − share equity) represents the subsidy, grants, or soft equity that must be raised from public or philanthropic sources.</span><span class="es" style="display:none">La brecha restante (costo total − hipoteca − capital de acciones) representa el subsidio o capital blando que debe obtenerse de fuentes públicas o filantrópicas.</span></p>
   </div></div>
+  <div class="card"><div class="card-header"><h3><span class="en">Acknowledgments</span><span class="es" style="display:none">Reconocimientos</span></h3></div><div class="card-body">
+    <p class="text-sm" style="margin-bottom:8px"><span class="en">This tool was created by <strong>James Yelen</strong> as a working draft for public education and tenant support in Chicago's TOPA pilot areas. It is not legal or financial advice.</span><span class="es" style="display:none">Esta herramienta fue creada por <strong>James Yelen</strong> como borrador de trabajo para educación pública y apoyo a inquilinos en las áreas piloto TOPA de Chicago. No es asesoramiento legal ni financiero.</span></p>
+    <p class="text-sm"><span class="en">The co-op financial modeling in this tool draws substantially on the <strong>UHAB (Urban Homesteading Assistance Board) Co-op Development Pro Forma</strong> and UHAB's online resources and technical assistance frameworks. UHAB is the leading national organization supporting the creation and preservation of limited-equity housing cooperatives, with decades of experience in New York City and nationally. Their pro forma provides the methodological foundation for the operating budget structure, DSCR approach, share pricing framework, and affordability analysis used here. Learn more at <a href="https://www.uhab.org" target="_blank">uhab.org</a>.</span><span class="es" style="display:none">El modelado financiero cooperativo de esta herramienta se basa sustancialmente en el <strong>Pro Forma de Desarrollo Cooperativo de UHAB (Urban Homesteading Assistance Board)</strong> y los recursos en línea de UHAB. UHAB es la organización nacional líder en apoyo a cooperativas de vivienda de capital limitado. Su pro forma proporciona la base metodológica para la estructura del presupuesto operativo, el enfoque de DSCR, el marco de precios de acciones y el análisis de asequibilidad utilizados aquí. Más información en <a href="https://www.uhab.org" target="_blank">uhab.org</a>.</span></p>
+  </div></div>
+
   <div class="card"><div class="card-header"><h3><span class="en">Limitations &amp; Disclaimers</span><span class="es" style="display:none">Limitaciones y Descargos</span></h3></div><div class="card-body">
     <ul class="rights-list">
       <li><span class="en">This tool is for <strong>educational and estimation purposes only</strong>. It is not legal, financial, or tax advice. Consult a housing attorney, CDFI lender, and certified housing counselor before making any purchase or financing decisions.</span><span class="es" style="display:none">Esta herramienta es <strong>solo para fines educativos y de estimación</strong>. No es asesoramiento legal, financiero ni fiscal.</span></li>
@@ -903,6 +926,8 @@ function showPIPResult(lat,lng,displayAddr,el){
   var in606=pointInPoly(lat,lng,POLY_606);
   var inJP=pointInPoly(lat,lng,POLY_JP);
   var coordStr='('+lat.toFixed(5)+', '+lng.toFixed(5)+')';
+  // Drop a pin on the map and zoom to it
+  mapShowPin(lat,lng,displayAddr);
   if(in606){
     el.innerHTML='<div class="alert alert-green">'
       +'<strong>'+T('✓ Covered — Block (606) District','✓ Cubierto — Distrito Bloque (606)')+'</strong><br>'
@@ -991,6 +1016,84 @@ function setProg2(p,btn){
   document.querySelectorAll('#program-group2 .btn-opt').forEach(function(b){b.classList.remove('active');});
   if(btn)btn.classList.add('active');
   renderRights2();
+}
+
+// ═══════════════════════════════════════════════
+// MAP PAN / ZOOM
+// ═══════════════════════════════════════════════
+var mapScale=1, mapTx=0, mapTy=0;
+var mapDragging=false, mapDragX=0, mapDragY=0, mapDragTx=0, mapDragTy=0;
+function mapApply(){
+  var g=document.getElementById('map-g');
+  if(g)g.setAttribute('transform','translate('+mapTx+','+mapTy+') scale('+mapScale+')');
+}
+function mapZoom(factor){
+  var svg=document.getElementById('map-svg');
+  if(!svg)return;
+  var bb=svg.getBoundingClientRect();
+  var cx=(260-mapTx)/mapScale, cy=(180-mapTy)/mapScale;
+  mapScale=Math.min(8,Math.max(0.5,mapScale*factor));
+  mapTx=260-cx*mapScale; mapTy=180-cy*mapScale;
+  mapApply();
+}
+function mapReset(){mapScale=1;mapTx=0;mapTy=0;mapApply();}
+function mapDragStart(e){
+  if(e.button!==0)return;
+  mapDragging=true;mapDragX=e.clientX;mapDragY=e.clientY;
+  mapDragTx=mapTx;mapDragTy=mapTy;
+  var svg=document.getElementById('map-svg');if(svg)svg.style.cursor='grabbing';
+}
+function mapDragMove(e){
+  if(!mapDragging)return;
+  mapTx=mapDragTx+(e.clientX-mapDragX);
+  mapTy=mapDragTy+(e.clientY-mapDragY);
+  mapApply();
+}
+function mapDragEnd(){
+  mapDragging=false;
+  var svg=document.getElementById('map-svg');if(svg)svg.style.cursor='grab';
+}
+var mapPinch0=null;
+function mapTouchStart(e){
+  if(e.touches.length===1){mapDragStart({button:0,clientX:e.touches[0].clientX,clientY:e.touches[0].clientY});}
+  else if(e.touches.length===2){
+    mapPinch0=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  }
+}
+function mapTouchMove(e){
+  e.preventDefault();
+  if(e.touches.length===1){mapDragMove({clientX:e.touches[0].clientX,clientY:e.touches[0].clientY});}
+  else if(e.touches.length===2&&mapPinch0){
+    var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+    mapZoom(d/mapPinch0);mapPinch0=d;
+  }
+}
+// Convert lat/lng to SVG coordinates
+function latLngToSVG(lat,lng){
+  var LAT_MIN=41.755,LAT_MAX=41.960,LNG_MIN=-87.745,LNG_MAX=-87.570;
+  var x=(lng-LNG_MIN)/(LNG_MAX-LNG_MIN)*520;
+  var y=360-(lat-LAT_MIN)/(LAT_MAX-LAT_MIN)*360;
+  return {x:x,y:y};
+}
+function mapShowPin(lat,lng,label){
+  var pt=latLngToSVG(lat,lng);
+  var pin=document.getElementById('map-pin');
+  var circ=document.getElementById('map-pin-circle');
+  var line=document.getElementById('map-pin-line');
+  var legPin=document.getElementById('map-legend-pin');
+  var legLabel=document.getElementById('map-legend-pin-label');
+  if(!pin)return;
+  circ.setAttribute('cx',pt.x);circ.setAttribute('cy',pt.y);
+  line.setAttribute('x1',pt.x);line.setAttribute('y1',pt.y+7);
+  line.setAttribute('x2',pt.x);line.setAttribute('y2',pt.y+14);
+  pin.style.display='';
+  if(legPin){legPin.style.display='';}
+  if(legLabel&&label){legLabel.textContent=label.split(',')[0];}
+  // Zoom to center on the pin
+  mapScale=3.5;
+  mapTx=260-pt.x*mapScale;
+  mapTy=180-pt.y*mapScale;
+  mapApply();
 }
 
 // ═══════════════════════════════════════════════
