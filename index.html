@@ -223,10 +223,12 @@ canvas{display:block;width:100%!important}
       <button class="btn-opt active" onclick="checkAddr()" style="height:33px;padding:0 14px;flex-shrink:0;font-size:12px"><span class="en">Check</span><span class="es" style="display:none">Verificar</span></button>
     </div>
     <div id="addr-result"></div>
-    <div id="topa-map"></div>
-    <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin-top:6px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
-    <p class="text-xs mt-1"><span class="en">OpenStreetMap basemap. Boundaries based on ordinance descriptions — tap districts for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa base OpenStreetMap. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
   </div></div>
+
+  <!-- MAP — outside the card so overflow:hidden doesn't clip Leaflet tiles -->
+  <div id="topa-map"></div>
+  <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin-top:6px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
+  <p class="text-xs mt-1"><span class="en">OpenStreetMap basemap. Boundaries based on ordinance descriptions — tap districts for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa base OpenStreetMap. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
 
   <!-- PROGRAM SELECTOR FOR RIGHTS -->
   <div class="card"><div class="card-header"><h3><span class="en">Select your program to see your rights</span><span class="es" style="display:none">Selecciona tu programa para ver tus derechos</span></h3></div><div class="card-body">
@@ -1345,10 +1347,8 @@ function calcC(){
     '<div class="result-row" style="margin-top:4px;padding-top:6px;border-top:1px solid #e8e4de"><span style="font-weight:600">'+T('Carrying charge used for sizing','Cuota usada para dimensionamiento')+'</span><span class="result-num" style="color:'+cc+';font-weight:700">'+fmt(targetCarry)+'/mo</span></div>'+
     '<div class="result-row sub"><span>'+T('Actual carry (backed into from mortgage + ops)','Cuota real (de hipoteca + costos)')+'</span><span class="result-num" style="color:'+(ltv_bound?'#BA7517':cc)+'">'+(ltv_bound?'⚠ ':'')+fmt(actualCarry)+'/mo</span></div>'+
     (ltv_bound?'<div class="result-row"><span class="text-xs" style="color:#BA7517">'+T('LTV constraint raises actual carry above target. Consider a lower purchase price or more equity.','La restricción LTV eleva la cuota real sobre el objetivo.')+'</span></div>':'')+
-    '<div class="result-row total" style="margin-top:4px"><span>'+T('Total monthly housing cost','Costo mensual total')+'</span><span class="result-num" style="font-size:15px">'+fmt(totalMoActual)+'/mo</span></div>'+
-    '<div class="result-row"><span>'+T('Total cost implies affordability at','El costo total implica asequibilidad a')+'</span><span class="result-num" style="color:'+amiCol+';font-weight:700">~'+totalAmiLabel+'</span></div>'+
-    (overBudget?'<div class="result-row gap-r"><span>'+T('Over AMI budget by','Por encima del presupuesto AMI por')+'</span><span class="result-num">'+fmt(totalMoActual-maxTotalMo)+'/mo</span></div>':
-      maxTotalMo>0?'<div class="result-row surplus-r"><span>'+T('Headroom within AMI budget','Margen dentro del presupuesto AMI')+'</span><span class="result-num">'+fmt(maxTotalMo-totalMoActual)+'/mo</span></div>':'')+
+    (overBudget?'<div class="result-row gap-r" style="margin-top:4px"><span>'+T('Total cost over AMI budget by','Costo total por encima del presupuesto AMI por')+'</span><span class="result-num">'+fmt(totalMoActual-maxTotalMo)+'/mo</span></div>':
+      maxTotalMo>0?'<div class="result-row surplus-r" style="margin-top:4px"><span>'+T('Headroom within AMI budget','Margen dentro del presupuesto AMI')+'</span><span class="result-num">'+fmt(maxTotalMo-totalMoActual)+'/mo</span></div>':'')+
     '</div>'+
 
     // SHARE
@@ -1483,8 +1483,6 @@ function renderCompare(){
       cm('DSCR (NOI / debt service)',''+((cData.dscr||0).toFixed(2))+'x',(cData.dscr>=1.15?'cm-good':cData.dscr>=1.0?'cm-warn':'cm-bad'))+
       cm(T('Carrying charge (~'+cData.amiLabel+' carry target)','Cuota (~'+cData.amiLabel+' objetivo)'),fmt(cData.actualCarry)+'/mo')+
       cm(T('Share loan payment','Pago del préstamo de acción'),cData.hasLoan?fmt(cData.shareMo||0)+'/mo':T('None (paid upfront)','Ninguno (pago adelantado)'))+
-      cm(T('Total monthly housing cost (yr 1)','Costo mensual total (año 1)'),fmt(cData.totalMo)+'/mo')+
-      cm(T('Affordability of total cost','Asequibilidad del costo total'),'~'+(cData.totalAmiLabel||cData.amiLabel))+
       cm(T('Max affordable share price','Precio máx. acción asequible'),fmt(cData.sv||0))+
       cm(T('Carrying charge growth rate','Tasa de crecimiento de la cuota'),((cData.cg||0.025)*100).toFixed(1)+'%/yr','cm-good')+
       '<div class="compare-metric"><span class="cm-label" style="font-size:11px">'+T('Resident exposure','Exposición del residente')+'</span><span class="cm-val cm-good" style="font-size:11px">'+T('Insulated from market rent increases — carrying charges grow with actual costs only','Protegido de aumentos de renta de mercado — cuotas crecen solo con costos reales')+'</span></div>';
