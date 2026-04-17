@@ -228,7 +228,7 @@ canvas{display:block;width:100%!important}
   <!-- MAP — outside the card so overflow:hidden doesn't clip Leaflet tiles -->
   <div id="topa-map"></div>
   <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin-top:6px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
-  <p class="text-xs mt-1"><span class="en">OpenStreetMap basemap. Boundaries based on ordinance descriptions — tap districts for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa base OpenStreetMap. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
+  <p class="text-xs mt-1"><span class="en">Vector basemap. District boundaries from ordinance descriptions — click polygons for details. For the definitive legal boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa vectorial. Límites según ordenanzas. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
 
   <!-- PROGRAM SELECTOR FOR RIGHTS -->
   <div class="card"><div class="card-header"><h3><span class="en">Select your program to see your rights</span><span class="es" style="display:none">Selecciona tu programa para ver tus derechos</span></h3></div><div class="card-body">
@@ -901,34 +901,145 @@ var LBOUND_JP=[
 function initLeafletMap(){
   var el=document.getElementById('topa-map');
   if(!el||leafletMap)return;
-  if(typeof L==='undefined'){
-    // Leaflet not loaded yet — retry after a short delay
-    setTimeout(initLeafletMap, 300);
-    return;
-  }
-  // Centre on Chicago, zoom 11 shows both districts comfortably
-  leafletMap=L.map('topa-map',{zoomControl:true,scrollWheelZoom:false})
-    .setView([41.860,-87.670],11);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom:19
-  }).addTo(leafletMap);
-  // Force Leaflet to recalculate container size after render
-  setTimeout(function(){leafletMap.invalidateSize();},200);
+  if(typeof L==='undefined'){setTimeout(initLeafletMap,300);return;}
 
-  // Block (606) district polygon
-  var p606=L.polygon(LBOUND_606,{
-    color:'#0F6E56',weight:2.5,fillColor:'#1D9E75',fillOpacity:0.22
+  leafletMap=L.map('topa-map',{
+    zoomControl:true,
+    scrollWheelZoom:false,
+    // Constrain to Chicago area
+    maxBounds:[[41.55,-88.1],[42.15,-87.35]],
+    maxBoundsViscosity:0.9
+  }).setView([41.860,-87.670],11);
+
+  // ── VECTOR BASEMAP (no tile server needed) ──────────────────
+  // Chicago street grid as GeoJSON line features
+  var streetStyle={color:'#c8c4bc',weight:1,opacity:0.8};
+  var majorStyle={color:'#b8b2a8',weight:2,opacity:0.9};
+  var hwayStyle ={color:'#d4c090',weight:3,opacity:0.85};
+
+  // Background rect (land)
+  L.rectangle([[41.55,-88.1],[42.15,-87.35]],{
+    fillColor:'#f0eeea',fillOpacity:1,stroke:false,interactive:false
   }).addTo(leafletMap);
-  p606.bindPopup('<strong style="color:#085041">Block (606) District</strong><br>NW Side &mdash; eff. March 1, 2025<br><span style="font-size:11px">Addison (N) &middot; N Branch River + Western (E) &middot; Division, California, North Ave (SE) &middot; Kedzie, Hirsch, Kostner (SW) &middot; Fullerton, Pulaski (W)<br>Neighborhoods: Logan Square &middot; Avondale &middot; Humboldt Park &middot; Hermosa &middot; Lower West Side &middot; West Town</span>');
+
+  // Lake Michigan (east of ~-87.525 above latitude 41.72)
+  L.polygon([
+    [42.15,-87.525],[42.15,-87.35],[41.55,-87.35],[41.55,-87.525],
+    [41.70,-87.535],[41.76,-87.555],[41.82,-87.57],[41.88,-87.585],
+    [41.94,-87.605],[42.00,-87.62],[42.07,-87.63]
+  ],{fillColor:'#b8d4e8',fillOpacity:0.9,stroke:false,interactive:false}).addTo(leafletMap);
+
+  // Chicago River (main stem + branches as polylines)
+  var riverStyle={color:'#9fc5d8',weight:2.5,opacity:0.85,interactive:false};
+  L.polyline([[41.888,-87.638],[41.888,-87.630],[41.889,-87.626],[41.890,-87.618],[41.890,-87.615]],riverStyle).addTo(leafletMap); // main stem east
+  L.polyline([[41.888,-87.638],[41.900,-87.636],[41.915,-87.642],[41.940,-87.654],[41.960,-87.660]],riverStyle).addTo(leafletMap); // north branch
+  L.polyline([[41.888,-87.638],[41.876,-87.636],[41.860,-87.636],[41.845,-87.636],[41.820,-87.636]],riverStyle).addTo(leafletMap); // south branch
+
+  // Lake Shore Drive
+  L.polyline([
+    [41.940,-87.638],[41.920,-87.630],[41.900,-87.618],[41.880,-87.613],
+    [41.860,-87.608],[41.840,-87.608],[41.815,-87.597],[41.790,-87.578],[41.766,-87.572]
+  ],{color:'#c8a865',weight:2.5,opacity:0.8,dashArray:'8,3',interactive:false}).addTo(leafletMap);
+
+  // Major E-W streets (as horizontal polylines across the city)
+  var ewStreets=[
+    {lat:41.9472,name:'Addison'},{lat:41.9244,name:'Fullerton'},
+    {lat:41.9100,name:'North Ave'},{lat:41.9036,name:'Division'},
+    {lat:41.8978,name:'Chicago Ave'},{lat:41.8675,name:'Roosevelt'},
+    {lat:41.8337,name:'31st St'},{lat:41.7845,name:'60th St'},
+    {lat:41.7664,name:'71st St'}
+  ];
+  ewStreets.forEach(function(s){
+    L.polyline([[s.lat,-88.0],[s.lat,-87.35]],streetStyle).addTo(leafletMap);
+  });
+
+  // Major N-S streets
+  var nsStreets=[
+    {lng:-87.7339,name:'Kostner'},{lng:-87.7261,name:'Pulaski'},
+    {lng:-87.7056,name:'Kedzie'},{lng:-87.6967,name:'California'},
+    {lng:-87.6878,name:'Western'},{lng:-87.6640,name:'Ashland'},
+    {lng:-87.6298,name:'State'},{lng:-87.6241,name:'Michigan'}
+  ];
+  nsStreets.forEach(function(s){
+    L.polyline([[41.55,s.lng],[42.15,s.lng]],streetStyle).addTo(leafletMap);
+  });
+
+  // Parks (filled polygons)
+  var parkStyle={fillColor:'#a8d5a2',fillOpacity:0.55,stroke:false,interactive:false};
+  L.polygon([[41.952,-87.647],[41.942,-87.638],[41.921,-87.634],[41.915,-87.635],[41.930,-87.645]],parkStyle).addTo(leafletMap); // Lincoln Park
+  L.polygon([[41.880,-87.625],[41.880,-87.612],[41.868,-87.612],[41.868,-87.625]],parkStyle).addTo(leafletMap); // Grant Park
+  L.polygon([[41.905,-87.725],[41.910,-87.706],[41.897,-87.706],[41.897,-87.725]],parkStyle).addTo(leafletMap); // Humboldt Park
+  L.polygon([[41.800,-87.597],[41.800,-87.580],[41.780,-87.577],[41.780,-87.597]],parkStyle).addTo(leafletMap); // Jackson Park area
+  L.polygon([[41.870,-87.715],[41.875,-87.694],[41.858,-87.694],[41.858,-87.715]],parkStyle).addTo(leafletMap); // Douglas Park
+  L.polygon([[41.880,-87.712],[41.883,-87.697],[41.873,-87.697],[41.870,-87.712]],parkStyle).addTo(leafletMap); // Garfield Park
+
+  // Street labels (use L.marker with DivIcon for text)
+  function streetLabel(latlng,text,anchor){
+    return L.marker(latlng,{icon:L.divIcon({
+      className:'',
+      html:'<div style="font:10px/1 -apple-system,sans-serif;color:#999;white-space:nowrap;pointer-events:none;'+(anchor?'transform:translateX(-50%)':'')+'">'+text+'</div>',
+      iconSize:[0,0]
+    }),interactive:false});
+  }
+  ewStreets.forEach(function(s){
+    streetLabel([s.lat,-87.760],s.name,false).addTo(leafletMap);
+  });
+  nsStreets.forEach(function(s){
+    streetLabel([41.760,s.lng],s.name,true).addTo(leafletMap);
+  });
+  streetLabel([41.760,-87.615],'LSD',true).addTo(leafletMap);
+
+  // Neighbourhood labels
+  function nbhdLabel(latlng,text){
+    return L.marker(latlng,{icon:L.divIcon({
+      className:'',
+      html:'<div style="font:italic 10px/1 -apple-system,sans-serif;color:#aaa;white-space:nowrap;transform:translateX(-50%);pointer-events:none">'+text+'</div>',
+      iconSize:[0,0]
+    }),interactive:false});
+  }
+  nbhdLabel([41.909,-87.677],'Wicker Park').addTo(leafletMap);
+  nbhdLabel([41.856,-87.660],'Pilsen').addTo(leafletMap);
+  nbhdLabel([41.797,-87.595],'Hyde Park').addTo(leafletMap);
+  nbhdLabel([41.832,-87.617],'Bronzeville').addTo(leafletMap);
+  nbhdLabel([41.836,-87.641],'Bridgeport').addTo(leafletMap);
+  nbhdLabel([41.830,-87.600],'Woodlawn').addTo(leafletMap);
+
+  // ── TOPA DISTRICT POLYGONS ──────────────────────
+  var p606=L.polygon(LBOUND_606,{
+    color:'#0F6E56',weight:2.5,fillColor:'#1D9E75',fillOpacity:0.28
+  }).addTo(leafletMap);
+  p606.bindPopup(
+    '<strong style="color:#085041">Block (606) District</strong><br>'+
+    'NW Side &mdash; eff. March 1, 2025<br>'+
+    '<span style="font-size:11px">Addison (N) · N Branch River + Western (E) · Division / California / North Ave (SE) · Kedzie / Hirsch / Kostner (SW) · Fullerton / Pulaski (W)<br>'+
+    'Neighborhoods: Logan Square · Avondale · Humboldt Park · Hermosa · Lower West Side · West Town</span>'
+  );
   p606.on('click',function(){showMapTip('606');});
 
-  // Jackson Park district polygon
   var pJP=L.polygon(LBOUND_JP,{
-    color:'#6B3FA0',weight:2.5,fillColor:'#8B6BAF',fillOpacity:0.22
+    color:'#6B3FA0',weight:2.5,fillColor:'#8B6BAF',fillOpacity:0.28
   }).addTo(leafletMap);
-  pJP.bindPopup('<strong style="color:#4A235A">Jackson Park District</strong><br>South Side &mdash; eff. April 6, 2026<br><span style="font-size:11px">60th St (N) &middot; DuSable Lake Shore Dr (E) &middot; 71st St (S) &middot; South Chicago Ave (SW) &middot; MLK Dr (W)<br>Neighborhoods: Woodlawn &middot; South Shore &middot; Greater Grand Crossing</span>');
+  pJP.bindPopup(
+    '<strong style="color:#4A235A">Jackson Park District</strong><br>'+
+    'South Side &mdash; eff. April 6, 2026<br>'+
+    '<span style="font-size:11px">60th St (N) · DuSable Lake Shore Dr (E) · 71st St (S) · South Chicago Ave (SW) · MLK Dr (W)<br>'+
+    'Neighborhoods: Woodlawn · South Shore · Greater Grand Crossing</span>'
+  );
   pJP.on('click',function(){showMapTip('jp');});
+
+  // District labels (always visible)
+  L.marker([41.930,-87.697],{icon:L.divIcon({
+    className:'',
+    html:'<div style="font:700 12px/1.4 -apple-system,sans-serif;color:#085041;background:rgba(255,255,255,0.85);padding:3px 6px;border-radius:4px;border:1px solid #B5DFC9;white-space:nowrap;transform:translateX(-50%)">Block (606)</div>',
+    iconSize:[0,0]
+  }),interactive:false}).addTo(leafletMap);
+  L.marker([41.775,-87.600],{icon:L.divIcon({
+    className:'',
+    html:'<div style="font:700 11px/1.4 -apple-system,sans-serif;color:#4A235A;background:rgba(255,255,255,0.85);padding:3px 6px;border-radius:4px;border:1px solid #D4C4E8;white-space:nowrap;transform:translateX(-50%)">Jackson Park</div>',
+    iconSize:[0,0]
+  }),interactive:false}).addTo(leafletMap);
+
+  setTimeout(function(){leafletMap.invalidateSize();},100);
 }
 
 function mapShowPin(lat,lng,label){
