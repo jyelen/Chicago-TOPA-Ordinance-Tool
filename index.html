@@ -305,12 +305,12 @@ canvas{display:block;width:100%!important}
     </div></div>
     <div class="card"><div class="card-header"><h3><span class="en">Mortgage Assumptions</span><span class="es" style="display:none">Supuestos del Préstamo</span></h3></div><div class="card-body">
       <div class="form-row">
-        <div><label>Max LTV (%)</label><input type="number" id="f_ltv" value="70" oninput="calcF()"></div>
+        <div><label><span class="en">Max LTV (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="f_ltv" value="70" oninput="calcF()"></div>
         <div><label><span class="en">Interest rate (%)</span><span class="es" style="display:none">Tasa (%)</span></label><input type="number" id="f_rate" value="7.0" step="0.25" oninput="calcF()"></div>
       </div>
       <div class="form-row">
         <div><label><span class="en">Amort. term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="f_term" value="30" oninput="calcF()"></div>
-        <div><label>Min DSCR</label><input type="number" id="f_dscr_min" value="1.20" step="0.05" oninput="calcF()"></div>
+        <div><label><span class="en">Min DSCR</span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="f_dscr_min" value="1.20" step="0.05" oninput="calcF()"></div>
       </div>
       <div class="hbox"><div class="hbox-label"><span class="en">Max supportable mortgage</span><span class="es" style="display:none">Hipoteca máxima soportable</span></div><div class="hbox-val" id="f-max-loan">—</div><div class="hbox-sub" id="f-max-loan-why"></div></div>
     </div></div>
@@ -395,13 +395,13 @@ canvas{display:block;width:100%!important}
       <p class="text-sm" style="margin-bottom:8px"><span class="en">Select the AMI level the co-op should be affordable to. The tool calculates the maximum carrying charge consistent with that target — accounting for utilities and the share loan payment (if any) from step ⑤. You can also set a custom carrying charge cap below.</span><span class="es" style="display:none">Selecciona el nivel de AMI al que debe ser asequible la cooperativa. La herramienta calcula la cuota máxima consistente con ese objetivo, considerando servicios y el préstamo de acción (si aplica) del paso ⑤.</span></p>
 
       <div class="stabs" id="ami-bench-tabs">
-        <button class="stab" onclick="setAmiBench('30',this)">30% AMI</button>
-        <button class="stab" onclick="setAmiBench('50',this)">50% AMI</button>
-        <button class="stab" onclick="setAmiBench('60',this)">60% AMI</button>
-        <button class="stab" onclick="setAmiBench('80',this)">80% AMI</button>
-        <button class="stab" onclick="setAmiBench('100',this)">100% AMI</button>
-        <button class="stab" onclick="setAmiBench('fmr',this)">FMR</button>
-        <button class="stab active" onclick="setAmiBench('custom',this)"><span class="en">Custom</span><span class="es" style="display:none">Personalizado</span></button>
+        <button class="stab" onclick="setAmiBench('30',this)" data-bench="30">30% AMI</button>
+        <button class="stab" onclick="setAmiBench('50',this)" data-bench="50">50% AMI</button>
+        <button class="stab" onclick="setAmiBench('60',this)" data-bench="60">60% AMI</button>
+        <button class="stab" onclick="setAmiBench('80',this)" data-bench="80">80% AMI</button>
+        <button class="stab" onclick="setAmiBench('100',this)" data-bench="100">100% AMI</button>
+        <button class="stab" onclick="setAmiBench('fmr',this)" data-bench="fmr">FMR</button>
+        <button class="stab active" onclick="setAmiBench('custom',this)" data-bench="custom" data-bench="custom"><span class="en">Custom</span><span class="es" style="display:none">Personalizado</span></button>
       </div>
 
       <div class="form-row" style="margin-bottom:5px">
@@ -450,12 +450,12 @@ canvas{display:block;width:100%!important}
     <div class="card"><div class="card-header"><h3><span class="en">④ Blanket Mortgage Sizing</span><span class="es" style="display:none">④ Dimensionamiento de la Hipoteca Global</span></h3></div><div class="card-body">
       <p class="text-sm" style="margin-bottom:8px"><span class="en">Mortgage sized by the lower of LTV and DSCR — same as rental. DSCR = NOI ÷ Annual Debt Service, where NOI = effective gross carrying charges (after vacancy) minus all operating expenses. The mortgage payment is then the largest annual debt service consistent with NOI ÷ DSCR ≥ minimum.</span><span class="es" style="display:none">La hipoteca se dimensiona por el menor de LTV y DSCR. DSCR = NOI ÷ Servicio de Deuda Anual, donde NOI = cuotas efectivas brutas (tras vacancia) menos todos los gastos operativos.</span></p>
       <div class="form-row">
-        <div><label>Max LTV (%)</label><input type="number" id="c_ltv" value="70" oninput="calcC()"></div>
+        <div><label><span class="en">Max LTV (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="c_ltv" value="70" oninput="calcC()"></div>
         <div><label><span class="en">Interest rate (%)</span><span class="es" style="display:none">Tasa (%)</span></label><input type="number" id="c_mrate" value="7.0" step="0.25" oninput="calcC()"></div>
       </div>
       <div class="form-row">
         <div><label><span class="en">Term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="c_mterm" value="30" oninput="calcC()"></div>
-        <div><label>Min DSCR</label><input type="number" id="c_mdscr" value="1.15" step="0.05" oninput="calcC()"></div>
+        <div><label><span class="en">Min DSCR</span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="c_mdscr" value="1.15" step="0.05" oninput="calcC()"></div>
       </div>
       <div class="hbox"><div class="hbox-label"><span class="en">Max supportable blanket mortgage</span><span class="es" style="display:none">Hipoteca global máxima soportable</span></div><div class="hbox-val" id="c-max-loan">—</div><div class="hbox-sub" id="c-max-loan-why"></div></div>
     </div></div>
@@ -616,46 +616,125 @@ canvas{display:block;width:100%!important}
 <div class="page" id="page-sources">
   <div class="section-title"><span class="en">Sources &amp; Assumptions</span><span class="es" style="display:none">Fuentes y Supuestos</span></div>
   <div class="section-sub"><span class="en">Transparency on every number, rate, and policy detail used in this tool.</span><span class="es" style="display:none">Transparencia sobre cada número y detalle de política utilizado en esta herramienta.</span></div>
+
   <div class="card"><div class="card-header"><h3><span class="en">Policy &amp; Legal Sources</span><span class="es" style="display:none">Fuentes de Política y Legal</span></h3></div><div class="card-body">
-    <table class="rt"><thead><tr><th>Item</th><th>Source</th><th>Notes</th></tr></thead><tbody>
-      <tr><td>Block (606) TOPA</td><td>Chicago Municipal Code Ch. 5-11; Northwest Side Preservation Ordinance (2024)</td><td>Eff. Mar 1, 2025. 60-day notice (5+ units), 30-day (1–4). 90/30/15-day association window. 120/60-day close window.</td></tr>
-      <tr><td>Jackson Park TOPA</td><td>Chicago Municipal Code Ch. 5-10; Jackson Park Housing Preservation Ordinance (2025); <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></td><td>Eff. Apr 6, 2026. Woodlawn, South Shore, Greater Grand Crossing. Introduced by Ald. Desmon Yancy (5th Ward).</td></tr>
-      <tr><td>Violation penalties</td><td>Ordinance text, Ch. 5-11</td><td>$200–$1,000/day/violation. Private right of action for injunctive relief, treble damages, and attorney's fees.</td></tr>
-      <tr><td>Affordability covenant</td><td>Ordinance text, Ch. 5-11-100</td><td>30 years if public funds used in acquisition or rehabilitation.</td></tr>
+    <table class="rt"><thead><tr>
+      <th><span class="en">Item</span><span class="es" style="display:none">Elemento</span></th>
+      <th><span class="en">Source</span><span class="es" style="display:none">Fuente</span></th>
+      <th><span class="en">Notes</span><span class="es" style="display:none">Notas</span></th>
+    </tr></thead><tbody>
+      <tr>
+        <td><span class="en">Block (606) TOPA</span><span class="es" style="display:none">TOPA Bloque (606)</span></td>
+        <td>Chicago Municipal Code Ch. 5-11; Northwest Side Preservation Ordinance (2024)</td>
+        <td><span class="en">Eff. Mar 1, 2025. 60-day notice (5+ units), 30-day (1–4). 90/30/15-day association window. 120/60-day close window.</span><span class="es" style="display:none">Vigente 1 mar. 2025. Aviso 60 días (5+ unidades), 30 días (1–4). Ventana de asociación 90/30/15 días. Ventana de cierre 120/60 días.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Jackson Park TOPA</span><span class="es" style="display:none">TOPA Jackson Park</span></td>
+        <td>Chicago Municipal Code Ch. 5-10; Jackson Park Housing Preservation Ordinance (2025); <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></td>
+        <td><span class="en">Eff. Apr 6, 2026. Woodlawn, South Shore, Greater Grand Crossing. Introduced by Ald. Desmon Yancy (5th Ward).</span><span class="es" style="display:none">Vigente 6 abr. 2026. Woodlawn, South Shore, Greater Grand Crossing. Presentado por el Ald. Desmon Yancy (5.° Distrito).</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Violation penalties</span><span class="es" style="display:none">Multas por violaciones</span></td>
+        <td><span class="en">Ordinance text, Ch. 5-11</span><span class="es" style="display:none">Texto de la ordenanza, Cap. 5-11</span></td>
+        <td><span class="en">$200–$1,000/day/violation. Private right of action for injunctive relief, treble damages, and attorney's fees.</span><span class="es" style="display:none">$200–$1,000/día/violación. Derecho privado de acción para medidas cautelares, daños triplicados y honorarios de abogado.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Affordability covenant</span><span class="es" style="display:none">Pacto de asequibilidad</span></td>
+        <td><span class="en">Ordinance text, Ch. 5-11-100</span><span class="es" style="display:none">Texto de la ordenanza, Cap. 5-11-100</span></td>
+        <td><span class="en">30 years if public funds used in acquisition or rehabilitation.</span><span class="es" style="display:none">30 años si se usan fondos públicos en la adquisición o rehabilitación.</span></td>
+      </tr>
     </tbody></table>
   </div></div>
+
   <div class="card"><div class="card-header"><h3><span class="en">Income &amp; Rent Data</span><span class="es" style="display:none">Datos de Ingresos y Renta</span></h3></div><div class="card-body">
-    <table class="rt"><thead><tr><th>Item</th><th>Source</th><th>Notes</th></tr></thead><tbody>
-      <tr><td>AMI limits</td><td><a href="https://www.chicago.gov/areamedianincome" target="_blank">Chicago DOH AMI Chart 2025</a></td><td>Eff. April 1, 2025. Chicago-Naperville-Joliet, IL HUD Metro FMR Area. 1-person: $25,200 (30%) / $42,000 (50%) / $50,400 (60%) / $67,100 (80%) / $84,000 (100%). 4-person: $35,970 / $59,950 / $71,940 / $95,900 / $119,900.</td></tr>
-      <tr><td>AMI rent limits (30% of income rule)</td><td>Chicago DOH 2025 Income &amp; Rent Limits; HUD methodology</td><td>Chicago DOH official methodology: 1 occupant for studios, 1.5 occupants per bedroom for other unit types (1BR=1.5 persons, 2BR=3, 3BR=4.5). Results: 60% AMI — Studio $1,260 | 1BR $1,350 | 2BR $1,620 | 3BR $1,871. Same values used on both rental and co-op tabs.</td></tr>
-      <tr><td>Fair Market Rents (FMR)</td><td><a href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html" target="_blank">HUD FY2025 Small Area FMRs</a></td><td>Cook County uses SAFMRs by ZIP. County-wide 40th percentile: Studio $1,458 | 1BR $1,560 | 2BR $1,761 | 3BR $2,262. Neighborhood figures are estimates based on area ZIP SAFMRs.</td></tr>
-      <tr><td>Neighborhood housing statistics</td><td>Chicago DOH ordinance findings; CMAP; ACS data</td><td>Naturally occurring affordable housing share and displacement context drawn from DOH ordinance findings and publicly available ACS analysis. Figures are approximate.</td></tr>
+    <table class="rt"><thead><tr>
+      <th><span class="en">Item</span><span class="es" style="display:none">Elemento</span></th>
+      <th><span class="en">Source</span><span class="es" style="display:none">Fuente</span></th>
+      <th><span class="en">Notes</span><span class="es" style="display:none">Notas</span></th>
+    </tr></thead><tbody>
+      <tr>
+        <td><span class="en">AMI limits</span><span class="es" style="display:none">Límites de AMI</span></td>
+        <td><a href="https://www.chicago.gov/areamedianincome" target="_blank">Chicago DOH AMI Chart 2025</a></td>
+        <td><span class="en">Eff. April 1, 2025. Chicago-Naperville-Joliet HUD Metro FMR Area. 1-person: $25,200 (30%) / $42,000 (50%) / $50,400 (60%) / $67,100 (80%) / $84,000 (100%). 4-person: $35,970 / $59,950 / $71,940 / $95,900 / $119,900.</span><span class="es" style="display:none">Vigente 1 abr. 2025. Área Metro HUD Chicago-Naperville-Joliet. 1 persona: $25,200 (30%) / $42,000 (50%) / $50,400 (60%) / $67,100 (80%) / $84,000 (100%). 4 personas: $35,970 / $59,950 / $71,940 / $95,900 / $119,900.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">AMI rent limits (30% of income rule)</span><span class="es" style="display:none">Límites de renta AMI (regla del 30%)</span></td>
+        <td><span class="en">Chicago DOH 2025 Income &amp; Rent Limits; HUD methodology</span><span class="es" style="display:none">Límites de Ingresos y Renta DOH Chicago 2025; metodología HUD</span></td>
+        <td><span class="en">DOH methodology: 1 occupant for studios, 1.5 per bedroom otherwise (1BR=1.5, 2BR=3, 3BR=4.5 persons). 60% AMI results: Studio $1,260 | 1BR $1,350 | 2BR $1,620 | 3BR $1,871.</span><span class="es" style="display:none">Metodología DOH: 1 ocupante para estudios, 1.5 por recámara (1 rec.=1.5, 2 rec.=3, 3 rec.=4.5 personas). Resultados al 60% AMI: Estudio $1,260 | 1 rec. $1,350 | 2 rec. $1,620 | 3 rec. $1,871.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Fair Market Rents (FMR)</span><span class="es" style="display:none">Rentas de Mercado Justas (FMR)</span></td>
+        <td><a href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html" target="_blank">HUD FY2025 Small Area FMRs</a></td>
+        <td><span class="en">Cook County uses SAFMRs by ZIP. County-wide 40th percentile: Studio $1,458 | 1BR $1,560 | 2BR $1,761 | 3BR $2,262.</span><span class="es" style="display:none">Cook County usa SAFMRs por código postal. Percentil 40 del condado: Estudio $1,458 | 1 rec. $1,560 | 2 rec. $1,761 | 3 rec. $2,262.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Neighborhood housing statistics</span><span class="es" style="display:none">Estadísticas de vivienda por vecindario</span></td>
+        <td><span class="en">Chicago DOH ordinance findings; CMAP; ACS data</span><span class="es" style="display:none">Hallazgos de la ordenanza DOH; CMAP; datos ACS</span></td>
+        <td><span class="en">Naturally occurring affordable housing share and displacement context drawn from DOH ordinance findings and ACS analysis. Figures are approximate.</span><span class="es" style="display:none">Proporción de vivienda naturalmente asequible y contexto de desplazamiento derivados de los hallazgos de la ordenanza DOH y el análisis ACS. Las cifras son aproximadas.</span></td>
+      </tr>
     </tbody></table>
   </div></div>
+
   <div class="card"><div class="card-header"><h3><span class="en">Financial Model Assumptions</span><span class="es" style="display:none">Supuestos del Modelo Financiero</span></h3></div><div class="card-body">
-    <table class="rt"><thead><tr><th>Parameter</th><th>Default</th><th>Basis</th></tr></thead><tbody>
-      <tr><td>Max LTV</td><td>70%</td><td>Conservative assumption for community-owned acquisition. Conventional investment property loans typically 65–75%. CDFI/mission lenders may offer up to 80–85%.</td></tr>
-      <tr><td>Interest rate</td><td>7.0%</td><td>Approximate conventional multifamily rate, early 2026. CDFI or subsidized rates may be 4–6%. Adjust based on expected financing source.</td></tr>
-      <tr><td>Min DSCR (rental)</td><td>1.20×</td><td>Standard minimum for conventional multifamily lending. Many lenders require 1.25×. Mission-driven lenders may accept 1.10–1.15× for affordable preservation deals.</td></tr>
-      <tr><td>Min DSCR (co-op)</td><td>1.15×</td><td>In a co-op, DSCR = total annual member carrying charges ÷ annual debt service. A lower threshold is used because carrying charges are stable and predictable — unlike rental income. Co-op lenders also often have additional credit enhancements.</td></tr>
-      <tr><td>Soft costs</td><td>15% of hard rehab</td><td>Architecture, engineering, permits, inspections, legal, financing fees. Typical range: 10–20%.</td></tr>
-      <tr><td>Contingency</td><td>10% of hard + soft</td><td>Standard for rehab on older buildings. May need 15–20% for buildings with unknown conditions.</td></tr>
-      <tr><td>Vacancy rate</td><td>5%</td><td>Applied to gross potential rent. City average in TOPA pilot areas typically 3–7%.</td></tr>
-      <tr><td>Replacement reserve</td><td>$500/unit/yr (rental); $600/unit/yr (co-op)</td><td>IHDA and DOH typically require $400–$600/unit/yr minimum. Higher for co-ops as members are responsible for all maintenance. Budget higher for buildings with deferred maintenance.</td></tr>
-      <tr><td>Carrying charge growth</td><td>2.5%/yr</td><td>Reflects typical operating cost inflation (taxes, insurance, labor, utilities) without market rent pressure. In a well-managed co-op, carrying charges should grow only as needed to cover actual cost increases.</td></tr>
+    <table class="rt"><thead><tr>
+      <th><span class="en">Parameter</span><span class="es" style="display:none">Parámetro</span></th>
+      <th><span class="en">Default</span><span class="es" style="display:none">Valor predeterminado</span></th>
+      <th><span class="en">Basis</span><span class="es" style="display:none">Base</span></th>
+    </tr></thead><tbody>
+      <tr>
+        <td>Max LTV</td><td>70%</td>
+        <td><span class="en">Conservative assumption for community-owned acquisition. Conventional loans typically 65–75%. CDFI/mission lenders may offer up to 80–85%.</span><span class="es" style="display:none">Supuesto conservador para adquisición comunitaria. Préstamos convencionales típicamente 65–75%. Prestamistas CDFI/misión pueden ofrecer hasta 80–85%.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Interest rate</span><span class="es" style="display:none">Tasa de interés</span></td><td>7.0%</td>
+        <td><span class="en">Approximate conventional multifamily rate, early 2026. CDFI or subsidized rates may be 4–6%. Adjust based on expected financing source.</span><span class="es" style="display:none">Tasa convencional aproximada para multifamiliares, principios de 2026. Las tasas CDFI o subsidiadas pueden ser 4–6%. Ajusta según la fuente de financiamiento esperada.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Min DSCR (rental)</span><span class="es" style="display:none">DSCR mínimo (alquiler)</span></td><td>1.20×</td>
+        <td><span class="en">Standard minimum for conventional multifamily lending. Many lenders require 1.25×. Mission lenders may accept 1.10–1.15× for affordable preservation deals.</span><span class="es" style="display:none">Mínimo estándar para préstamos multifamiliares convencionales. Muchos prestamistas requieren 1.25×. Prestamistas de misión pueden aceptar 1.10–1.15× para preservación asequible.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Min DSCR (co-op)</span><span class="es" style="display:none">DSCR mínimo (cooperativa)</span></td><td>1.15×</td>
+        <td><span class="en">Co-op DSCR = NOI ÷ annual debt service. A lower threshold applies because carrying charges are stable and predictable, unlike rental income.</span><span class="es" style="display:none">DSCR cooperativo = NOI ÷ servicio de deuda anual. Se aplica un umbral más bajo porque las cuotas son estables y predecibles, a diferencia de los ingresos de alquiler.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Soft costs</span><span class="es" style="display:none">Costos blandos</span></td>
+        <td><span class="en">15% of hard rehab</span><span class="es" style="display:none">15% del costo de rehabilitación</span></td>
+        <td><span class="en">Architecture, engineering, permits, inspections, legal, financing fees. Typical range: 10–20%.</span><span class="es" style="display:none">Arquitectura, ingeniería, permisos, inspecciones, honorarios legales y de financiamiento. Rango típico: 10–20%.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Contingency</span><span class="es" style="display:none">Contingencia</span></td>
+        <td><span class="en">10% of hard + soft</span><span class="es" style="display:none">10% de costo duro + blando</span></td>
+        <td><span class="en">Standard for rehab on older buildings. May need 15–20% for buildings with unknown conditions.</span><span class="es" style="display:none">Estándar para rehabilitación de edificios antiguos. Puede necesitar 15–20% para edificios con condiciones desconocidas.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Vacancy rate</span><span class="es" style="display:none">Tasa de vacancia</span></td><td>5%</td>
+        <td><span class="en">Applied to gross potential rent. City average in TOPA pilot areas typically 3–7%.</span><span class="es" style="display:none">Aplicada a la renta bruta potencial. El promedio de la ciudad en áreas piloto TOPA es típicamente 3–7%.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Replacement reserve</span><span class="es" style="display:none">Reserva de reemplazo</span></td>
+        <td><span class="en">$500/unit/yr (rental); $600/unit/yr (co-op)</span><span class="es" style="display:none">$500/unidad/año (alquiler); $600/unidad/año (cooperativa)</span></td>
+        <td><span class="en">IHDA and DOH typically require $400–$600/unit/yr minimum. Higher for co-ops as members are responsible for all maintenance.</span><span class="es" style="display:none">IHDA y DOH generalmente requieren mínimo $400–$600/unidad/año. Más alto para cooperativas ya que los miembros son responsables de todo el mantenimiento.</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Carrying charge growth</span><span class="es" style="display:none">Crecimiento de la cuota mensual</span></td><td>2.5%/yr</td>
+        <td><span class="en">Reflects typical operating cost inflation (taxes, insurance, labor, utilities) without market rent pressure. In a well-managed co-op, charges grow only as needed to cover actual cost increases.</span><span class="es" style="display:none">Refleja la inflación típica de los costos operativos (impuestos, seguros, mano de obra, servicios) sin presión de renta de mercado. En una cooperativa bien administrada, las cuotas crecen solo según sea necesario para cubrir los aumentos reales de costos.</span></td>
+      </tr>
     </tbody></table>
   </div></div>
+
   <div class="card"><div class="card-header"><h3><span class="en">Co-op Mortgage Sizing — Conceptual Note</span><span class="es" style="display:none">Dimensionamiento Hipotecario Cooperativo — Nota Conceptual</span></h3></div><div class="card-body">
     <p class="text-sm" style="margin-bottom:8px"><span class="en">In a rental property, the mortgage is sized based on net operating income (NOI = rents − expenses), with DSCR measuring how well that income covers debt service. In a housing co-op, <strong>there is no independent rent income</strong> — the carrying charge covers mortgage payments, operating costs, and reserves in one. This tool therefore works backwards from affordability:</span><span class="es" style="display:none">En una propiedad de alquiler, la hipoteca se dimensiona basándose en el NOI. En una cooperativa, <strong>no hay ingresos de renta independientes</strong> — la cuota cubre todo. Esta herramienta trabaja hacia atrás desde la asequibilidad:</span></p>
     <ol style="font-size:12px;color:#444;line-height:1.8;padding-left:1.5rem">
-      <li><span class="en"><strong>Set target carrying charge:</strong> What can members realistically afford? (Compared to AMI benchmarks.)</span><span class="es" style="display:none"><strong>Establecer cuota objetivo:</strong> ¿Qué pueden pagar los miembros de manera realista?</span></li>
-      <li><span class="en"><strong>Subtract operating costs:</strong> Property taxes + insurance + maintenance + reserves + utilities + training = total annual operating costs.</span><span class="es" style="display:none"><strong>Restar costos operativos:</strong> Impuestos + seguros + mantenimiento + reservas + servicios + capacitación.</span></li>
+      <li><span class="en"><strong>Set target carrying charge:</strong> What can members realistically afford? (Compared to AMI benchmarks.)</span><span class="es" style="display:none"><strong>Establecer cuota objetivo:</strong> ¿Qué pueden pagar los miembros de manera realista? (Comparado con los benchmarks de AMI.)</span></li>
+      <li><span class="en"><strong>Subtract operating costs:</strong> Property taxes + insurance + maintenance + reserves + utilities + training = total annual operating costs.</span><span class="es" style="display:none"><strong>Restar costos operativos:</strong> Impuestos + seguros + mantenimiento + reservas + servicios + capacitación = costos operativos anuales totales.</span></li>
       <li><span class="en"><strong>Available for debt service:</strong> Total annual carrying charges − operating costs = max annual debt service.</span><span class="es" style="display:none"><strong>Disponible para deuda:</strong> Cuotas anuales totales − costos operativos = servicio de deuda máximo anual.</span></li>
       <li><span class="en"><strong>DSCR constraint:</strong> Divide available debt service by minimum DSCR to get max allowable debt service, then size the loan accordingly.</span><span class="es" style="display:none"><strong>Restricción de DSCR:</strong> Dividir el servicio de deuda disponible por el DSCR mínimo para obtener el servicio de deuda máximo permitido, luego dimensionar el préstamo.</span></li>
-      <li><span class="en"><strong>LTV constraint:</strong> Also check that the loan doesn't exceed the LTV limit against the purchase price. Take the lower of the two.</span><span class="es" style="display:none"><strong>Restricción de LTV:</strong> Verificar que el préstamo no exceda el límite de LTV. Tomar el menor de los dos.</span></li>
+      <li><span class="en"><strong>LTV constraint:</strong> Also check that the loan doesn't exceed the LTV limit against the purchase price. Take the lower of the two.</span><span class="es" style="display:none"><strong>Restricción de LTV:</strong> Verificar que el préstamo no exceda el límite de LTV contra el precio de compra. Tomar el menor de los dos.</span></li>
     </ol>
-    <p class="text-sm mt-1"><span class="en">The remaining gap (total project cost − mortgage − share equity) represents the subsidy, grants, or soft equity that must be raised from public or philanthropic sources.</span><span class="es" style="display:none">La brecha restante (costo total − hipoteca − capital de acciones) representa el subsidio o capital blando que debe obtenerse de fuentes públicas o filantrópicas.</span></p>
+    <p class="text-sm mt-1"><span class="en">The remaining gap (total project cost − mortgage − share equity) represents the subsidy, grants, or soft equity that must be raised from public or philanthropic sources.</span><span class="es" style="display:none">La brecha restante (costo total − hipoteca − capital de acciones) representa el subsidio, donaciones o capital blando que debe obtenerse de fuentes públicas o filantrópicas.</span></p>
   </div></div>
+
   <div class="card"><div class="card-header"><h3><span class="en">Acknowledgments</span><span class="es" style="display:none">Reconocimientos</span></h3></div><div class="card-body">
     <p class="text-sm" style="margin-bottom:8px"><span class="en">This tool was created by <strong>James Yelen</strong> as a working draft for public education and tenant support in Chicago's TOPA pilot areas. It is not legal or financial advice.</span><span class="es" style="display:none">Esta herramienta fue creada por <strong>James Yelen</strong> como borrador de trabajo para educación pública y apoyo a inquilinos en las áreas piloto TOPA de Chicago. No es asesoramiento legal ni financiero.</span></p>
     <p class="text-sm"><span class="en">The co-op financial modeling in this tool draws substantially on the <strong>UHAB (Urban Homesteading Assistance Board) Co-op Development Pro Forma</strong> and UHAB's online resources and technical assistance frameworks. UHAB is the leading national organization supporting the creation and preservation of limited-equity housing cooperatives, with decades of experience in New York City and nationally. Their pro forma provides the methodological foundation for the operating budget structure, DSCR approach, share pricing framework, and affordability analysis used here. Learn more at <a href="https://www.uhab.org" target="_blank">uhab.org</a>.</span><span class="es" style="display:none">El modelado financiero cooperativo de esta herramienta se basa sustancialmente en el <strong>Pro Forma de Desarrollo Cooperativo de UHAB (Urban Homesteading Assistance Board)</strong> y los recursos en línea de UHAB. UHAB es la organización nacional líder en apoyo a cooperativas de vivienda de capital limitado. Su pro forma proporciona la base metodológica para la estructura del presupuesto operativo, el enfoque de DSCR, el marco de precios de acciones y el análisis de asequibilidad utilizados aquí. Más información en <a href="https://www.uhab.org" target="_blank">uhab.org</a>.</span></p>
@@ -663,12 +742,12 @@ canvas{display:block;width:100%!important}
 
   <div class="card"><div class="card-header"><h3><span class="en">Limitations &amp; Disclaimers</span><span class="es" style="display:none">Limitaciones y Descargos</span></h3></div><div class="card-body">
     <ul class="rights-list">
-      <li><span class="en">This tool is for <strong>educational and estimation purposes only</strong>. It is not legal, financial, or tax advice. Consult a housing attorney, CDFI lender, and certified housing counselor before making any purchase or financing decisions.</span><span class="es" style="display:none">Esta herramienta es <strong>solo para fines educativos y de estimación</strong>. No es asesoramiento legal, financiero ni fiscal.</span></li>
-      <li><span class="en">TOPA ordinance text and timelines reflect the tool's last update date (April 15, 2026). Ordinance language, boundaries, and program rules may be amended. Always verify with the Chicago Department of Housing or a housing attorney.</span><span class="es" style="display:none">El texto de la ordenanza TOPA refleja la fecha de última actualización (15 de abril de 2026). Siempre verifica con el DOH de Chicago.</span></li>
-      <li><span class="en">Address-based TOPA boundary checking uses ZIP code matching. ZIP codes can overlap multiple program areas. For definitive boundary verification, see the official City of Chicago TOPA map.</span><span class="es" style="display:none">La verificación de límites basada en dirección usa coincidencia de código postal. Para verificación definitiva, consulta el mapa oficial de la Ciudad.</span></li>
-      <li><span class="en">Rent benchmarks based on HUD FY2025 data. HUD updates FMRs annually, typically in October.</span><span class="es" style="display:none">Los benchmarks de renta se basan en datos HUD FY2025. HUD actualiza los FMR anualmente.</span></li>
+      <li><span class="en">This tool is for <strong>educational and estimation purposes only</strong>. It is not legal, financial, or tax advice. Consult a housing attorney, CDFI lender, and certified housing counselor before making any purchase or financing decisions.</span><span class="es" style="display:none">Esta herramienta es <strong>solo para fines educativos y de estimación</strong>. No es asesoramiento legal, financiero ni fiscal. Consulta a un abogado de vivienda, prestamista CDFI y consejero de vivienda certificado antes de tomar decisiones de compra o financiamiento.</span></li>
+      <li><span class="en">TOPA ordinance text and timelines reflect the tool's last update date (April 15, 2026). Ordinance language, boundaries, and program rules may be amended. Always verify with the Chicago Department of Housing or a housing attorney.</span><span class="es" style="display:none">El texto y los plazos de la ordenanza TOPA reflejan la fecha de última actualización de la herramienta (15 de abril de 2026). El lenguaje, los límites y las reglas del programa pueden modificarse. Siempre verifica con el Departamento de Vivienda de Chicago o un abogado de vivienda.</span></li>
+      <li><span class="en">Address-based TOPA boundary checking uses ZIP code matching. ZIP codes can overlap multiple program areas. For definitive boundary verification, see the official City of Chicago TOPA map.</span><span class="es" style="display:none">La verificación de límites basada en dirección usa coincidencia de código postal. Los códigos postales pueden superponerse con múltiples áreas del programa. Para verificación definitiva, consulta el mapa oficial TOPA de la Ciudad de Chicago.</span></li>
+      <li><span class="en">Rent benchmarks based on HUD FY2025 data. HUD updates FMRs annually, typically in October.</span><span class="es" style="display:none">Los benchmarks de renta se basan en datos HUD FY2025. HUD actualiza los FMR anualmente, típicamente en octubre.</span></li>
     </ul>
-    <div class="alert alert-blue mt-1"><span class="en">Last updated: April 15, 2026 · Reflects Block (606) District (eff. March 1, 2025) and Jackson Park TOPA District (eff. April 6, 2026).</span><span class="es" style="display:none">Última actualización: 15 de abril de 2026 · Refleja el Distrito Bloque (606) y el Distrito Jackson Park TOPA.</span></div>
+    <div class="alert alert-blue mt-1"><span class="en">Last updated: April 15, 2026 · Reflects Block (606) District (eff. March 1, 2025) and Jackson Park TOPA District (eff. April 6, 2026).</span><span class="es" style="display:none">Última actualización: 15 de abril de 2026 · Refleja el Distrito Bloque (606) (vigente 1 mar. 2025) y el Distrito TOPA Jackson Park (vigente 6 abr. 2026).</span></div>
   </div></div>
 </div>
 
@@ -1210,23 +1289,21 @@ function calcC(){
   // For Custom: carrying charge comes from c_carry_cap directly, amiBadge inferred.
   var amiLevels=['30','50','60','80','100'];
   var activeStab=document.querySelector('#ami-bench-tabs .stab.active');
-  var selectedBench=activeStab?activeStab.textContent.trim():'Custom';
+  var selectedBench=activeStab ? (activeStab.dataset.bench||'custom') : 'custom';
 
   var amiBadge='', amiLabel='', maxTotalMo=0;
 
-  if(selectedBench==='Custom'){
-    // Custom: the carry cap IS the target carrying charge (plus loans/utils on top)
-    // Infer amiBadge from the cap value if provided, else leave unset
+  if(selectedBench==='custom'){
+    // Custom: the carry cap IS the target carrying charge
     amiBadge=''; amiLabel=T('Custom target','Objetivo personalizado');
     maxTotalMo = carryCap>0 ? carryCap+shareMo+unitUtil : 0;
-  } else if(selectedBench==='FMR'){
+  } else if(selectedBench==='fmr'){
     amiBadge='fmr'; amiLabel='FMR';
     var fmrVal = RENT_REFS['fmr']?RENT_REFS['fmr'][br]:0;
-    // FMR is used as the carry ceiling; total = carry+loan+util so maxTotal = fmrVal+loan+util
     maxTotalMo = fmrVal + shareMo + unitUtil;
   } else {
-    // Extract numeric AMI from button label e.g. "60% AMI" → "60"
-    var pct = selectedBench.replace(/[^0-9]/g,'');
+    // AMI tier: data-bench is already the numeric string e.g. '60'
+    var pct = selectedBench;
     if(AMI_INC_BR[pct]){
       amiBadge = pct;
       amiLabel = pct+'% AMI';
@@ -1260,7 +1337,7 @@ function calcC(){
   if(rval) rval.textContent = targetCarry>0 ? fmt(targetCarry)+'/mo' : '—';
   if(rsub && targetCarry>0){
     var breakdown='';
-    if(selectedBench!=='Custom'){
+    if(selectedBench!=='custom'){
       breakdown = T('Budget: ','Presupuesto: ')+fmt(maxTotalMo)
         +T(' (30% of ','  (30% de ')+amiLabel+T(' income)',  ' de ingresos)')
         +' − '+T('share loan ','préstamo ')+fmt(shareMo)
@@ -1269,7 +1346,9 @@ function calcC(){
       if(carryCap>0 && carryCap<derivedCarry)
         breakdown += T(' → capped at ','  → tope en ')+fmt(carryCap);
     } else {
-      breakdown = T('Custom cap','Tope personalizado')+': '+fmt(carryCap);
+      breakdown = carryCap>0
+        ? T('Custom cap','Tope personalizado')+': '+fmt(carryCap)
+        : T('Enter a carrying charge cap above to set a custom target','Ingresa un tope de cuota arriba para establecer un objetivo personalizado');
     }
     rsub.textContent=breakdown;
   }
@@ -1297,30 +1376,15 @@ function calcC(){
   var actualDSCR = annDebt>0?noi/annDebt:0;
   var dscrCol  = actualDSCR>=1.2?'#0F6E56':actualDSCR>=1.0?'#BA7517':'#A32D2D';
 
-  // Actual carrying charge backed into from mortgage payment + ops
-  // This can be HIGHER than targetCarry if LTV binds the mortgage upward
-  var actualCarry = annDebt>0 ? (annDebt+annOps)/numU/12 : targetCarry;
-  var ltv_bound   = actualCarry > targetCarry+1;
-
-  // Total monthly cost for a member
-  var totalMoActual = actualCarry+shareMo+unitUtil;
+  // Total monthly cost for a member = targetCarry + share loan + utilities
+  // targetCarry is the one true carrying charge — the mortgage is sized from it via NOI/DSCR
+  var totalMoActual = targetCarry+shareMo+unitUtil;
   var totalShares   = sv*numU;
   var gap           = Math.max(0,totalCost-mort-totalShares);
 
-  // What AMI does the total monthly cost correspond to?
-  var impliedInc = totalMoActual/0.30*12;
-  var totalAmiLabel='', totalAmiPct=0;
-  var amiOrder=[['30',AMI_INC_BR['30']],['50',AMI_INC_BR['50']],['60',AMI_INC_BR['60']],['80',AMI_INC_BR['80']],['100',AMI_INC_BR['100']]];
-  for(var k=0;k<amiOrder.length;k++){
-    if(impliedInc<=(amiOrder[k][1][br]||0)){totalAmiLabel=amiOrder[k][0]+'% AMI';totalAmiPct=parseInt(amiOrder[k][0]);break;}
-  }
-  if(!totalAmiLabel){totalAmiLabel=T('Above 100% AMI','Más del 100% AMI');totalAmiPct=101;}
-
-  var targetAmiPct = amiBadge ? parseInt(amiBadge) : 0;
-  var overBudget   = maxTotalMo>0 && totalMoActual>maxTotalMo+1;
-  var amiCol       = totalAmiPct<=60?'#0F6E56':totalAmiPct<=80?'#BA7517':'#A32D2D';
-  var cc           = actualCarry<1500?'#0F6E56':actualCarry<2100?'#BA7517':'#A32D2D';
-  var gapClass     = gap>0?'gap-r':'surplus-r';
+  var overBudget = maxTotalMo>0 && totalMoActual>maxTotalMo+1;
+  var cc         = targetCarry<1500?'#0F6E56':targetCarry<2100?'#BA7517':'#A32D2D';
+  var gapClass   = gap>0?'gap-r':'surplus-r';
 
   // ── RESALE ────────────────────────────────────
   var yr5=shareAtYr(sv,5),yr10=shareAtYr(sv,10),yr20=shareAtYr(sv,20);
@@ -1329,9 +1393,9 @@ function calcC(){
   if(rd) rd.innerHTML=T('Formula: ','Fórmula: ')+'<strong>'+rlab[resaleMode]+'</strong> &nbsp;|&nbsp; Yr 5: '+fmt(yr5)+' &nbsp; Yr 10: '+fmt(yr10)+' &nbsp; Yr 20: '+fmt(yr20);
 
   // ── STORE FOR COMPARE TAB ─────────────────────
-  cData={totalCost,mort,totalShares,gap,targetCarry,actualCarry,shareMo,
+  cData={totalCost,mort,totalShares,gap,targetCarry,shareMo,
     unitUtil,totalMo:totalMoActual,numU,annDebt,annOps,noi,egi,dscr:actualDSCR,
-    amiLabel,amiBadge,totalAmiLabel,cg,sr,st,amort,sv,hasLoan,
+    amiLabel,amiBadge,cg,sr,st,amort,sv,hasLoan,
     rehabPU,rehab,maxTotalMo};
 
   // ── OUTPUT PANEL ──────────────────────────────
@@ -1372,9 +1436,7 @@ function calcC(){
     '<div class="result-row"><span>'+T('Per-unit utilities','Servicios / unidad')+'</span><span class="result-num">('+fmt(unitUtil)+'/mo)</span></div>'+
     (maxTotalMo>0?'<div class="result-row sub"><span>'+T('Derived carrying charge ceiling','Techo de cuota derivado')+'</span><span class="result-num">'+fmt(derivedCarry)+'/mo</span></div>':'')+
     (carryCap>0&&carryCap<derivedCarry?'<div class="result-row"><span>'+T('Cap applied','Tope aplicado')+'</span><span class="result-num">'+fmt(targetCarry)+'/mo</span></div>':'')+
-    '<div class="result-row" style="margin-top:4px;padding-top:6px;border-top:1px solid #e8e4de"><span style="font-weight:600">'+T('Carrying charge used for sizing','Cuota usada para dimensionamiento')+'</span><span class="result-num" style="color:'+cc+';font-weight:700">'+fmt(targetCarry)+'/mo</span></div>'+
-    '<div class="result-row sub"><span>'+T('Actual carry (backed into from mortgage + ops)','Cuota real (de hipoteca + costos)')+'</span><span class="result-num" style="color:'+(ltv_bound?'#BA7517':cc)+'">'+(ltv_bound?'⚠ ':'')+fmt(actualCarry)+'/mo</span></div>'+
-    (ltv_bound?'<div class="result-row"><span class="text-xs" style="color:#BA7517">'+T('LTV constraint raises actual carry above target. Consider a lower purchase price or more equity.','La restricción LTV eleva la cuota real sobre el objetivo.')+'</span></div>':'')+
+    '<div class="result-row" style="margin-top:4px;padding-top:6px;border-top:1px solid #e8e4de"><span style="font-weight:600">'+T('Monthly carrying charge','Cuota mensual')+'</span><span class="result-num" style="color:'+cc+';font-weight:700">'+fmt(targetCarry)+'/mo</span></div>'+
     (overBudget?'<div class="result-row gap-r" style="margin-top:4px"><span>'+T('Total cost over AMI budget by','Costo total por encima del presupuesto AMI por')+'</span><span class="result-num">'+fmt(totalMoActual-maxTotalMo)+'/mo</span></div>':
       maxTotalMo>0?'<div class="result-row surplus-r" style="margin-top:4px"><span>'+T('Headroom within AMI budget','Margen dentro del presupuesto AMI')+'</span><span class="result-num">'+fmt(maxTotalMo-totalMoActual)+'/mo</span></div>':'')+
     '</div>'+
@@ -1416,15 +1478,15 @@ function renderCompare(){
   var rentBase=fData.rentPU||0;
   var rentTraj=yrs.map(function(y){return Math.round(rentBase*Math.pow(1+rentGrowth,y));});
 
-  // Co-op: carry + share loan (carry grows at cg; share loan pays off at term)
-  var coopBase=cData.actualCarry||0;
+  // Co-op: targetCarry + utilities (both grow at cg) + share loan (flat until paid off)
+  var coopBase=cData.targetCarry||0;
+  var coopUtil=cData.unitUtil||0;
   var sm=cData.shareMo||0;
   var stYrs=Math.round((cData.st||180)/12); // share loan term in years
   var coopWithLoan=[], coopPostLoan=[];
   yrs.forEach(function(y){
     var smpay=(y*12<(cData.st||180))?sm:0;
-    var cost=Math.round((coopBase+(cData.unitUtil||0))*Math.pow(1+cg,y)+smpay);
-    // Before payoff: show on loan line, null on post line; after: reverse
+    var cost=Math.round((coopBase+coopUtil)*Math.pow(1+cg,y)+smpay);
     if(y<=stYrs){coopWithLoan.push(cost);coopPostLoan.push(y===stYrs?cost:null);}
     else{coopWithLoan.push(null);coopPostLoan.push(cost);}
   });
@@ -1509,7 +1571,7 @@ function renderCompare(){
       cm(T('Gap (subsidy needed)','Brecha (subsidio necesario)'),fmt(cData.gap),'cm-warn')+
       cm(T('NOI','NOI'),fmt(cData.noi||0)+'/yr')+
       cm('DSCR (NOI / debt service)',''+((cData.dscr||0).toFixed(2))+'x',(cData.dscr>=1.15?'cm-good':cData.dscr>=1.0?'cm-warn':'cm-bad'))+
-      cm(T('Carrying charge (~'+cData.amiLabel+' carry target)','Cuota (~'+cData.amiLabel+' objetivo)'),fmt(cData.actualCarry)+'/mo')+
+      cm(T('Carrying charge (~'+cData.amiLabel+' target)','Cuota (~'+cData.amiLabel+' objetivo)'),fmt(cData.targetCarry)+'/mo')+
       cm(T('Share loan payment','Pago del préstamo de acción'),cData.hasLoan?fmt(cData.shareMo||0)+'/mo':T('None (paid upfront)','Ninguno (pago adelantado)'))+
       cm(T('Max affordable share price','Precio máx. acción asequible'),fmt(cData.sv||0))+
       cm(T('Carrying charge growth rate','Tasa de crecimiento de la cuota'),((cData.cg||0.025)*100).toFixed(1)+'%/yr','cm-good')+
