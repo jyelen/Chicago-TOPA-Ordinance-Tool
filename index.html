@@ -202,12 +202,12 @@ canvas{display:block;width:100%!important}
     <div class="hero-body en">
       <p>Chicago faces a widening affordable housing gap. Decades of disinvestment followed by rapid reinvestment have displaced tens of thousands of long-term residents — with the heaviest losses in historically Black and Latine neighborhoods on the northwest and south sides. Between 2012 and 2021, the Chicago metro lost hundreds of thousands of units affordable to low-income renters.</p>
       <p><strong>Preservation is among the most cost-effective anti-displacement strategies.</strong> Keeping existing affordable rental housing in community hands — through tenant purchase, cooperative ownership, community land trusts, or nonprofit stewardship — avoids the higher costs of new construction while protecting residents already in place.</p>
-      <p><strong>Tenant Opportunity to Purchase (TOPA)</strong> gives renters a structured right to purchase their building before it can be sold to an outside investor. When paired with the right resources — capital, public subsidies, legal assistance, and technical expertise — TOPA can be a powerful tool for resident-led preservation. Washington D.C.'s TOPA program, active since 1980, has helped preserve tens of thousands of affordable units and supported dozens of resident-owned cooperatives. Chicago's pilots are a meaningful start — but making them work requires sustained investment in tenant education, acquisition financing, and organizational capacity.</p>
+      <p><strong>Tenant Opportunity to Purchase (TOPA)</strong> gives renters a structured right to purchase their building before it can be sold to an outside investor. Chicago City Council has passed two TOPA pilot ordinances: the <strong>Block (606) District</strong> (Municipal Code Ch. 5-11, effective March 1, 2025), covering northwest side neighborhoods along the 606 Trail corridor, and the <strong>Jackson Park District</strong> (Municipal Code Ch. 5-10, effective April 6, 2026), covering Woodlawn, South Shore, and Greater Grand Crossing. Full program details are available at <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank" style="color:#9FE1CB">chicago.gov/topa</a>. Making these pilots work requires sustained investment in tenant education, acquisition financing, and organizational capacity.</p>
     </div>
     <div class="hero-body es" style="display:none">
       <p>Chicago enfrenta una brecha creciente de vivienda asequible. Entre 2012 y 2021, el área metropolitana perdió cientos de miles de unidades asequibles para inquilinos de bajos ingresos, con las mayores pérdidas en vecindarios históricamente negros y latinos.</p>
       <p><strong>La preservación es una de las estrategias anti-desplazamiento más rentables.</strong> Mantener la vivienda asequible existente en manos comunitarias evita los costos más altos de la nueva construcción mientras protege a los residentes.</p>
-      <p><strong>El TOPA</strong> otorga a los inquilinos el derecho estructurado de comprar su edificio antes de que se venda a un inversionista externo. El programa de Washington D.C., vigente desde 1980, ha preservado decenas de miles de unidades asequibles.</p>
+      <p><strong>El TOPA</strong> otorga a los inquilinos el derecho estructurado de comprar su edificio antes de que se venda a un inversionista externo. El Concejo Municipal de Chicago ha aprobado dos ordenanzas piloto TOPA: el <strong>Distrito Bloque (606)</strong> (Código Municipal Cap. 5-11, vigente desde el 1 de marzo de 2025) y el <strong>Distrito Jackson Park</strong> (Cap. 5-10, vigente desde el 6 de abril de 2026). Los detalles completos están disponibles en <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank" style="color:#9FE1CB">chicago.gov/topa</a>.</p>
     </div>
     <div class="hero-pills">
       <span class="hero-pill">🏘 Block (606) District <span class="en">— NW Side, eff. Mar 1 2025</span><span class="es" style="display:none">— Lado NW, vigente 1 mar 2025</span></span>
@@ -303,28 +303,6 @@ canvas{display:block;width:100%!important}
         <div><label><span class="en">Contingency (%)</span><span class="es" style="display:none">Contingencia (%)</span></label><input type="number" id="f_cont" value="10" oninput="calcF()"></div>
       </div>
     </div></div>
-    <div class="card"><div class="card-header"><h3><span class="en">Mortgage Assumptions</span><span class="es" style="display:none">Supuestos del Préstamo</span></h3></div><div class="card-body">
-      <div class="form-row">
-        <div><label><span class="en">Max LTV (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="f_ltv" value="70" oninput="calcF()"></div>
-        <div><label><span class="en">Interest rate (%)</span><span class="es" style="display:none">Tasa (%)</span></label><input type="number" id="f_rate" value="7.0" step="0.25" oninput="calcF()"></div>
-      </div>
-      <div class="form-row">
-        <div><label><span class="en">Amort. term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="f_term" value="30" oninput="calcF()"></div>
-        <div><label><span class="en">Min DSCR</span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="f_dscr_min" value="1.20" step="0.05" oninput="calcF()"></div>
-      </div>
-      <div class="hbox"><div class="hbox-label"><span class="en">Max supportable mortgage</span><span class="es" style="display:none">Hipoteca máxima soportable</span></div><div class="hbox-val" id="f-max-loan">—</div><div class="hbox-sub" id="f-max-loan-why"></div></div>
-    </div></div>
-    <div class="card"><div class="card-header"><h3><span class="en">Operating Expenses</span><span class="es" style="display:none">Gastos Operativos</span></h3></div><div class="card-body">
-      <div class="form-row">
-        <div><label><span class="en">Property tax / yr</span><span class="es" style="display:none">Impuesto predial / año</span></label><input type="number" id="f_tax" value="12000" oninput="calcF()"></div>
-        <div><label><span class="en">Insurance / yr</span><span class="es" style="display:none">Seguro / año</span></label><input type="number" id="f_ins" value="6000" oninput="calcF()"></div>
-      </div>
-      <div class="form-row">
-        <div><label><span class="en">Maint. &amp; mgmt / yr</span><span class="es" style="display:none">Mant. y admin / año</span></label><input type="number" id="f_maint" value="9000" oninput="calcF()"></div>
-        <div><label><span class="en">Reserve / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="f_reserve" value="500" oninput="calcF()"></div>
-      </div>
-      <div><label><span class="en">Vacancy (%)</span><span class="es" style="display:none">Vacancia (%)</span></label><input type="number" id="f_vac" value="5" oninput="calcF()"></div>
-    </div></div>
     <div class="card"><div class="card-header"><h3><span class="en">Rent Scenario</span><span class="es" style="display:none">Escenario de Renta</span></h3></div><div class="card-body">
       <div class="stabs" id="rent-mode-tabs">
         <button class="stab active" onclick="setRentMode('avg',this)"><span class="en">Avg. rent</span><span class="es" style="display:none">Renta promedio</span></button>
@@ -348,6 +326,28 @@ canvas{display:block;width:100%!important}
         </div>
       </div>
       <div id="rent-roll-block" style="display:none"><div id="rr-container"></div><div class="rr-total" id="rr-total"></div></div>
+    </div></div>
+    <div class="card"><div class="card-header"><h3><span class="en">Operating Expenses</span><span class="es" style="display:none">Gastos Operativos</span></h3></div><div class="card-body">
+      <div class="form-row">
+        <div><label><span class="en">Property tax / yr</span><span class="es" style="display:none">Impuesto predial / año</span></label><input type="number" id="f_tax" value="12000" oninput="calcF()"></div>
+        <div><label><span class="en">Insurance / yr</span><span class="es" style="display:none">Seguro / año</span></label><input type="number" id="f_ins" value="6000" oninput="calcF()"></div>
+      </div>
+      <div class="form-row">
+        <div><label><span class="en">Maint. &amp; mgmt / yr</span><span class="es" style="display:none">Mant. y admin / año</span></label><input type="number" id="f_maint" value="9000" oninput="calcF()"></div>
+        <div><label><span class="en">Reserve / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="f_reserve" value="500" oninput="calcF()"></div>
+      </div>
+      <div><label><span class="en">Vacancy (%)</span><span class="es" style="display:none">Vacancia (%)</span></label><input type="number" id="f_vac" value="5" oninput="calcF()"></div>
+    </div></div>
+    <div class="card"><div class="card-header"><h3><span class="en">Mortgage Assumptions</span><span class="es" style="display:none">Supuestos del Préstamo</span></h3></div><div class="card-body">
+      <div class="form-row">
+        <div><label><span class="en">Max LTV (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="f_ltv" value="70" oninput="calcF()"></div>
+        <div><label><span class="en">Interest rate (%)</span><span class="es" style="display:none">Tasa (%)</span></label><input type="number" id="f_rate" value="7.0" step="0.25" oninput="calcF()"></div>
+      </div>
+      <div class="form-row">
+        <div><label><span class="en">Amort. term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="f_term" value="30" oninput="calcF()"></div>
+        <div><label><span class="en">Min DSCR</span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="f_dscr_min" value="1.20" step="0.05" oninput="calcF()"></div>
+      </div>
+      <div class="hbox"><div class="hbox-label"><span class="en">Max supportable mortgage</span><span class="es" style="display:none">Hipoteca máxima soportable</span></div><div class="hbox-val" id="f-max-loan">—</div><div class="hbox-sub" id="f-max-loan-why"></div></div>
     </div></div>
   </div>
   <div><div id="finance-output"></div></div>
@@ -392,7 +392,7 @@ canvas{display:block;width:100%!important}
 
     <!-- STEP 2: AFFORDABILITY TARGET -->
     <div class="card" style="border-color:#1D9E75"><div class="card-header" style="background:#f0fdf8;border-color:#B5DFC9"><h3 style="color:#085041">② <span class="en">Affordability target</span><span class="es" style="display:none">② Objetivo de asequibilidad</span></h3></div><div class="card-body">
-      <p class="text-sm" style="margin-bottom:8px"><span class="en">Select the AMI level the co-op should be affordable to. The tool calculates the maximum carrying charge consistent with that target — accounting for utilities and the share loan payment (if any) from step ⑤. You can also set a custom carrying charge cap below.</span><span class="es" style="display:none">Selecciona el nivel de AMI al que debe ser asequible la cooperativa. La herramienta calcula la cuota máxima consistente con ese objetivo, considerando servicios y el préstamo de acción (si aplica) del paso ⑤.</span></p>
+      <p class="text-sm" style="margin-bottom:8px"><span class="en">Select an AMI level or FMR to set the carrying charge target automatically, or choose Custom to enter a specific amount. The tool subtracts utilities and share loan payments (if any) to arrive at the max carrying charge.</span><span class="es" style="display:none">Selecciona un nivel de AMI o FMR para establecer automáticamente la cuota objetivo, o elige Personalizado para ingresar un monto específico. La herramienta resta servicios y pagos de préstamo de acción para obtener la cuota máxima.</span></p>
 
       <div class="stabs" id="ami-bench-tabs">
         <button class="stab" onclick="setAmiBench('30',this)" data-bench="30">30% AMI</button>
@@ -401,17 +401,17 @@ canvas{display:block;width:100%!important}
         <button class="stab" onclick="setAmiBench('80',this)" data-bench="80">80% AMI</button>
         <button class="stab" onclick="setAmiBench('100',this)" data-bench="100">100% AMI</button>
         <button class="stab" onclick="setAmiBench('fmr',this)" data-bench="fmr">FMR</button>
-        <button class="stab active" onclick="setAmiBench('custom',this)" data-bench="custom" data-bench="custom"><span class="en">Custom</span><span class="es" style="display:none">Personalizado</span></button>
+        <button class="stab active" onclick="setAmiBench('custom',this)" data-bench="custom"><span class="en">Custom</span><span class="es" style="display:none">Personalizado</span></button>
       </div>
 
       <div class="form-row" style="margin-bottom:5px">
         <div>
-          <label><span class="en">Per-unit utilities / mo</span><span class="es" style="display:none">Servicios / unidad / mes</span> <span class="text-xs" style="color:#888">(not in carry)</span></label>
+          <label><span class="en">Per-unit utilities / mo</span><span class="es" style="display:none">Servicios / unidad / mes</span> <span class="text-xs" style="color:#888"><span class="en">(subtracted from member budget, not in carry)</span><span class="es" style="display:none">(restados del presupuesto del miembro, no incluidos en cuota)</span></span></label>
           <input type="number" id="c_unit_util" value="75" oninput="calcC()">
         </div>
-        <div>
-          <label><span class="en">Carrying charge cap / unit / mo</span><span class="es" style="display:none">Tope de cuota / unidad / mes</span> <span class="text-xs" style="color:#888">(override or leave 0)</span></label>
-          <input type="number" id="c_carry_cap" value="0" min="0" oninput="calcC()" placeholder="0 = auto from AMI">
+        <div id="custom-carry-input">
+          <label><span class="en">Custom carrying charge / unit / mo</span><span class="es" style="display:none">Cuota personalizada / unidad / mes</span> <span class="text-xs" style="color:#888"><span class="en">(active when Custom is selected above)</span><span class="es" style="display:none">(activo cuando se selecciona Personalizado)</span></span></label>
+          <input type="number" id="c_carry_cap" value="0" min="0" oninput="calcC()" placeholder="e.g. 1200">
         </div>
       </div>
 
@@ -419,7 +419,7 @@ canvas{display:block;width:100%!important}
 
       <!-- Derived carrying charge — the key output of this section -->
       <div class="hbox" id="ami-result-box" style="border-color:#1D9E75;background:#f0fdf8">
-        <div class="hbox-label" style="color:#085041"><span class="en">Max affordable carrying charge / unit / mo</span><span class="es" style="display:none">Cuota máxima asequible / unidad / mes</span></div>
+        <div class="hbox-label" style="color:#085041"><span class="en">Target carrying charge / unit / mo</span><span class="es" style="display:none">Cuota objetivo / unidad / mes</span></div>
         <div class="hbox-val" id="ami-result-val" style="color:#085041">—</div>
         <div class="hbox-sub" id="ami-result-sub" style="color:#2D7055"></div>
       </div>
@@ -625,12 +625,12 @@ canvas{display:block;width:100%!important}
     </tr></thead><tbody>
       <tr>
         <td><span class="en">Block (606) TOPA</span><span class="es" style="display:none">TOPA Bloque (606)</span></td>
-        <td>Chicago Municipal Code Ch. 5-11; Northwest Side Preservation Ordinance (2024)</td>
+        <td><a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">Chicago Municipal Code Ch. 5-11</a>; Northwest Side Preservation Ordinance (2024)</td>
         <td><span class="en">Eff. Mar 1, 2025. 60-day notice (5+ units), 30-day (1–4). 90/30/15-day association window. 120/60-day close window.</span><span class="es" style="display:none">Vigente 1 mar. 2025. Aviso 60 días (5+ unidades), 30 días (1–4). Ventana de asociación 90/30/15 días. Ventana de cierre 120/60 días.</span></td>
       </tr>
       <tr>
         <td><span class="en">Jackson Park TOPA</span><span class="es" style="display:none">TOPA Jackson Park</span></td>
-        <td>Chicago Municipal Code Ch. 5-10; Jackson Park Housing Preservation Ordinance (2025); <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></td>
+        <td><a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">Chicago Municipal Code Ch. 5-10</a>; Jackson Park Housing Preservation Ordinance (2025)</td>
         <td><span class="en">Eff. Apr 6, 2026. Woodlawn, South Shore, Greater Grand Crossing. Introduced by Ald. Desmon Yancy (5th Ward).</span><span class="es" style="display:none">Vigente 6 abr. 2026. Woodlawn, South Shore, Greater Grand Crossing. Presentado por el Ald. Desmon Yancy (5.° Distrito).</span></td>
       </tr>
       <tr>
@@ -1197,7 +1197,7 @@ function calcF(){
   document.getElementById('finance-output').innerHTML=
     '<div class="calc-result"><h4>'+T('Project summary','Resumen del proyecto')+'</h4>'+
     '<div class="result-section"><div class="result-row"><span>'+T('Purchase price','Precio de compra')+'</span><span class="result-num">'+fmt(price)+'</span></div><div class="result-row"><span>'+T('Rehab','Rehabilitación')+' ('+fmt(rehabPU)+'/unit × '+numU+')</span><span class="result-num">'+fmt(rehab)+'</span></div><div class="result-row"><span>'+T('Soft costs','Costos blandos')+' ('+Math.round(soft*100)+'%)</span><span class="result-num">'+fmt(softC)+'</span></div><div class="result-row"><span>'+T('Contingency','Contingencia')+' ('+Math.round(cont*100)+'%)</span><span class="result-num">'+fmt(contC)+'</span></div><div class="result-row total"><span>'+T('Total project cost','Costo total')+'</span><span class="result-num">'+fmt(totalCost)+'</span></div></div>'+
-    '<div class="result-section"><h5>'+T('Financing','Financiamiento')+'</h5><div class="result-row"><span>'+T('Max LTV loan','Préstamo máx. LTV')+'</span><span class="result-num">'+fmt(loanLTV)+'</span></div><div class="result-row"><span>'+T('Max DSCR loan','Préstamo máx. DSCR')+' ('+dscrMin.toFixed(2)+'x)</span><span class="result-num">'+fmt(loanDSCR)+'</span></div><div class="result-row sub" style="color:'+(limitBy==='DSCR'?'#A32D2D':'#0F6E56')+'"><span>→ '+T('Loan (lower of LTV/DSCR)','Préstamo (menor de LTV/DSCR)')+'</span><span class="result-num">'+fmt(loan)+'</span></div><div class="result-row"><span>'+T('Monthly mortgage payment','Pago mensual de hipoteca')+'</span><span class="result-num">'+fmt(moPmt)+'/mo</span></div><div class="result-row total"><span>'+T('Required equity / subsidy','Capital propio / subsidio requerido')+'</span><span class="result-num">'+fmt(equity)+'</span></div></div>'+
+    '<div class="result-section"><h5>'+T('Financing','Financiamiento')+'</h5><div class="result-row"><span>'+T('Max LTV loan','Préstamo máx. LTV')+'</span><span class="result-num">'+fmt(loanLTV)+'</span></div><div class="result-row"><span>'+T('Max DSCR loan','Préstamo máx. DSCR')+' ('+dscrMin.toFixed(2)+'x)</span><span class="result-num">'+fmt(loanDSCR)+'</span></div><div class="result-row sub" style="color:'+(limitBy==='DSCR'?'#A32D2D':'#0F6E56')+'"><span>→ '+T('Loan (lower of LTV/DSCR)','Préstamo (menor de LTV/DSCR)')+'</span><span class="result-num">'+fmt(loan)+'</span></div><div class="result-row"><span>'+T('Monthly mortgage payment','Pago mensual de hipoteca')+'</span><span class="result-num">'+fmt(moPmt)+'/mo</span></div><div class="result-row total" style="background:#FFF8E7;margin:4px -4px 0;padding:6px 4px;border-radius:5px;border-top:none"><span style="font-weight:700">'+T('Required equity / subsidy','Capital propio / subsidio requerido')+'</span><span class="result-num" style="font-weight:700;color:#A32D2D">'+fmt(equity)+'</span></div><div class="result-row" style="font-size:11px;color:#888;padding-top:2px"><span>'+T('Per unit','Por unidad')+'</span><span class="result-num">'+fmt(equity/numU)+'</span></div></div>'+
     '<div class="result-section"><h5>'+T('Pro forma','Pro forma')+'</h5><div class="result-row"><span>'+T('Gross potential rent','Renta bruta potencial')+'</span><span class="result-num">'+fmt(grossRent)+'/yr</span></div><div class="result-row"><span>'+T('Effective gross income','Ingreso bruto efectivo')+'</span><span class="result-num">'+fmt(egi)+'/yr</span></div><div class="result-row"><span>'+T('Operating expenses','Gastos operativos')+'</span><span class="result-num">('+fmt(opex)+')/yr</span></div><div class="result-row sub"><span>NOI</span><span class="result-num">'+fmt(noi)+'/yr</span></div><div class="result-row"><span>'+T('Annual debt service','Servicio de deuda anual')+'</span><span class="result-num">('+fmt(annDebt)+')/yr</span></div><div class="result-row '+cfc+'"><span>'+T('Cash flow','Flujo de efectivo')+'</span><span class="result-num">'+(cf>=0?'':'(')+fmt(Math.abs(cf))+'/yr'+(cf<0?')':'')+'</span></div></div>'+
     '<div class="result-section"><h5>'+T('Metrics','Indicadores')+'</h5><div class="result-row"><span>'+T('Cap rate','Tasa de capitalización')+'</span><span class="result-num">'+cap.toFixed(2)+'%</span></div><div class="result-row"><span>DSCR</span><span class="result-num" style="color:'+dc+';font-weight:700">'+dscr.toFixed(2)+'x</span></div><div class="result-row"><span>'+T('Cost per unit','Costo por unidad')+'</span><span class="result-num">'+fmt(totalCost/numU)+'</span></div></div>'+
     (dscr<1.2?'<div class="alert alert-'+(dscr>=1.0?'amber':'red')+'">'+T(dscr<1.0?'⚠ NOI does not cover debt service.':'DSCR below 1.25 lender threshold.',dscr<1.0?'⚠ El NOI no cubre el servicio de deuda.':'DSCR por debajo del umbral de 1.25.')+'</div>':'<div class="alert alert-green">'+T('DSCR ≥ 1.2. Project may be financeable.','DSCR ≥ 1.2. El proyecto puede ser financiable.')+'</div>')+
@@ -1211,6 +1211,9 @@ function calcF(){
 function setAmiBench(pct,btn){
   document.querySelectorAll('#ami-bench-tabs .stab').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
+  // Show custom carry input only when Custom is selected
+  var customDiv=document.getElementById('custom-carry-input');
+  if(customDiv) customDiv.style.opacity = pct==='custom' ? '1' : '0.35';
   calcC();
 }
 
@@ -1283,10 +1286,6 @@ function calcC(){
   }
 
   // ── AMI TARGET & DERIVED CARRYING CHARGE (step ②) ──
-  // Identify which AMI button is active to get amiBadge & income ceiling.
-  // For AMI tiers: maxTotalMo = 30% of that tier's annual income / 12
-  // For FMR: use FMR value directly as the rent ceiling (analogous to 30% rule)
-  // For Custom: carrying charge comes from c_carry_cap directly, amiBadge inferred.
   var amiLevels=['30','50','60','80','100'];
   var activeStab=document.querySelector('#ami-bench-tabs .stab.active');
   var selectedBench=activeStab ? (activeStab.dataset.bench||'custom') : 'custom';
@@ -1294,15 +1293,16 @@ function calcC(){
   var amiBadge='', amiLabel='', maxTotalMo=0;
 
   if(selectedBench==='custom'){
-    // Custom: the carry cap IS the target carrying charge
+    // Custom: c_carry_cap IS the carrying charge directly
     amiBadge=''; amiLabel=T('Custom target','Objetivo personalizado');
+    // maxTotalMo = carry + share loan + utilities (carry = carryCap)
     maxTotalMo = carryCap>0 ? carryCap+shareMo+unitUtil : 0;
   } else if(selectedBench==='fmr'){
     amiBadge='fmr'; amiLabel='FMR';
     var fmrVal = RENT_REFS['fmr']?RENT_REFS['fmr'][br]:0;
     maxTotalMo = fmrVal + shareMo + unitUtil;
   } else {
-    // AMI tier: data-bench is already the numeric string e.g. '60'
+    // AMI tier: data-bench is the numeric string e.g. '60'
     var pct = selectedBench;
     if(AMI_INC_BR[pct]){
       amiBadge = pct;
@@ -1312,10 +1312,10 @@ function calcC(){
     }
   }
 
-  // Derived max carrying charge = total budget minus share loan and utilities
+  // Carrying charge = total member budget minus share loan and utilities
+  // For AMI/FMR: derived from the income ceiling. For Custom: directly from input.
   var derivedCarry = Math.max(0, maxTotalMo - shareMo - unitUtil);
-  // Apply optional cap (tightens only, never loosens)
-  var targetCarry = (carryCap>0) ? Math.min(derivedCarry, carryCap) : derivedCarry;
+  var targetCarry = derivedCarry; // no cap/override — custom mode already sets carryCap as the carry
 
   // AMI reference row for info box
   var amiRef=document.getElementById('ami-ref-box');
@@ -1343,12 +1343,10 @@ function calcC(){
         +' − '+T('share loan ','préstamo ')+fmt(shareMo)
         +' − '+T('utilities ','servicios ')+fmt(unitUtil)
         +' = '+fmt(derivedCarry);
-      if(carryCap>0 && carryCap<derivedCarry)
-        breakdown += T(' → capped at ','  → tope en ')+fmt(carryCap);
     } else {
       breakdown = carryCap>0
-        ? T('Custom cap','Tope personalizado')+': '+fmt(carryCap)
-        : T('Enter a carrying charge cap above to set a custom target','Ingresa un tope de cuota arriba para establecer un objetivo personalizado');
+        ? T('Custom carrying charge: ','Cuota personalizada: ')+fmt(carryCap)
+        : T('Enter a custom carrying charge amount above','Ingresa un monto personalizado de cuota arriba');
     }
     rsub.textContent=breakdown;
   }
@@ -1414,7 +1412,8 @@ function calcC(){
     '<div class="result-section"><h5>'+T('Sources','Fuentes')+'</h5>'+
     '<div class="result-row"><span>'+T('Blanket mortgage','Hipoteca global')+' ('+limitBy+'-limited)</span><span class="result-num">'+fmt(mort)+'</span></div>'+
     '<div class="result-row"><span>'+T('Share equity','Capital de acciones')+' ('+numU+' × '+fmt(sv)+')</span><span class="result-num">'+fmt(totalShares)+'</span></div>'+
-    '<div class="result-row '+gapClass+'"><span>'+T('Gap / subsidy needed','Brecha / subsidio')+'</span><span class="result-num">'+fmt(gap)+'</span></div>'+
+    '<div class="result-row '+gapClass+'" style="background:#FFF8E7;margin:4px -4px 0;padding:6px 4px;border-radius:5px;border-top:none"><span style="font-weight:700">'+T('Gap / subsidy needed','Brecha / subsidio')+'</span><span class="result-num" style="font-weight:700">'+fmt(gap)+'</span></div>'+
+    '<div class="result-row" style="font-size:11px;color:#888;padding-top:2px"><span>'+T('Per unit','Por unidad')+'</span><span class="result-num">'+fmt(gap/numU)+'</span></div>'+
     '</div>'+
 
     // OPERATING PRO FORMA
@@ -1435,7 +1434,6 @@ function calcC(){
     '<div class="result-row"><span>'+T('Share loan payment','Préstamo de acción')+(amort?'':' I/O')+'</span><span class="result-num">'+(hasLoan&&sv>0?'('+fmt(shareMo)+'/mo)':T('none','ninguno'))+'</span></div>'+
     '<div class="result-row"><span>'+T('Per-unit utilities','Servicios / unidad')+'</span><span class="result-num">('+fmt(unitUtil)+'/mo)</span></div>'+
     (maxTotalMo>0?'<div class="result-row sub"><span>'+T('Derived carrying charge ceiling','Techo de cuota derivado')+'</span><span class="result-num">'+fmt(derivedCarry)+'/mo</span></div>':'')+
-    (carryCap>0&&carryCap<derivedCarry?'<div class="result-row"><span>'+T('Cap applied','Tope aplicado')+'</span><span class="result-num">'+fmt(targetCarry)+'/mo</span></div>':'')+
     '<div class="result-row" style="margin-top:4px;padding-top:6px;border-top:1px solid #e8e4de"><span style="font-weight:600">'+T('Monthly carrying charge','Cuota mensual')+'</span><span class="result-num" style="color:'+cc+';font-weight:700">'+fmt(targetCarry)+'/mo</span></div>'+
     (overBudget?'<div class="result-row gap-r" style="margin-top:4px"><span>'+T('Total cost over AMI budget by','Costo total por encima del presupuesto AMI por')+'</span><span class="result-num">'+fmt(totalMoActual-maxTotalMo)+'/mo</span></div>':
       maxTotalMo>0?'<div class="result-row surplus-r" style="margin-top:4px"><span>'+T('Headroom within AMI budget','Margen dentro del presupuesto AMI')+'</span><span class="result-num">'+fmt(maxTotalMo-totalMoActual)+'/mo</span></div>':'')+
@@ -1589,6 +1587,10 @@ window.addEventListener('load',function(){
   renderResaleInputs();
   calcF();
   calcC();
+  // Set initial opacity of custom carry input based on active bench
+  var ab=document.querySelector('#ami-bench-tabs .stab.active');
+  var cd=document.getElementById('custom-carry-input');
+  if(cd&&ab) cd.style.opacity = ab.dataset.bench==='custom' ? '1' : '0.35';
   selNbhd('logan',document.querySelector('.nbhd-card.active'));
   renderCompare();
   initLeafletMap();
