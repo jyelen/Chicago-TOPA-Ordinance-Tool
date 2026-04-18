@@ -739,7 +739,7 @@ var NBHD={
 var POLY_606=[
   [41.9472,-87.6820],[41.9472,-87.7261],[41.9244,-87.7261],[41.9244,-87.7339],
   [41.9069,-87.7339],[41.9069,-87.7056],[41.9100,-87.7056],[41.9100,-87.6967],
-  [41.9036,-87.6967],[41.9036,-87.6878],[41.9472,-87.6878],[41.9472,-87.6820]
+  [41.9036,-87.6967],[41.9036,-87.6878]
 ];
 var POLY_JP=[
   [41.7845,-87.6150],[41.7845,-87.5870],[41.7664,-87.5870],
@@ -891,7 +891,7 @@ var leafletMap = null, addressMarker = null;
 var LBOUND_606=[
   [41.9472,-87.6820],[41.9472,-87.7261],[41.9244,-87.7261],[41.9244,-87.7339],
   [41.9069,-87.7339],[41.9069,-87.7056],[41.9100,-87.7056],[41.9100,-87.6967],
-  [41.9036,-87.6967],[41.9036,-87.6878],[41.9472,-87.6878],[41.9472,-87.6820]
+  [41.9036,-87.6967],[41.9036,-87.6878]
 ];
 var LBOUND_JP=[
   [41.7845,-87.6150],[41.7845,-87.5870],[41.7664,-87.5870],
@@ -911,10 +911,9 @@ function initLeafletMap(){
     attributionControl:true
   }).setView([41.860,-87.670],11);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom:19,
-    subdomains:'abc'
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',{
+    attribution:'&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom:20
   }).addTo(leafletMap);
 
   var p606=L.polygon(LBOUND_606,{
@@ -937,7 +936,26 @@ function initLeafletMap(){
   );
   pJP.on('click',function(){showMapTip('jp');});
 
-  // invalidateSize after a tick to handle any layout shift
+  // Legend control
+  var legend=L.control({position:'bottomleft'});
+  legend.onAdd=function(){
+    var div=L.DomUtil.create('div');
+    div.style.cssText='background:rgba(255,255,255,0.95);padding:8px 11px;border-radius:7px;border:1px solid #ddd;font:12px/-apple-system,sans-serif;line-height:1.7;box-shadow:0 1px 4px rgba(0,0,0,.12)';
+    div.innerHTML=
+      '<div style="display:flex;align-items:center;gap:7px;margin-bottom:3px">'+
+        '<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#1D9E75;opacity:.7;border:1.5px solid #0F6E56;flex-shrink:0"></span>'+
+        '<span><strong style="color:#085041">Block (606) District</strong><br>'+
+        '<span style="font-size:10px;color:#5a9070">NW Side &nbsp;&middot;&nbsp; eff. March 1, 2025</span></span>'+
+      '</div>'+
+      '<div style="display:flex;align-items:center;gap:7px">'+
+        '<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8B6BAF;opacity:.7;border:1.5px solid #6B3FA0;flex-shrink:0"></span>'+
+        '<span><strong style="color:#4A235A">Jackson Park District</strong><br>'+
+        '<span style="font-size:10px;color:#6B3FA0">South Side &nbsp;&middot;&nbsp; eff. April 6, 2026</span></span>'+
+      '</div>';
+    return div;
+  };
+  legend.addTo(leafletMap);
+
   setTimeout(function(){leafletMap.invalidateSize();},200);
 }
 
