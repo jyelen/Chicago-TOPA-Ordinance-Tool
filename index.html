@@ -270,7 +270,7 @@ canvas{display:block;width:100%!important}
     <div class="nbhd-card active" onclick="selNbhd('logan',this)"><div class="nbhd-name">Logan Square</div><div class="nbhd-zips">60647, 60618</div><div class="nbhd-badge">✓ Block (606)</div></div>
     <div class="nbhd-card" onclick="selNbhd('avondale',this)"><div class="nbhd-name">Avondale</div><div class="nbhd-zips">60618, 60641</div><div class="nbhd-badge">✓ Block (606)</div></div>
     <div class="nbhd-card" onclick="selNbhd('humboldt',this)"><div class="nbhd-name">Humboldt Park</div><div class="nbhd-zips">60651, 60612</div><div class="nbhd-badge">✓ Block (606)</div></div>
-    <div class="nbhd-card" onclick="selNbhd('hermosa',this)"><div class="nbhd-name">Hermosa</div><div class="nbhd-zips">60639, 60641</div><div class="nbhd-badge">✓ Block (606)</div></div>
+    <div class="nbhd-card" onclick="selNbhd('hermosa',this)"><div class="nbhd-name">Hermosa</div><div class="nbhd-zips">60639, 60641</div><div class="nbhd-badge" style="background:#BA7517">⚠ Partial (606)</div></div>
     <div class="nbhd-card" onclick="selNbhd('lowerwest',this)"><div class="nbhd-name">Lower West Side</div><div class="nbhd-zips">60608, 60616</div><div class="nbhd-badge">✓ Block (606)</div></div>
     <div class="nbhd-card" onclick="selNbhd('westtown',this)"><div class="nbhd-name">West Town</div><div class="nbhd-zips">60622, 60647</div><div class="nbhd-badge">✓ Block (606)</div></div>
   </div>
@@ -626,7 +626,7 @@ canvas{display:block;width:100%!important}
       <tr>
         <td><span class="en">Block (606) TOPA</span><span class="es" style="display:none">TOPA Bloque (606)</span></td>
         <td><a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2701738" target="_blank">Chicago Municipal Code Ch. 5-11</a>; Northwest Side Preservation Ordinance (2024)</td>
-        <td><span class="en">Eff. Mar 1, 2025. 60-day notice (5+ units), 30-day (1–4). 90/30/15-day association window. 120/60-day close window.</span><span class="es" style="display:none">Vigente 1 mar. 2025. Aviso 60 días (5+ unidades), 30 días (1–4). Ventana de asociación 90/30/15 días. Ventana de cierre 120/60 días.</span></td>
+        <td><span class="en">Eff. Mar 1, 2025. 60-day notice (5+ units), 30-day (1–4). 90/30/15-day association window. 120/60-day close window. <strong>Amended July 2025 (O2025-0018156):</strong> portions of the 31st and 36th wards (west of Pulaski Ave) removed from coverage area, effective late September 2025.</span><span class="es" style="display:none">Vigente 1 mar. 2025. Aviso 60 días (5+ unidades), 30 días (1–4). Ventana de asociación 90/30/15 días. Ventana de cierre 120/60 días. <strong>Modificado julio 2025 (O2025-0018156):</strong> las porciones de los distritos 31 y 36 (al oeste de Pulaski Ave) fueron excluidas del área de cobertura, vigente desde finales de septiembre de 2025.</span></td>
       </tr>
       <tr>
         <td><span class="en">Jackson Park TOPA</span><span class="es" style="display:none">TOPA Jackson Park</span></td>
@@ -747,7 +747,7 @@ canvas{display:block;width:100%!important}
       <li><span class="en">Address-based TOPA boundary checking uses ZIP code matching. ZIP codes can overlap multiple program areas. For definitive boundary verification, see the official City of Chicago TOPA map.</span><span class="es" style="display:none">La verificación de límites basada en dirección usa coincidencia de código postal. Los códigos postales pueden superponerse con múltiples áreas del programa. Para verificación definitiva, consulta el mapa oficial TOPA de la Ciudad de Chicago.</span></li>
       <li><span class="en">Rent benchmarks based on HUD FY2025 data. HUD updates FMRs annually, typically in October.</span><span class="es" style="display:none">Los benchmarks de renta se basan en datos HUD FY2025. HUD actualiza los FMR anualmente, típicamente en octubre.</span></li>
     </ul>
-    <div class="alert alert-blue mt-1"><span class="en">Last updated: April 15, 2026 · Reflects Block (606) District (eff. March 1, 2025) and Jackson Park TOPA District (eff. April 6, 2026).</span><span class="es" style="display:none">Última actualización: 15 de abril de 2026 · Refleja el Distrito Bloque (606) (vigente 1 mar. 2025) y el Distrito TOPA Jackson Park (vigente 6 abr. 2026).</span></div>
+    <div class="alert alert-blue mt-1"><span class="en">Last updated: April 29, 2026 · Reflects Block (606) District as amended (eff. March 1, 2025; 31st/36th ward portions removed Sept. 2025) and Jackson Park TOPA District (eff. April 6, 2026).</span><span class="es" style="display:none">Última actualización: 29 de abril de 2026 · Refleja el Distrito Bloque (606) modificado (vigente 1 mar. 2025; porciones de distritos 31/36 excluidas sept. 2025) y el Distrito TOPA Jackson Park (vigente 6 abr. 2026).</span></div>
   </div></div>
 </div>
 
@@ -800,7 +800,7 @@ var NBHD={
   logan:{name:'Logan Square',zips:'60647, 60618',pct:18,prog:'606',fmr:{s:1430,b1:1580,b2:1920,b3:2450},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'Logan Square saw the sharpest decline in affordable rental housing of any Chicago PUMA (−15.3%) between 2012–2021, alongside an 18.9% drop in lower-income renters.',note_es:'Logan Square experimentó la mayor disminución en vivienda asequible de cualquier PUMA de Chicago (−15.3%).'},
   avondale:{name:'Avondale',zips:'60618, 60641',pct:31,prog:'606',fmr:{s:1380,b1:1540,b2:1880,b3:2350},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'31% of Avondale housing units are naturally occurring affordable. The Logan Square-Avondale PUMA saw the largest decrease in lower-income renters citywide.',note_es:'El 31% de las unidades de Avondale son asequibles de forma natural.'},
   humboldt:{name:'Humboldt Park',zips:'60651, 60612',pct:39,prog:'606',fmr:{s:1300,b1:1440,b2:1720,b3:2180},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'39% of Humboldt Park housing units are naturally occurring affordable — one of the highest concentrations in the district.',note_es:'El 39% de las unidades de Humboldt Park son naturalmente asequibles.'},
-  hermosa:{name:'Hermosa',zips:'60639, 60641',pct:45,prog:'606',fmr:{s:1320,b1:1460,b2:1740,b3:2200},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'45% of Hermosa housing units are naturally occurring affordable — the highest rate among ordinance neighborhoods.',note_es:'El 45% de las unidades de Hermosa son naturalmente asequibles.'},
+  hermosa:{name:'Hermosa',zips:'60639, 60641',pct:45,prog:'606',fmr:{s:1320,b1:1460,b2:1740,b3:2200},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'45% of Hermosa housing units are naturally occurring affordable — the highest rate among ordinance neighborhoods. Note: In July 2025, the portions of Hermosa in the 31st and 36th wards (west of Pulaski Ave) were removed from the Block (606) TOPA district. Use the address checker to confirm coverage.',note_es:'El 45% de las unidades de Hermosa son naturalmente asequibles. Nota: En julio de 2025, las porciones de Hermosa en los distritos 31 y 36 (al oeste de Pulaski Ave) fueron excluidas del distrito TOPA Bloque (606). Usa el verificador de dirección para confirmar cobertura.'},
   lowerwest:{name:'Lower West Side (Pilsen)',zips:'60608, 60616',pct:54,prog:'606',fmr:{s:1350,b1:1490,b2:1820,b3:2280},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'Lower West Side experienced the highest total assessed value increase of any community area 2018–2021 (+91%) and the highest residential tax levy increase in 2021 (+44.7%).',note_es:'El Lado Oeste Inferior experimentó el mayor aumento en valor catastral 2018–2021 (+91%).'},
   westtown:{name:'West Town',zips:'60622, 60647',pct:12,prog:'606',fmr:{s:1500,b1:1660,b2:2050,b3:2620},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'West Town has a lower share of naturally occurring affordable housing (12%) but faces significant gentrification pressure.',note_es:'West Town tiene una menor proporción de viviendas naturalmente asequibles (12%) pero enfrenta presiones significativas de gentrificación.'},
   woodlawn:{name:'Woodlawn',zips:'60637',pct:38,prog:'jp',fmr:{s:1200,b1:1320,b2:1580,b3:1980},ami60:{s:1260,b1:1350,b2:1620,b3:1871},ami80:{s:1678,b1:1798,b2:2159,b3:2494},note_en:'Woodlawn is the core of the Jackson Park TOPA district, surrounding the Obama Presidential Center site. Long home to a majority-Black population, Woodlawn faces accelerating displacement pressure as investment rises.',note_es:'Woodlawn es el núcleo del distrito TOPA de Jackson Park, rodeando el sitio del Centro Presidencial Obama.'},
@@ -816,8 +816,9 @@ var NBHD={
 //      South Chicago Ave(SW diagonal), MLK Dr(W)
 // ═══════════════════════════════════════════════
 var POLY_606=[
-  [41.9472,-87.6820],[41.9472,-87.7261],[41.9244,-87.7261],[41.9244,-87.7339],
-  [41.9069,-87.7339],[41.9069,-87.7056],[41.9100,-87.7056],[41.9100,-87.6967],
+  [41.9472,-87.6820],[41.9472,-87.7261],
+  [41.9069,-87.7261],
+  [41.9069,-87.7056],[41.9100,-87.7056],[41.9100,-87.6967],
   [41.9036,-87.6967],[41.9036,-87.6878]
 ];
 var POLY_JP=[
@@ -946,7 +947,7 @@ function setProg(p,btn){
   document.querySelectorAll('#program-group .btn-opt').forEach(function(b){b.classList.remove('active');});
   if(btn)btn.classList.add('active');
   var el=document.getElementById('prog-note');if(!el)return;
-  if(p==='606')el.textContent=T('Block (606) District — Northwest Side. Effective March 1, 2025. Covers Logan Square, Avondale, Humboldt Park, Hermosa, Lower West Side, and West Town. Municipal Code Chapter 5-11.','Distrito Bloque (606) — Lado Noroeste. Vigente desde el 1 de marzo de 2025. Cubre Logan Square, Avondale, Humboldt Park, Hermosa, Lado Oeste Inferior y West Town. Capítulo 5-11 del Código Municipal.');
+  if(p==='606')el.textContent=T('Block (606) District — Northwest Side. Effective March 1, 2025. Covers Logan Square, Avondale, Humboldt Park, West Town, and parts of Hermosa (east of Pulaski Ave). Note: Portions of the 31st and 36th wards (west of Pulaski Ave) were removed in September 2025. Municipal Code Chapter 5-11.','Distrito Bloque (606) — Lado Noroeste. Vigente desde el 1 de marzo de 2025. Cubre Logan Square, Avondale, Humboldt Park, West Town y partes de Hermosa (al este de Pulaski Ave). Nota: Las porciones de los distritos 31 y 36 (al oeste de Pulaski Ave) fueron excluidas en septiembre de 2025. Capítulo 5-11 del Código Municipal.');
   else el.textContent=T('Jackson Park District — South Side. Effective April 6, 2026. Covers Woodlawn, South Shore, and Greater Grand Crossing. Bounded by 60th St (N), MLK Dr (W), South Chicago Ave (SW), 71st St (S), DuSable Lake Shore Dr (E). Municipal Code Chapter 5-10.','Distrito Jackson Park — Lado Sur. Vigente desde el 6 de abril de 2026. Cubre Woodlawn, South Shore y Greater Grand Crossing. Capítulo 5-10 del Código Municipal.');
   curProg2=p;
   document.querySelectorAll('#program-group2 .btn-opt').forEach(function(b){b.classList.remove('active');});
@@ -968,8 +969,9 @@ function setProg2(p,btn){
 var leafletMap = null, addressMarker = null;
 
 var LBOUND_606=[
-  [41.9472,-87.6820],[41.9472,-87.7261],[41.9244,-87.7261],[41.9244,-87.7339],
-  [41.9069,-87.7339],[41.9069,-87.7056],[41.9100,-87.7056],[41.9100,-87.6967],
+  [41.9472,-87.6820],[41.9472,-87.7261],
+  [41.9069,-87.7261],
+  [41.9069,-87.7056],[41.9100,-87.7056],[41.9100,-87.6967],
   [41.9036,-87.6967],[41.9036,-87.6878]
 ];
 var LBOUND_JP=[
@@ -1027,13 +1029,47 @@ function initLeafletMap(){
         '<span><strong style="color:#085041">Block (606) District</strong><br>'+
         '<span style="font-size:10px;color:#5a9070">NW Side &nbsp;&middot;&nbsp; eff. March 1, 2025</span></span>'+
       '</div>'+
-      '<div style="display:flex;align-items:center;gap:7px">'+
+      '<div style="display:flex;align-items:center;gap:7px;margin-bottom:3px">'+
         '<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8B6BAF;opacity:.7;border:1.5px solid #6B3FA0;flex-shrink:0"></span>'+
         '<span><strong style="color:#4A235A">Jackson Park District</strong><br>'+
         '<span style="font-size:10px;color:#6B3FA0">South Side &nbsp;&middot;&nbsp; eff. April 6, 2026</span></span>'+
+      '</div>'+
+      '<div style="display:flex;align-items:center;gap:7px">'+
+        '<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#A32D2D;opacity:.25;border:1.5px solid #A32D2D;flex-shrink:0"></span>'+
+        '<span><strong style="color:#A32D2D">Wards 31 &amp; 36</strong><br>'+
+        '<span style="font-size:10px;color:#A32D2D">Opted out Sept. 2025</span></span>'+
       '</div>';
     return div;
   };
+  // Ward boundaries — fetched live from City of Chicago Data Portal
+  var OPTED_OUT=['31','36'];
+  fetch('https://data.cityofchicago.org/api/geospatial/sp34-6z76?method=export&type=GeoJSON')
+    .then(function(r){return r.json();})
+    .then(function(gj){
+      // Log the first feature's properties so we can see the exact field name
+      if(gj.features&&gj.features.length){
+        console.log('[TOPA] Ward GeoJSON loaded.',gj.features.length,'features. First feature properties:',JSON.stringify(gj.features[0].properties));
+      }
+      L.geoJSON(gj,{
+        filter:function(f){
+          var props=f.properties||{};
+          // Try every property key, case-insensitive, to find the ward number
+          var w='';
+          for(var k in props){
+            if(k.toLowerCase().indexOf('ward')>-1){w=String(props[k]);break;}
+          }
+          return OPTED_OUT.indexOf(w)>-1;
+        },
+        style:function(){
+          return{color:'#A32D2D',weight:2,fillColor:'#A32D2D',fillOpacity:0.12,dashArray:null};
+        },
+        onEachFeature:function(f,layer){
+          layer.bindTooltip('Ward opted out of Block (606) TOPA (Sept. 2025)',{sticky:true});
+        }
+      }).addTo(leafletMap);
+    })
+    .catch(function(err){console.log('[TOPA] Ward boundary fetch failed:',err);});
+
   legend.addTo(leafletMap);
 
   setTimeout(function(){leafletMap.invalidateSize();},200);
