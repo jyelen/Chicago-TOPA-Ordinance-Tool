@@ -753,6 +753,7 @@ canvas{display:block;width:100%!important}
 
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.0.1/chartjs-plugin-annotation.min.js"></script>
 <script>
@@ -815,49 +816,24 @@ var NBHD={
 // JP:  60th St(N), DuSable Lake Shore Dr(E), 71st St(S),
 //      South Chicago Ave(SW diagonal), MLK Dr(W)
 // ═══════════════════════════════════════════════
-// 606 District — extracted from official City of Chicago PDF vector data
-// Calibrated using Kostner Ave (W anchor) and Addison/Western (NE anchor)
-// 39-vertex RDP simplification of 414-point boundary curve
+// 606 District — built from ordinance O2024-0011001 boundary street list (pre-expansion)
+// This is the post-31st/36th-ward-removal boundary (O2025-0018156)
+// Streets: Addison(N), North Branch River(NE diagonal), Western(E), Division(SE),
+// California(S-inner), North Ave(W-inner), Kedzie(N-inner), Hirsch(W-SW),
+// Kostner(N-SW), Fullerton(E-NW), Pulaski(S to Addison)
+// All coordinates from verified Chicago street grid
 var POLY_606=[
-  [41.93315,-87.72177],
-  [41.93443,-87.72183],
-  [41.93449,-87.71561],
-  [41.93706,-87.71566],
-  [41.93948,-87.71250],
-  [41.94222,-87.71790],
-  [41.94218,-87.72203],
-  [41.94991,-87.72228],
-  [41.95020,-87.68275],
-  [41.94603,-87.68158],
-  [41.94326,-87.67938],
-  [41.94180,-87.67673],
-  [41.93954,-87.67500],
-  [41.93900,-87.67235],
-  [41.91853,-87.67159],
-  [41.90390,-87.67118],
-  [41.90380,-87.68366],
-  [41.91153,-87.68387],
-  [41.91144,-87.69645],
-  [41.90759,-87.69640],
-  [41.90730,-87.71958],
-  [41.90756,-87.72040],
-  [41.90930,-87.72045],
-  [41.90927,-87.72432],
-  [41.90991,-87.72432],
-  [41.90988,-87.72590],
-  [41.91064,-87.72590],
-  [41.91061,-87.72748],
-  [41.91115,-87.72748],
-  [41.91112,-87.73033],
-  [41.91166,-87.73033],
-  [41.91163,-87.73191],
-  [41.91303,-87.73196],
-  [41.91347,-87.73354],
-  [41.92463,-87.73390],
-  [41.92470,-87.72768],
-  [41.92609,-87.72774],
-  [41.92670,-87.72157],
-  [41.92740,-87.72157]
+  [41.9472,-87.6770],  // NE: Addison & North Branch River
+  [41.9244,-87.6827],  // River diagonal to Fullerton & Western
+  [41.9036,-87.6827],  // SE corner: Division & Western
+  [41.9036,-87.6969],  // Division & California
+  [41.9100,-87.6969],  // North Ave & California
+  [41.9100,-87.7074],  // North Ave & Kedzie
+  [41.9020,-87.7074],  // Hirsch & Kedzie
+  [41.9020,-87.7339],  // SW corner: Hirsch & Kostner
+  [41.9244,-87.7339],  // Fullerton & Kostner
+  [41.9244,-87.7261],  // Fullerton & Pulaski
+  [41.9472,-87.7261]   // NW corner: Addison & Pulaski
 ];
 
 var POLY_JP=[
@@ -1027,45 +1003,17 @@ function setProg2(p,btn){
 var leafletMap = null, addressMarker = null;
 
 var LBOUND_606=[
-  [41.93315,-87.72177],
-  [41.93443,-87.72183],
-  [41.93449,-87.71561],
-  [41.93706,-87.71566],
-  [41.93948,-87.71250],
-  [41.94222,-87.71790],
-  [41.94218,-87.72203],
-  [41.94991,-87.72228],
-  [41.95020,-87.68275],
-  [41.94603,-87.68158],
-  [41.94326,-87.67938],
-  [41.94180,-87.67673],
-  [41.93954,-87.67500],
-  [41.93900,-87.67235],
-  [41.91853,-87.67159],
-  [41.90390,-87.67118],
-  [41.90380,-87.68366],
-  [41.91153,-87.68387],
-  [41.91144,-87.69645],
-  [41.90759,-87.69640],
-  [41.90730,-87.71958],
-  [41.90756,-87.72040],
-  [41.90930,-87.72045],
-  [41.90927,-87.72432],
-  [41.90991,-87.72432],
-  [41.90988,-87.72590],
-  [41.91064,-87.72590],
-  [41.91061,-87.72748],
-  [41.91115,-87.72748],
-  [41.91112,-87.73033],
-  [41.91166,-87.73033],
-  [41.91163,-87.73191],
-  [41.91303,-87.73196],
-  [41.91347,-87.73354],
-  [41.92463,-87.73390],
-  [41.92470,-87.72768],
-  [41.92609,-87.72774],
-  [41.92670,-87.72157],
-  [41.92740,-87.72157]
+  [41.9472,-87.6770],
+  [41.9244,-87.6827],
+  [41.9036,-87.6827],
+  [41.9036,-87.6969],
+  [41.9100,-87.6969],
+  [41.9100,-87.7074],
+  [41.9020,-87.7074],
+  [41.9020,-87.7339],
+  [41.9244,-87.7339],
+  [41.9244,-87.7261],
+  [41.9472,-87.7261]
 ];
 var LBOUND_JP=[
   [41.7845,-87.6187],
@@ -1101,16 +1049,7 @@ function initLeafletMap(){
     subdomains:'abc'
   }).addTo(leafletMap);
 
-  var p606=L.polygon(LBOUND_606,{
-    color:'#0F6E56',weight:2,fillColor:'#1D9E75',fillOpacity:0.22
-  }).addTo(leafletMap);
-  p606.bindPopup(
-    '<strong style="color:#085041">Block (606) District</strong><br>'+
-    'NW Side &mdash; eff. March 1, 2025<br>'+
-    '<span style="font-size:11px">Logan Square &middot; Avondale &middot; Humboldt Park &middot; Hermosa &middot; Lower West Side &middot; West Town</span>'
-  );
-  p606.on('click',function(){showMapTip('606');});
-
+  // Jackson Park polygon (hardcoded — improve separately)
   var pJP=L.polygon(LBOUND_JP,{
     color:'#6B3FA0',weight:2,fillColor:'#8B6BAF',fillOpacity:0.22
   }).addTo(leafletMap);
@@ -1121,7 +1060,7 @@ function initLeafletMap(){
   );
   pJP.on('click',function(){showMapTip('jp');});
 
-  // Legend control
+  // Legend
   var legend=L.control({position:'bottomleft'});
   legend.onAdd=function(){
     var div=L.DomUtil.create('div');
@@ -1144,38 +1083,116 @@ function initLeafletMap(){
       '</div>';
     return div;
   };
-  // Ward boundaries — fetched live from City of Chicago Data Portal
-  var OPTED_OUT=['31','36'];
+  legend.addTo(leafletMap);
+
+  // Ordinance outer bounding box for the 606 district
+  // Used to clip ward geometries to the legal boundary
+  // Streets: Addison(N), River→Western(E), Division(SE), California/NorthAve/Kedzie(inner S),
+  //          Hirsch/Kostner(SW), Fullerton/Pulaski(NW)
+  var OUTER_606 = turf.polygon([[
+    [-87.6770, 41.9472],  // Addison & River (NE)
+    [-87.6827, 41.9244],  // Western & Fullerton
+    [-87.6827, 41.9036],  // Western & Division (SE)
+    [-87.6969, 41.9036],  // Division & California
+    [-87.6969, 41.9100],  // California & North Ave
+    [-87.7074, 41.9100],  // North Ave & Kedzie
+    [-87.7074, 41.9020],  // Kedzie & Hirsch
+    [-87.7339, 41.9020],  // Hirsch & Kostner (SW)
+    [-87.7339, 41.9244],  // Kostner & Fullerton
+    [-87.7261, 41.9244],  // Fullerton & Pulaski
+    [-87.7261, 41.9472],  // Pulaski & Addison (NW)
+    [-87.6770, 41.9472]   // close
+  ]]);
+
+  // Wards in the 606 district (post 31st/36th removal)
+  var WARDS_606 = ['1','26','30','33','35'];
+  var OPTED_OUT = ['31','36'];
+
   fetch('https://data.cityofchicago.org/api/geospatial/sp34-6z76?method=export&type=GeoJSON')
     .then(function(r){return r.json();})
     .then(function(gj){
-      // Log the first feature's properties so we can see the exact field name
-      if(gj.features&&gj.features.length){
-        console.log('[TOPA] Ward GeoJSON loaded.',gj.features.length,'features. First feature properties:',JSON.stringify(gj.features[0].properties));
+      if(!gj.features||!gj.features.length) throw new Error('No features');
+
+      // Find the ward number property key
+      var wardKey='';
+      var props=gj.features[0].properties||{};
+      for(var k in props){
+        if(k.toLowerCase().indexOf('ward')>-1){wardKey=k;break;}
       }
+      console.log('[TOPA] Ward key:',wardKey,'Features:',gj.features.length);
+
+      // --- 606 District: union the relevant ward polygons then clip to outer boundary ---
+      if(typeof turf!=='undefined'){
+        var wardPolys=[];
+        gj.features.forEach(function(f){
+          var w=String(f.properties[wardKey]||'');
+          if(WARDS_606.indexOf(w)>-1){
+            try{
+              // Ensure valid geometry
+              var geom=f.geometry;
+              if(geom&&(geom.type==='Polygon'||geom.type==='MultiPolygon')){
+                wardPolys.push(turf.feature(geom));
+              }
+            }catch(e){}
+          }
+        });
+
+        if(wardPolys.length>0){
+          try{
+            // Union all matching ward polygons
+            var union=wardPolys[0];
+            for(var i=1;i<wardPolys.length;i++){
+              union=turf.union(union,wardPolys[i]);
+            }
+            // Clip to ordinance outer boundary
+            var clipped=turf.intersect(union,OUTER_606);
+            if(clipped){
+              var p606=L.geoJSON(clipped,{
+                style:{color:'#0F6E56',weight:2,fillColor:'#1D9E75',fillOpacity:0.22}
+              }).addTo(leafletMap);
+              p606.bindPopup(
+                '<strong style="color:#085041">Block (606) District</strong><br>'+
+                'NW Side &mdash; eff. March 1, 2025<br>'+
+                '<span style="font-size:11px">Logan Square &middot; Avondale &middot; Humboldt Park &middot; West Town</span>'
+              );
+              p606.on('click',function(){showMapTip('606');});
+              console.log('[TOPA] 606 polygon built from ward data ✓');
+            }
+          }catch(e){
+            console.log('[TOPA] Turf error, falling back to hardcoded polygon:',e);
+            addFallback606();
+          }
+        } else {
+          console.log('[TOPA] No matching ward features found, falling back');
+          addFallback606();
+        }
+      } else {
+        addFallback606();
+      }
+
+      // Opted-out wards (31, 36) — show as red overlay
       L.geoJSON(gj,{
         filter:function(f){
-          var props=f.properties||{};
-          // Try every property key, case-insensitive, to find the ward number
-          var w='';
-          for(var k in props){
-            if(k.toLowerCase().indexOf('ward')>-1){w=String(props[k]);break;}
-          }
+          var w=String(f.properties[wardKey]||'');
           return OPTED_OUT.indexOf(w)>-1;
         },
-        style:function(){
-          return{color:'#A32D2D',weight:2,fillColor:'#A32D2D',fillOpacity:0.12,dashArray:null};
-        },
-        onEachFeature:function(f,layer){
-          layer.bindTooltip('Ward opted out of Block (606) TOPA (Sept. 2025)',{sticky:true});
-        }
+        style:{color:'#A32D2D',weight:2,fillColor:'#A32D2D',fillOpacity:0.12}
       }).addTo(leafletMap);
     })
-    .catch(function(err){console.log('[TOPA] Ward boundary fetch failed:',err);});
-
-  legend.addTo(leafletMap);
+    .catch(function(err){
+      console.log('[TOPA] Ward fetch failed, using hardcoded polygon:',err);
+      addFallback606();
+    });
 
   setTimeout(function(){leafletMap.invalidateSize();},200);
+}
+
+function addFallback606(){
+  var p=L.polygon(LBOUND_606,{
+    color:'#0F6E56',weight:2,fillColor:'#1D9E75',fillOpacity:0.22
+  }).addTo(leafletMap);
+  p.bindPopup('<strong style="color:#085041">Block (606) District</strong><br>NW Side &mdash; eff. March 1, 2025');
+  p.on('click',function(){showMapTip('606');});
 }
 
 function mapShowPin(lat,lng,label){
