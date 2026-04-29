@@ -1108,10 +1108,16 @@ function initLeafletMap(){
   var WARDS_606 = ['1','26','30','33','35'];
   var OPTED_OUT = ['31','36'];
 
-  fetch('https://data.cityofchicago.org/api/geospatial/sp34-6z76?method=export&type=GeoJSON')
-    .then(function(r){return r.json();})
+  fetch('https://data.cityofchicago.org/api/geospatial/p293-wvbd?method=export&type=GeoJSON')
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
     .then(function(gj){
-      if(!gj.features||!gj.features.length) throw new Error('No features');
+      if(!gj.features||!gj.features.length){
+        console.log('[TOPA] GeoJSON structure:', JSON.stringify(Object.keys(gj)));
+        throw new Error('No features');
+      }
 
       // Find the ward number property key
       var wardKey='';
