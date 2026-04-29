@@ -869,17 +869,25 @@ function showPIPResult(lat,lng,displayAddr,el){
   mapShowPin(lat,lng,displayAddr);
   if(in606){
     el.innerHTML='<div class="alert alert-green">'
-      +'<strong>'+T('✓ Covered — Block (606) District','✓ Cubierto — Distrito Bloque (606)')+'</strong><br>'
+      +'<strong>'+T('✓ Within Block (606) District boundary','✓ Dentro del límite del Distrito Bloque (606)')+'</strong><br>'
       +displayAddr+'<br>'
-      +T('This address is within the Block (606) District boundary. TOPA rights apply to qualifying residential rental properties. Effective March 1, 2025.','Esta dirección está dentro del límite del Distrito Bloque (606). Los derechos TOPA aplican a propiedades de alquiler residencial. Vigente desde el 1 de marzo de 2025.')
-      +'<br><span class="text-xs" style="opacity:.75">'+coordStr+' &mdash; <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">'+T('Official TOPA page','Página oficial TOPA')+'</a></span>'
+      +T('This address is within the Block (606) District. However, TOPA rights only apply to properties zoned RS-3 or RT-3.5. Check the zoning of this specific property before relying on these rights.','Esta dirección está dentro del Distrito Bloque (606). Sin embargo, los derechos TOPA solo aplican a propiedades zonificadas RS-3 o RT-3.5. Verifica la zonificación de esta propiedad antes de depender de estos derechos.')
+      +'<br><span class="text-xs" style="opacity:.75;line-height:1.8">'
+      +coordStr+' &mdash; '
+      +'<a href="https://gisapps.chicago.gov/ZoningMapWeb/?liab=1&config=zoning" target="_blank">'+T('Check zoning →','Verificar zonificación →')+'</a>'
+      +' &mdash; <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">'+T('Official TOPA page','Página oficial TOPA')+'</a>'
+      +'</span>'
       +'</div>';
   } else if(inJP){
     el.innerHTML='<div class="alert alert-purple">'
-      +'<strong>'+T('✓ Covered — Jackson Park District','✓ Cubierto — Distrito Jackson Park')+'</strong><br>'
+      +'<strong>'+T('✓ Within Jackson Park District boundary','✓ Dentro del límite del Distrito Jackson Park')+'</strong><br>'
       +displayAddr+'<br>'
-      +T('This address is within the Jackson Park District boundary. TOPA rights apply to qualifying residential rental properties. Effective April 6, 2026.','Esta dirección está dentro del límite del Distrito Jackson Park. Los derechos TOPA aplican a propiedades de alquiler residencial. Vigente desde el 6 de abril de 2026.')
-      +'<br><span class="text-xs" style="opacity:.75">'+coordStr+' &mdash; <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">'+T('Official TOPA page','Página oficial TOPA')+'</a></span>'
+      +T('This address is within the Jackson Park District. However, TOPA rights only apply to properties with qualifying residential zoning. Check the zoning of this specific property before relying on these rights. Effective April 6, 2026.','Esta dirección está dentro del Distrito Jackson Park. Sin embargo, los derechos TOPA solo aplican a propiedades con zonificación residencial habilitante. Vigente desde el 6 de abril de 2026.')
+      +'<br><span class="text-xs" style="opacity:.75;line-height:1.8">'
+      +coordStr+' &mdash; '
+      +'<a href="https://gisapps.chicago.gov/ZoningMapWeb/?liab=1&config=zoning" target="_blank">'+T('Check zoning →','Verificar zonificación →')+'</a>'
+      +' &mdash; <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">'+T('Official TOPA page','Página oficial TOPA')+'</a>'
+      +'</span>'
       +'</div>';
   } else {
     var isChicago=lat>41.64&&lat<42.02&&lng>-87.94&&lng<-87.52;
