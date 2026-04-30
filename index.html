@@ -111,14 +111,34 @@ input:focus,select:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 2px 
 .rt th{background:#f9f8f5;padding:6px 8px;text-align:left;font-size:10px;text-transform:uppercase;color:#888;border-bottom:1px solid #e2e0d8}
 .rt td{padding:6px 8px;border-bottom:1px solid #f5f4f0;color:#444;vertical-align:top}
 .rt .hi{color:#0F6E56;font-weight:600}
-/* RESOURCES */
-.resource-list{list-style:none}
-.resource-list li{padding:7px 0;border-bottom:1px solid #f0ede8;font-size:12px}
-.resource-list li:last-child{border-bottom:none}
-.resource-list a{font-weight:500;color:#0F6E56}
-.resource-list .rd{color:#888;font-size:11px;margin-top:1px}
-.rsec-head{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;padding:9px 0 4px;border-top:1px solid #f0ede8;margin-top:3px}
-.rsec-head:first-child{border-top:none;margin-top:0;padding-top:0}
+/* RESOURCES ACCORDION */
+.res-section{margin-bottom:1.1rem}
+.res-section-head{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.07em;padding:0 0 6px;border-bottom:2px solid #e2e0d8;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.res-item{border:1px solid #e8e4de;border-radius:9px;background:#fff;margin-bottom:6px;overflow:hidden;transition:box-shadow .15s}
+.res-item:hover{box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.res-trigger{width:100%;text-align:left;background:none;border:none;padding:11px 14px;cursor:pointer;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}
+.res-trigger:focus{outline:2px solid #1D9E75;outline-offset:-2px}
+.res-trigger-left{display:flex;flex-direction:column;gap:2px}
+.res-name{font-size:13px;font-weight:600;color:#0F6E56;line-height:1.3}
+.res-teaser{font-size:11px;color:#888;line-height:1.4}
+.res-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:20px;background:#f0ede8;color:#888;white-space:nowrap;flex-shrink:0}
+.res-tag.official{background:#E1F5EE;color:#085041}
+.res-tag.organizing{background:#FAEEDA;color:#633806}
+.res-tag.legal{background:#E6F1FB;color:#0C447C}
+.res-tag.coop-dev{background:#EAF3DE;color:#3B6D11}
+.res-tag.financing{background:#FFF3E0;color:#7A4000}
+.res-tag.policy{background:#F3EEFF;color:#4A235A}
+.res-tag.national{background:#f0ede8;color:#555}
+.res-chevron{font-size:14px;color:#bbb;transition:transform .2s;flex-shrink:0}
+.res-item.open .res-chevron{transform:rotate(180deg)}
+.res-body{display:none;padding:0 14px 12px;border-top:1px solid #f0ede8}
+.res-item.open .res-body{display:block}
+.res-detail{font-size:12px;color:#444;line-height:1.6;margin-top:8px}
+.res-link{display:inline-block;margin-top:7px;font-size:11px;font-weight:600;color:#0F6E56}
+.res-note{margin-top:6px;padding:7px 10px;background:#f9f8f5;border-radius:6px;font-size:11px;color:#666;line-height:1.5;border-left:3px solid #e2e0d8}
+.res-contact{margin-top:6px;font-size:12px;font-weight:500;color:#1a1a1a}
+/* Resources page intro */
+.res-intro{font-size:12.5px;color:#555;line-height:1.6;margin-bottom:1rem;padding:12px 14px;background:#fff;border-radius:9px;border:1px solid #e8e4de}
 /* CHARTS */
 .chart-wrap{background:#f9f8f5;border-radius:7px;overflow:hidden;margin-top:.5rem}
 canvas{display:block;width:100%!important}
@@ -187,6 +207,7 @@ canvas{display:block;width:100%!important}
     <button class="nav-tab" onclick="goPage('finance',this)"><span class="en">Rental Feasibility</span><span class="es" style="display:none">Factibilidad Alquiler</span></button>
     <button class="nav-tab" onclick="goPage('coop',this)"><span class="en">Co-op Calculator</span><span class="es" style="display:none">Calculadora Co-op</span></button>
     <button class="nav-tab" onclick="goPage('compare',this)"><span class="en">Rental vs. Co-op</span><span class="es" style="display:none">Alquiler vs. Co-op</span></button>
+    <button class="nav-tab" onclick="goPage('resources',this)"><span class="en">Resources</span><span class="es" style="display:none">Recursos</span></button>
     <button class="nav-tab" onclick="goPage('sources',this)"><span class="en">Sources</span><span class="es" style="display:none">Fuentes</span></button>
   </div>
   <button class="lang-btn" id="langBtn" onclick="toggleLang()">Español</button>
@@ -559,8 +580,8 @@ canvas{display:block;width:100%!important}
   <ul class="timeline">
     <li class="step"><div class="step-num" style="background:#E1F5EE;color:#085041">1</div><div class="step-body">
       <div class="step-title"><span class="en">Receive Notice → Form tenant association</span><span class="es" style="display:none">Recibir Aviso → Formar asociación</span></div>
-      <div class="step-desc"><span class="en">Owner must give 60-day notice before listing (5+ units). Once offer accepted, tenants have 90 days from Notice of Sale to form association (75% consent) and notify owner + DOH.</span><span class="es" style="display:none">El dueño debe dar 60 días de aviso. Los inquilinos tienen 90 días para formar una asociación (75% de consentimiento) y notificar al dueño y al DOH.</span></div>
-      <div class="step-hover"><strong>TOPA clock:</strong> <span class="en">For 5+ unit buildings, the 90-day association window starts from the Notice of Sale (accepted offer notice), not the Notice of Intent to Sell. Use this time to contact The Community WEB, UHAB, Chicago Legal Aid, and other TA experts. Use your 30-day information request right to gather financial records from the owner.</span><span class="es" style="display:none">Para edificios de 5+ unidades, la ventana de 90 días comienza desde el Aviso de Venta. Usa este tiempo para contactar a The Community WEB, UHAB, Chicago Legal Aid y otros expertos.</span></div>
+      <div class="step-desc"><span class="en">Owner must give 60-day notice before listing (5+ units) via the DOH two-part Notice of Intent to Sell (Owner Declaration + Tenant Notice). Once a third-party offer is accepted, owner sends Notice of Third-Party Purchase Agreement — your 90-day association window starts then.</span><span class="es" style="display:none">El dueño debe dar 60 días de aviso (5+ unidades) via el Aviso DOH de dos partes. Una vez aceptada la oferta, el dueño envía el Aviso del Contrato con Tercero — tu ventana de 90 días comienza entonces.</span></div>
+      <div class="step-hover"><strong>TOPA clock:</strong> <span class="en">The 90-day association window starts from the Notice of Third-Party Purchase Agreement (the accepted-offer notice), not the Notice of Intent to Sell. The waiver of ROFR is on this document — you are not required to sign it, and the owner cannot ask you to. Use this window to contact The Community WEB, UHAB, Chicago Legal Aid, and other TA experts. Request financial records from the owner (rent roll, income/expense reports, violation history).</span><span class="es" style="display:none">La ventana de 90 días comienza desde el Aviso del Contrato con Tercero. El formulario de renuncia está en este documento — no estás obligado a firmarlo. Usa este tiempo para contactar a The Community WEB, UHAB, Chicago Legal Aid y otros expertos.</span></div>
     </div></li>
     <li class="step"><div class="step-num" style="background:#E6F1FB;color:#0C447C">2</div><div class="step-body">
       <div class="step-title"><span class="en">Exercise right of first refusal → Engage TA</span><span class="es" style="display:none">Ejercer derecho → Involucrar asistencia técnica</span></div>
@@ -585,25 +606,15 @@ canvas{display:block;width:100%!important}
   </ul>
   </div>
   <div>
-    <!-- RESOURCES -->
-    <div class="card"><div class="card-header"><h3><span class="en">Resources</span><span class="es" style="display:none">Recursos</span></h3></div><div class="card-body">
-      <div class="rsec-head">🏙 <span class="en">Chicago — TOPA &amp; Tenant Rights</span><span class="es" style="display:none">Chicago — TOPA y Derechos de Inquilinos</span></div>
+    <!-- RESOURCES POINTER -->
+    <div class="card"><div class="card-header"><h3><span class="en">Resources &amp; Support</span><span class="es" style="display:none">Recursos y Apoyo</span></h3></div><div class="card-body">
+      <p class="text-sm"><span class="en">For TOPA support organizations, co-op development resources, financing programs, and policy research, see the <strong>Resources tab</strong>.</span><span class="es" style="display:none">Para organizaciones de apoyo TOPA, recursos de desarrollo cooperativo, programas de financiamiento e investigación de políticas, consulta la <strong>pestaña Recursos</strong>.</span></p>
+      <div class="rsec-head" style="margin-top:8px">📞 <span class="en">Key contacts</span><span class="es" style="display:none">Contactos clave</span></div>
       <ul class="resource-list">
-        <li><a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">City of Chicago — Official TOPA Page</a><div class="rd"><span class="en">DOH's official resource for both programs, including notice requirements, timelines, and forms.</span><span class="es" style="display:none">Recurso oficial del DOH para ambos programas TOPA.</span></div></li>
-        <li><a href="https://www.palenquelsna.org/" target="_blank">Palenque LSNA</a><div class="rd"><span class="en">Advocacy and housing programs on Chicago's northwest side.</span><span class="es" style="display:none">Programas de defensa y vivienda en el lado noroeste de Chicago.</span></div></li>
-        <li><a href="https://legalaidchicago.org/" target="_blank">Chicago Legal Aid</a><div class="rd"><span class="en">Free and low-cost legal support for TOPA, eviction defense, and housing legal matters.</span><span class="es" style="display:none">Apoyo legal gratuito y de bajo costo para TOPA y asuntos de vivienda.</span></div></li>
-        <li><a href="https://heretostayclt.org/" target="_blank">Here to Stay Community Land Trust</a><div class="rd"><span class="en">Chicago CLT that may assist with property acquisitions as an assignee of TOPA rights.</span><span class="es" style="display:none">CLT de Chicago que puede ayudar con adquisiciones de propiedades como cesionario de derechos TOPA.</span></div></li>
-        <li><a href="https://thecommunityweb.org/" target="_blank">The Community WEB</a><div class="rd"><span class="en">TA, training, and organizing support for co-op conversions in Chicago.</span><span class="es" style="display:none">Asistencia técnica y apoyo organizativo para cooperativas en Chicago.</span></div></li>
-        <li><a href="https://resurrectionproject.org/co-op-share-loans/" target="_blank">The Resurrection Project — Share Loans</a><div class="rd"><span class="en">Affordable share loans for limited-equity co-op members.</span><span class="es" style="display:none">Préstamos de acciones asequibles para miembros de cooperativas.</span></div></li>
-      </ul>
-      <div class="rsec-head">🌐 <span class="en">National — Co-ops &amp; Shared Equity</span><span class="es" style="display:none">Nacional — Cooperativas y Capital Compartido</span></div>
-      <ul class="resource-list">
-        <li><a href="https://www.uhab.org/our-work/coop-support/resource-library/" target="_blank">UHAB Resource Library</a><div class="rd"><span class="en">Guides for co-op incorporation, governance, financing, and management.</span><span class="es" style="display:none">Guías para incorporación, gobernanza y financiamiento cooperativo.</span></div></li>
-        <li><a href="https://groundedsolutions.org/tools-success/resource-library/" target="_blank">Grounded Solutions Network</a><div class="rd"><span class="en">Leading resource library on shared equity housing and community land trusts.</span><span class="es" style="display:none">Principal biblioteca de recursos sobre vivienda de capital compartido.</span></div></li>
-        <li><a href="https://ncbaclusa.coop/blog/new-resource-cdf-and-ncba-release-catalog-of-shared-equity-housing-models/" target="_blank">CDF &amp; NCBA — Shared Equity Housing Catalogue</a><div class="rd"><span class="en">Comprehensive catalogue of limited-equity co-ops, CLTs, and deed-restricted homeownership models.</span><span class="es" style="display:none">Catálogo completo de modelos de vivienda de capital compartido.</span></div></li>
-        <li><a href="https://thecoalitiondc.org/wp-content/uploads/2023/11/CNHED_TOPAStudyNov09.pdf" target="_blank">D.C. TOPA Study — Co-op Lessons (CNHED)</a><div class="rd"><span class="en">Analysis of D.C.'s 40-year TOPA program and cooperative housing creation.</span><span class="es" style="display:none">Análisis del programa TOPA de Washington D.C.</span></div></li>
-        <li><a href="https://www.enterprisecommunity.org/sites/default/files/2021-07/preserving-affordability-preventing-displacement.pdf" target="_blank">Preserving Affordability, Preventing Displacement (Enterprise)</a><div class="rd"><span class="en">Bay Area acquisition-based preservation strategies — lessons for Chicago's TOPA pilots.</span><span class="es" style="display:none">Estrategias de preservación basadas en adquisición del Área de la Bahía.</span></div></li>
-        <li><a href="https://www.policylink.org/sites/plorg/files/2025-08/pl_Our-Homes_050321_a.pdf" target="_blank">Our Homes, Our Community — PolicyLink</a><div class="rd"><span class="en">Resident-led preservation and community ownership as tools for equitable stabilization.</span><span class="es" style="display:none">Preservación liderada por residentes y propiedad comunitaria.</span></div></li>
+        <li><a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a><div class="rd"><span class="en">Chicago Dept. of Housing — TOPA questions, violations, and program guidance.</span><span class="es" style="display:none">Departamento de Vivienda de Chicago — preguntas TOPA, violaciones y orientación.</span></div></li>
+        <li><a href="https://www.chicago.gov/topa" target="_blank">chicago.gov/topa</a><div class="rd"><span class="en">Official DOH page — forms, program rules, timelines, FAQ.</span><span class="es" style="display:none">Página oficial del DOH — formularios, reglas, plazos y FAQ.</span></div></li>
+        <li><a href="https://thecommunityweb.org/" target="_blank">The Community WEB / Palenque LSNA</a><div class="rd"><span class="en">Lead TA provider for 606 district tenants. TOPA canvassers available.</span><span class="es" style="display:none">Principal proveedor de asistencia técnica para inquilinos del distrito 606.</span></div></li>
+        <li><a href="https://legalaidchicago.org/" target="_blank">Chicago Legal Aid</a><div class="rd"><span class="en">Free and low-cost legal support for TOPA and housing matters.</span><span class="es" style="display:none">Apoyo legal gratuito y de bajo costo para TOPA y asuntos de vivienda.</span></div></li>
       </ul>
     </div></div>
   </div>
@@ -611,7 +622,360 @@ canvas{display:block;width:100%!important}
 </div>
 
 <!-- ═══════════════════════════════════════════════
-     PAGE 7: SOURCES
+     PAGE 7: RESOURCES
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-resources">
+  <div class="section-title"><span class="en">Resources &amp; Support</span><span class="es" style="display:none">Recursos y Apoyo</span></div>
+  <div class="section-sub"><span class="en">Click any resource to expand details. Organizations, financing programs, and policy research for tenant organizing and cooperative housing in Chicago.</span><span class="es" style="display:none">Haz clic en cualquier recurso para ver los detalles. Organizaciones, programas de financiamiento e investigación de políticas.</span></div>
+
+  <!-- TOPA OFFICIAL -->
+  <div class="res-section">
+    <div class="res-section-head">📋 <span class="en">TOPA Program — Official</span><span class="es" style="display:none">Programa TOPA — Oficial</span></div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">chicago.gov/topa</span>
+          <span class="res-teaser"><span class="en">Forms, program rules, timelines, FAQ, and E-Form portal</span><span class="es" style="display:none">Formularios, reglas, plazos, FAQ y portal E-Form</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag official"><span class="en">Official</span><span class="es" style="display:none">Oficial</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Official DOH TOPA page — program rules, all forms (Notice of Intent to Sell, Notice of Third-Party Purchase Agreement, Tenant Acknowledgment), timelines, FAQ, one-pagers in multiple languages, and the E-Form submission portal (mandatory from May 6, 2026).</span><span class="es" style="display:none">Página oficial del DOH — reglas del programa, todos los formularios, plazos, FAQ, resúmenes en varios idiomas y el portal E-Form (obligatorio desde el 6 de mayo de 2026).</span></div>
+        <a class="res-link" href="https://www.chicago.gov/topa" target="_blank">chicago.gov/topa →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">DOH — TOPA Questions &amp; Violations</span><span class="es" style="display:none">DOH — Preguntas y Violaciones TOPA</span></span>
+          <span class="res-teaser">DOH.TenantPurchase@cityofchicago.org · 312-744-3653</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag official"><span class="en">Official</span><span class="es" style="display:none">Oficial</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Chicago Department of Housing — TOPA questions, violation reports, and program guidance for both pilots.</span><span class="es" style="display:none">Departamento de Vivienda de Chicago — preguntas TOPA, reportes de violaciones y orientación del programa para ambos pilotos.</span></div>
+        <div class="res-contact"><a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> · 312-744-3653</div>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">TOPA Ordinance Texts</span><span class="es" style="display:none">Textos de las Ordenanzas TOPA</span></span>
+          <span class="res-teaser"><span class="en">Municipal Code Ch. 5-11 (606) and Ch. 5-10 (Jackson Park)</span><span class="es" style="display:none">Código Municipal Cap. 5-11 (606) y Cap. 5-10 (Jackson Park)</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag official"><span class="en">Legal</span><span class="es" style="display:none">Legal</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Full ordinance text for both TOPA pilot programs. Ambiguities are clarified in the Draft Program Rules published on the DOH TOPA website.</span><span class="es" style="display:none">Texto completo de ambas ordenanzas piloto TOPA. Las ambigüedades se aclaran en las Reglas del Programa en borrador.</span></div>
+        <a class="res-link" href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2701738" target="_blank"><span class="en">Ch. 5-11 — Block (606) →</span><span class="es" style="display:none">Cap. 5-11 — Bloque (606) →</span></a><br>
+        <a class="res-link" href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2638930" target="_blank"><span class="en">Ch. 5-10 — Jackson Park →</span><span class="es" style="display:none">Cap. 5-10 — Jackson Park →</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TENANT ORGANIZING & LEGAL -->
+  <div class="res-section">
+    <div class="res-section-head">🏘 <span class="en">Tenant Organizing &amp; Legal Support</span><span class="es" style="display:none">Organización de Inquilinos y Apoyo Legal</span></div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">Palenque LSNA</span>
+          <span class="res-teaser"><span class="en">Lead organizing partner in the 606 district — TOPA canvassers, proactive outreach</span><span class="es" style="display:none">Principal socio organizativo en el distrito 606 — divulgadores TOPA, alcance proactivo</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag organizing"><span class="en">Organizing</span><span class="es" style="display:none">Organización</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Lead community organizing partner in the 606 district. Has hired dedicated TOPA canvassers doing proactive outreach — workshops, tabling, and school visits. Maintains a weekly-updated spreadsheet of market listings for 2–4 unit buildings to support proactive tenant outreach.</span><span class="es" style="display:none">Principal socio organizativo en el distrito 606. Tiene divulgadores TOPA dedicados haciendo alcance proactivo. Mantiene una hoja de cálculo actualizada semanalmente de listados de mercado para edificios de 2–4 unidades.</span></div>
+        <div class="res-note"><span class="en">From the field: The TOPA process is often overwhelming for tenants. Even if purchase isn't feasible, the 30–60 day notice period is a critical window to organize, join a tenant union, and connect with CLTs and co-ops. One 606 tenant group held a press conference that lowered the asking price and secured a lease extension.</span><span class="es" style="display:none">Del campo: El proceso TOPA suele ser abrumador para los inquilinos. El período de aviso es una ventana crítica para organizarse y conectarse con CLTs y cooperativas.</span></div>
+        <a class="res-link" href="https://www.palenquelsna.org/" target="_blank">palenquelsna.org →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">The Community WEB</span>
+          <span class="res-teaser"><span class="en">TA, training, and organizing support for co-op conversions in Chicago</span><span class="es" style="display:none">Asistencia técnica, capacitación y apoyo organizativo para conversiones cooperativas</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag organizing"><span class="en">TA</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Technical assistance, training, and organizing support for co-op conversions in Chicago. One of 17 organizations funded through the City's Community Wealth Building initiative. Key TA partner for tenant associations exercising TOPA rights.</span><span class="es" style="display:none">Asistencia técnica, capacitación y apoyo organizativo para conversiones cooperativas en Chicago. Uno de los 17 proveedores financiados por la iniciativa de Riqueza Comunitaria de la Ciudad.</span></div>
+        <a class="res-link" href="https://thecommunityweb.org/" target="_blank">thecommunityweb.org →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">Chicago Legal Aid</span>
+          <span class="res-teaser"><span class="en">Free and low-cost legal support for TOPA and housing matters</span><span class="es" style="display:none">Apoyo legal gratuito y de bajo costo para TOPA y asuntos de vivienda</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag legal"><span class="en">Legal</span><span class="es" style="display:none">Legal</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Free and low-cost legal support for TOPA, eviction defense, and housing legal matters. Can assist with tenant association registration and right-of-first-refusal disputes.</span><span class="es" style="display:none">Apoyo legal gratuito y de bajo costo para TOPA y asuntos de vivienda. Puede ayudar con el registro de asociaciones y disputas sobre el derecho de primera negativa.</span></div>
+        <a class="res-link" href="https://legalaidchicago.org/" target="_blank">legalaidchicago.org →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">Here to Stay Community Land Trust</span>
+          <span class="res-teaser"><span class="en">Can receive assigned TOPA rights — an alternative to direct tenant purchase</span><span class="es" style="display:none">Puede recibir derechos TOPA cedidos — una alternativa a la compra directa por inquilinos</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag organizing"><span class="en">CLT</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Chicago CLT that can serve as an assignee of TOPA rights — tenants may transfer their right of first refusal to Here to Stay rather than purchasing directly, allowing the CLT to acquire the property and preserve affordability.</span><span class="es" style="display:none">CLT de Chicago que puede actuar como cesionario de derechos TOPA. Los inquilinos pueden transferir su derecho de primera negativa a Here to Stay en lugar de comprar directamente.</span></div>
+        <a class="res-link" href="https://heretostayclt.org/" target="_blank">heretostayclt.org →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CO-OP DEVELOPMENT -->
+  <div class="res-section">
+    <div class="res-section-head">🏛 <span class="en">Co-op Development &amp; Technical Assistance</span><span class="es" style="display:none">Desarrollo Cooperativo y Asistencia Técnica</span></div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">The Resurrection Project (TRP)</span>
+          <span class="res-teaser"><span class="en">Co-op development, share loans, and City Purchase Price Assistance program</span><span class="es" style="display:none">Desarrollo cooperativo, préstamos de acciones y programa de Asistencia en Precio de Compra</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag coop-dev"><span class="en">Co-op Dev</span><span class="es" style="display:none">Des. Coop.</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Manages the Purchase Price Assistance track of the City's Shared Equity Investment Program. Runs a dedicated co-op housing program and offers share loans for limited-equity co-op members.</span><span class="es" style="display:none">Administra el programa de Asistencia en Precio de Compra de la Ciudad. Ofrece préstamos de acciones para miembros de cooperativas de capital limitado.</span></div>
+        <a class="res-link" href="https://resurrectionproject.org/co-op-share-loans/" target="_blank">resurrectionproject.org →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">Chicago Community Loan Fund (CCLF)</span>
+          <span class="res-teaser"><span class="en">Building acquisition financing and Acquisition Support program for LEHCs</span><span class="es" style="display:none">Financiamiento de adquisición de edificios y programa de Apoyo a la Adquisición</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag financing"><span class="en">Financing</span><span class="es" style="display:none">Financiamiento</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Offers custom mortgage products for limited-equity housing cooperatives, including building acquisition financing. Manages the Acquisition Support track of the Shared Equity Investment Program. Generally requires TA from a cooperative housing trade association as a condition of lending — contact CCLF early in the feasibility process.</span><span class="es" style="display:none">Ofrece productos hipotecarios personalizados para cooperativas de vivienda de capital limitado. Administra el programa de Apoyo a la Adquisición. Generalmente requiere AT de una asociación cooperativa como condición del préstamo.</span></div>
+        <a class="res-link" href="https://cclfchicago.org/" target="_blank">cclfchicago.org →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">U of C Law School — Housing Initiative Clinic</span><span class="es" style="display:none">Clínica de Vivienda — U of C</span></span>
+          <span class="res-teaser"><span class="en">Legal formation, acquisition transactions, and co-op policy drafting</span><span class="es" style="display:none">Formación legal, transacciones de adquisición y redacción de políticas cooperativas</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag legal">Legal</span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Provides legal formation support for new co-ops and has closed acquisition and rehabilitation transactions for multiple Chicago LEHCs. Has played an unusual dual role as both legal service provider and policy drafter for co-op legislation.</span><span class="es" style="display:none">Brinda apoyo legal para la formación de nuevas cooperativas y ha cerrado transacciones de adquisición para múltiples cooperativas de Chicago.</span></div>
+        <a class="res-link" href="https://www.law.uchicago.edu/clinics/housing" target="_blank"><span class="en">U of C Housing Clinic →</span><span class="es" style="display:none">Clínica de Vivienda U of C →</span></a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">PIHCO — Pilsen Immigrant Housing Cooperative</span>
+          <span class="res-teaser"><span class="en">Scattered-site LEHC proof-of-concept, founded 2017, now 35+ homes</span><span class="es" style="display:none">Cooperativa de vivienda de sitio disperso, fundada en 2017, ahora con 35+ hogares</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag coop-dev"><span class="en">Co-op</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Scattered-site LEHC founded in 2017 by longtime Pilsen residents resisting displacement. Now with 35 homes and growing to ~39 by end of 2026. Recently received 501(c)(3) status. A key proof-of-concept for the Chicago LEHC model.</span><span class="es" style="display:none">Cooperativa de vivienda de sitio disperso fundada en 2017 por residentes de Pilsen. Ahora con 35 hogares. Recientemente obtuvo su estatus 501(c)(3).</span></div>
+        <a class="res-link" href="https://www.pilsenhousing.org/" target="_blank">pilsenhousing.org →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">UHAB — Urban Homesteading Assistance Board</span>
+          <span class="res-teaser"><span class="en">National LEHC leader — model bylaws, pro formas, governance guides, and training</span><span class="es" style="display:none">Líder nacional en cooperativas de vivienda — estatutos modelo, plantillas y guías de gobernanza</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag national"><span class="en">National</span><span class="es" style="display:none">Nacional</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">National leader in LEHC support over 50 years — the model ecosystem that Chicago is working toward. Funded through Chicago's Community WEB Program. Their resource library has model bylaws, financial templates, governance guides, and pro forma tools for co-op conversion.</span><span class="es" style="display:none">Líder nacional en apoyo a cooperativas de vivienda durante 50 años. Su biblioteca de recursos tiene estatutos modelo, plantillas financieras y guías de gobernanza para la conversión cooperativa.</span></div>
+        <a class="res-link" href="https://www.uhab.org/our-work/coop-support/resource-library/" target="_blank">UHAB Resource Library →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">CCWBE — Chicago Community Wealth Building Ecosystem</span>
+          <span class="res-teaser"><span class="en">Research, convening, and peer learning across all CWB models</span><span class="es" style="display:none">Investigación, convocatoria y aprendizaje entre pares en todos los modelos de riqueza comunitaria</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag policy"><span class="en">Research</span><span class="es" style="display:none">Investigación</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Incubated at UIC's Center for Urban Economic Development. Serves as a hub for research, convening, and peer learning across all community wealth building models — co-ops, CLTs, worker co-ops, and community investment vehicles. Facilitates the TOPA working group.</span><span class="es" style="display:none">Incubado en el Centro de Desarrollo Económico Urbano de UIC. Sirve como centro de investigación y aprendizaje entre pares para todos los modelos de riqueza comunitaria.</span></div>
+        <a class="res-link" href="https://ccwbe.org/" target="_blank">ccwbe.org →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINANCING -->
+  <div class="res-section">
+    <div class="res-section-head">💰 <span class="en">Financing Programs</span><span class="es" style="display:none">Programas de Financiamiento</span></div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">IL Cooperative Housing Fund (SB1484, 2023)</span><span class="es" style="display:none">Fondo Cooperativo de Vivienda de IL (SB1484, 2023)</span></span>
+          <span class="res-teaser"><span class="en">Up to $5M/yr in state grants for LEHC development — IHDA-administered</span><span class="es" style="display:none">Hasta $5M/año en subvenciones estatales para desarrollo de cooperativas</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag financing"><span class="en">State</span><span class="es" style="display:none">Estatal</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Creates a dedicated fund directing IHDA to award up to $5 million per fiscal year in grants to nonprofits, local governments, and community organizations for cooperative housing development serving households at or below AMI. IHDA has issued a $1 million share loan RFP seeking a CDFI partner; status of broader fund still emerging.</span><span class="es" style="display:none">Crea un fondo dedicado dirigiendo a IHDA a otorgar hasta $5 millones por año fiscal en subvenciones para el desarrollo de vivienda cooperativa para hogares en o por debajo del AMI.</span></div>
+        <a class="res-link" href="https://www.ilga.gov/documents/legislation/103/SB/PDF/10300SB1484.pdf" target="_blank">SB1484 full text →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">IHDA Co-op Share Loan Program (RFA 2026)</span><span class="es" style="display:none">Programa de Préstamos de Acciones IHDA (RFA 2026)</span></span>
+          <span class="res-teaser"><span class="en">$1M at 0% over 10 years to capitalize a CDFI share loan fund</span><span class="es" style="display:none">$1M al 0% durante 10 años para capitalizar un fondo de préstamos de acciones de CDFI</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag financing"><span class="en">State</span><span class="es" style="display:none">Estatal</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">IHDA is seeking a federally certified CDFI partner and offering $1 million at 0% interest over 10 years to capitalize a share loan fund. This directly addresses the near-complete gap in individual share loan financing for low- and moderate-income co-op buyers in Illinois — one of the most persistent barriers to co-op formation.</span><span class="es" style="display:none">IHDA busca un socio CDFI certificado federalmente y ofrece $1 millón al 0% de interés durante 10 años para capitalizar un fondo de préstamos de acciones. Aborda la brecha en el financiamiento de acciones individuales.</span></div>
+        <a class="res-link" href="https://www.ihda.org/" target="_blank">ihda.org →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">City Shared Equity Investment Program</span><span class="es" style="display:none">Programa de Inversión en Capital Compartido de la Ciudad</span></span>
+          <span class="res-teaser"><span class="en">$15M ARPA-seeded program — Purchase Price Assistance (TRP) and Acquisition Support (CCLF)</span><span class="es" style="display:none">Programa financiado con $15M ARPA — Asistencia en Precio de Compra (TRP) y Apoyo a la Adquisición (CCLF)</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag financing"><span class="en">City</span><span class="es" style="display:none">Ciudad</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Two tracks: Purchase Price Assistance (led by The Resurrection Project) and Acquisition Support (led by CCLF). Seeded by $15 million ARPA Community Wealth Building Pilot. First invested $6 million in 17 TA providers; then $4 million in pipeline grants. Sustaining this beyond ARPA is the critical open question.</span><span class="es" style="display:none">Dos vías: Asistencia en Precio de Compra (TRP) y Apoyo a la Adquisición (CCLF). Financiado con $15 millones del piloto ARPA de Riqueza Comunitaria.</span></div>
+        <a class="res-link" href="https://www.chicago.gov/city/en/depts/doh/provdrs/afford_hous/svcs/community-wealth-building.html" target="_blank"><span class="en">City CWB Program →</span><span class="es" style="display:none">Programa CWB de la Ciudad →</span></a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">IHDA 1% Mandate (HB3291, 2023)</span><span class="es" style="display:none">Mandato del 1% de IHDA (HB3291, 2023)</span></span>
+          <span class="res-teaser"><span class="en">Requires IHDA to devote 1% of its annual budget to LEHC support</span><span class="es" style="display:none">Requiere que IHDA destine el 1% de su presupuesto anual al apoyo de LEHCs</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag financing"><span class="en">State</span><span class="es" style="display:none">Estatal</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Mandates that IHDA devote 1% of its annual budget to support limited-equity cooperative housing through homebuyer assistance, building acquisition and renovation, monthly housing charge assistance, predevelopment funding, and technical assistance.</span><span class="es" style="display:none">Ordena que IHDA dedique el 1% de su presupuesto anual al apoyo de vivienda cooperativa de capital limitado a través de asistencia para compradores, adquisición y renovación de edificios, asistencia con cargos mensuales y financiamiento previo al desarrollo.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POLICY & RESEARCH -->
+  <div class="res-section">
+    <div class="res-section-head">📚 <span class="en">Policy, Research &amp; Learning</span><span class="es" style="display:none">Política, Investigación y Aprendizaje</span></div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">City of Chicago — Community Wealth Building Report</span><span class="es" style="display:none">Ciudad de Chicago — Informe de Riqueza Comunitaria</span></span>
+          <span class="res-teaser"><span class="en">City's own assessment of its LEHC, CLT, worker co-op, and CIV programs</span><span class="es" style="display:none">Evaluación propia de la Ciudad de sus programas LEHC, CLT y cooperativas de trabajadores</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag policy"><span class="en">Research</span><span class="es" style="display:none">Investigación</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">City's assessment of its community wealth building initiative, covering LEHCs, CLTs, worker co-ops, and community investment vehicles.</span><span class="es" style="display:none">Evaluación de la Ciudad de su iniciativa de riqueza comunitaria, cubriendo LEHCs, CLTs y cooperativas de trabajadores.</span></div>
+        <a class="res-link" href="https://www.chicago.gov/content/dam/city/sites/community-wealth-building/pdfs/OERJ_CWB_Report.pdf" target="_blank"><span class="en">City CWB Report →</span><span class="es" style="display:none">Informe CWB →</span></a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">UIC Report — Chicago LEHC Ecosystem</span><span class="es" style="display:none">Informe UIC — Ecosistema LEHC de Chicago</span></span>
+          <span class="res-teaser"><span class="en">University of Illinois analysis of limited-equity cooperative ecosystem in Chicago</span><span class="es" style="display:none">Análisis de la Universidad de Illinois del ecosistema de cooperativas de capital limitado en Chicago</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag policy"><span class="en">Research</span><span class="es" style="display:none">Investigación</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">University of Illinois at Chicago analysis of the limited-equity housing cooperative ecosystem. Key research baseline for the current wave of LEHC development in Chicago.</span><span class="es" style="display:none">Análisis de la Universidad de Illinois en Chicago del ecosistema de cooperativas de vivienda de capital limitado. Base de investigación clave para el desarrollo actual de LEHCs.</span></div>
+        <a class="res-link" href="https://uofi.app.box.com/s/t3dgzsj0yx5bpklccbamyppbwlebco0i" target="_blank">UIC LEHC Report →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">Proposed Statewide TOPA (SB3762, 2026)</span><span class="es" style="display:none">TOPA Estatal Propuesto (SB3762, 2026)</span></span>
+          <span class="res-teaser"><span class="en">Would extend right of first refusal to tenants statewide — not yet enacted</span><span class="es" style="display:none">Extendería el derecho de primera negativa a inquilinos en todo el estado — aún no aprobado</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag policy"><span class="en">Policy</span><span class="es" style="display:none">Política</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Would establish a statutory right of first refusal for tenants statewide: 60-day advance notice (5+ units), 90 days to form association, 120 days to secure financing. Not yet enacted as of April 2026. If passed, modeled on D.C.'s transformative 40-year TOPA program.</span><span class="es" style="display:none">Establecería un derecho estatutario de primera negativa para inquilinos en todo el estado. No aprobado aún a partir de abril de 2026.</span></div>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">D.C. TOPA Study — Co-op Lessons (CNHED)</span><span class="es" style="display:none">Estudio TOPA de D.C. — Lecciones Cooperativas</span></span>
+          <span class="res-teaser"><span class="en">40-year analysis of D.C.'s TOPA program — the closest model to Chicago's pilots</span><span class="es" style="display:none">Análisis de 40 años del programa TOPA de D.C. — el modelo más cercano a los pilotos de Chicago</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag national"><span class="en">National</span><span class="es" style="display:none">Nacional</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <div class="res-detail"><span class="en">Analysis of Washington D.C.'s 40-year TOPA program and cooperative housing creation — the closest model to Chicago's pilots, and the source of the most concrete lessons about what works over the long term.</span><span class="es" style="display:none">Análisis del programa TOPA de Washington D.C. de 40 años — el modelo más cercano a los pilotos de Chicago.</span></div>
+        <a class="res-link" href="https://thecoalitiondc.org/wp-content/uploads/2023/11/CNHED_TOPAStudyNov09.pdf" target="_blank">D.C. TOPA Study →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name">Grounded Solutions Network</span>
+          <span class="res-teaser"><span class="en">Leading resource library on shared equity housing — CLTs, LEHCs, deed-restricted homeownership</span><span class="es" style="display:none">Principal biblioteca de recursos sobre vivienda de capital compartido</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag national"><span class="en">National</span><span class="es" style="display:none">Nacional</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <a class="res-link" href="https://groundedsolutions.org/tools-success/resource-library/" target="_blank">Grounded Solutions Library →</a>
+      </div>
+    </div>
+
+    <div class="res-item">
+      <button class="res-trigger" onclick="toggleRes(this)">
+        <div class="res-trigger-left">
+          <span class="res-name"><span class="en">CDF &amp; NCBA — Shared Equity Housing Catalogue</span><span class="es" style="display:none">CDF y NCBA — Catálogo de Vivienda de Capital Compartido</span></span>
+          <span class="res-teaser"><span class="en">Comprehensive catalogue of limited-equity co-ops, CLTs, and deed-restricted models</span><span class="es" style="display:none">Catálogo completo de cooperativas de capital limitado, CLTs y modelos restringidos</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="res-tag national"><span class="en">National</span><span class="es" style="display:none">Nacional</span></span><span class="res-chevron">▾</span></div>
+      </button>
+      <div class="res-body">
+        <a class="res-link" href="https://ncbaclusa.coop/blog/new-resource-cdf-and-ncba-release-catalog-of-shared-equity-housing-models/" target="_blank">Shared Equity Catalogue →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 8: SOURCES
 ═══════════════════════════════════════════════ -->
 <div class="page" id="page-sources">
   <div class="section-title"><span class="en">Sources &amp; Assumptions</span><span class="es" style="display:none">Fuentes y Supuestos</span></div>
@@ -626,7 +990,7 @@ canvas{display:block;width:100%!important}
       <tr>
         <td><span class="en">Block (606) TOPA</span><span class="es" style="display:none">TOPA Bloque (606)</span></td>
         <td><a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2701738" target="_blank">Chicago Municipal Code Ch. 5-11</a>; Northwest Side Preservation Ordinance (2024)</td>
-        <td><span class="en">Eff. Mar 1, 2025. 60-day notice (5+ units), 30-day (1–4). 90/30/15-day association window. 120/60-day close window. <strong>Amended July 2025 (O2025-0018156):</strong> portions of the 31st and 36th wards (west of Pulaski Ave) removed from coverage area, effective late September 2025.</span><span class="es" style="display:none">Vigente 1 mar. 2025. Aviso 60 días (5+ unidades), 30 días (1–4). Ventana de asociación 90/30/15 días. Ventana de cierre 120/60 días. <strong>Modificado julio 2025 (O2025-0018156):</strong> las porciones de los distritos 31 y 36 (al oeste de Pulaski Ave) fueron excluidas del área de cobertura, vigente desde finales de septiembre de 2025.</span></td>
+        <td><span class="en">Eff. Mar 1, 2025. 60-day notice (5+ units), 30-day (1–4). 90/30/15-day association window. 120/60-day close window. <strong>Amended July 2025 (O2025-0018156):</strong> portions of the 31st and 36th wards (west of Pulaski Ave) removed from coverage area, effective late September 2025. <strong>2026 process updates:</strong> Notice of Intent to Sell split into two DOH forms (Owner Declaration + Tenant Notice). Waiver of ROFR moved from Notice of Intent to Sell to Notice of Third-Party Purchase Agreement. All forms must be submitted in English and Spanish; other languages available. E-Form Portal mandatory from May 6, 2026 (exceptions for limited tech access). Draft program rules published at chicago.gov/topa. Contact: <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> or 312-744-3653.</span><span class="es" style="display:none">Vigente 1 mar. 2025. Aviso 60 días (5+ unidades), 30 días (1–4). Ventana de asociación 90/30/15 días. Ventana de cierre 120/60 días. <strong>Modificado julio 2025 (O2025-0018156):</strong> porciones de los distritos 31 y 36 excluidas en septiembre de 2025. <strong>Actualizaciones de proceso 2026:</strong> Aviso de Intención de Venta dividido en dos formularios DOH. La renuncia al ROFR se trasladó al Aviso del Contrato con Tercero. Portal E-Form obligatorio desde el 6 de mayo de 2026. Reglas del programa en borrador disponibles en chicago.gov/topa. Contacto: <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> o 312-744-3653.</span></td>
       </tr>
       <tr>
         <td><span class="en">Jackson Park TOPA</span><span class="es" style="display:none">TOPA Jackson Park</span></td>
@@ -1082,16 +1446,16 @@ function renderRightsTo(elId,u,s,prog){
   if(s==='intent'){
     var days=u==='5+'?'60':'30';
     var who=u==='5+'?T('Tenant association + Dept. of Housing','Asociación de inquilinos + DOH'):T('Each tenant individually','Cada inquilino individualmente');
-    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Owner must notify you before selling','El dueño debe notificarte antes de vender')+'</h3></div><div class="card-body"><div class="info-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.5rem 0"><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Notice required','Aviso requerido')+'</div><div style="font-size:18px;font-weight:600">'+days+' '+T('days','días')+'</div><div style="font-size:10px;color:#888">'+T('before listing','antes de listar')+'</div></div><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Who gets notice','Quién recibe')+'</div><div style="font-size:12px;font-weight:600;margin-top:4px">'+who+'</div></div></div><p class="text-sm" style="margin-top:8px">'+T('The notice must include: owner contact, address, number of units and bedrooms, proposed price, and a summary of tenant rights. Owner must also post notice at all public entrances.','El aviso debe incluir: contacto del dueño, dirección, número de unidades y recámaras, precio propuesto y resumen de derechos. El dueño también debe publicar el aviso en todas las entradas.')+'</p><ul class="rights-list mt-1"><li>'+T('Most recent rent roll','Lista de rentas actual')+'</li><li>'+T('Vacant unit list and 12-month vacancy rate','Lista de unidades vacías y tasa de vacancia')+'</li><li>'+T('Income and expense report for prior 12 months','Reporte de ingresos y gastos')+'</li><li>'+T('Architectural and engineering plans','Planos arquitectónicos y de ingeniería')+'</li><li>'+T('Building code violations and litigation','Violaciones al Código de Construcción y litigios')+'</li></ul><div class="alert alert-red">'+T('Failure to give proper notice: $200–$1,000 fine per day. Tenants may also sue for injunctive relief or treble damages.','Falta de aviso adecuado: multa de $200–$1,000 por día. Los inquilinos también pueden demandar.')+'</div></div></div>';
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Owner must notify you before selling','El dueño debe notificarte antes de vender')+'</h3></div><div class="card-body"><div class="info-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.5rem 0"><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Notice required','Aviso requerido')+'</div><div style="font-size:18px;font-weight:600">'+days+' '+T('days','días')+'</div><div style="font-size:10px;color:#888">'+T('before listing','antes de listar')+'</div></div><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Who gets notice','Quién recibe')+'</div><div style="font-size:12px;font-weight:600;margin-top:4px">'+who+'</div></div></div><p class="text-sm" style="margin-top:8px">'+T('The owner must use the two-part DOH Notice of Intent to Sell: an Owner Declaration (notarized) and a Tenant Notice for each unit. Both documents must be delivered in English and Spanish (and in any other language the tenant uses to communicate). The notice must include: owner contact, address, number of units, proposed price, and a summary of tenant rights. Owner must also post notice at all public entrances. Submit all documents via the DOH TOPA E-Form Portal (compulsory from May 6, 2026) or by exception via email.','El dueño debe usar el Aviso DOH de dos partes: una Declaración del Propietario (notariada) y un Aviso al Inquilino para cada unidad. Ambos documentos deben entregarse en inglés y español. El aviso debe incluir: contacto del dueño, dirección, número de unidades, precio propuesto y resumen de derechos. Enviar via el Portal E-Form del DOH TOPA (obligatorio desde el 6 de mayo de 2026).')+'</p><ul class="rights-list mt-1"><li>'+T('Most recent rent roll','Lista de rentas actual')+'</li><li>'+T('Vacant unit list and 12-month vacancy rate','Lista de unidades vacías y tasa de vacancia')+'</li><li>'+T('Income and expense report for prior 12 months','Reporte de ingresos y gastos')+'</li><li>'+T('Architectural and engineering plans','Planos arquitectónicos y de ingeniería')+'</li><li>'+T('Building code violations and litigation','Violaciones al Código de Construcción y litigios')+'</li></ul><div class="alert alert-red">'+T('Failure to give proper notice: $200–$1,000 fine per day. Tenants may also sue for injunctive relief or treble damages.','Falta de aviso adecuado: multa de $200–$1,000 por día. Los inquilinos también pueden demandar.')+'</div></div></div>';
   }
   if(s==='offer'){
     var fw=u==='5+'?T('90 days','90 días'):u==='3-4'?T('30 days','30 días'):T('15 days','15 días');
     el.innerHTML='<div class="card"><div class="card-header"><h3>'+T("Offer accepted — here's what happens","Oferta aceptada — aquí lo que ocurre")+'</h3></div><div class="card-body"><ul class="timeline">'+
-    ss(1,'#E1F5EE','#085041',T('Owner must notify you immediately','El dueño debe notificarte de inmediato'),T('Once the owner accepts a bona fide offer, they must send you a Notice of Sale with a copy of the purchase agreement.','Una vez que el dueño acepta una oferta, debe enviarte el Aviso de Venta con copia del contrato.'),stag('tag-green',T('Owner obligation','Obligación del dueño')))+
+    ss(1,'#E1F5EE','#085041',T('Owner must send Notice of Third-Party Purchase Agreement','El dueño debe enviar el Aviso del Contrato con Tercero'),T('Once the owner accepts a bona fide offer, they must send you the Notice of Third-Party Purchase Agreement along with a full copy of the purchase contract within 10 business days (5 days for 1–4 unit buildings). This notice also contains the Waiver of Right of First Refusal — you are not required to sign it.','Una vez aceptada la oferta, el dueño debe enviarte el Aviso del Contrato con el Tercero junto con el contrato completo. Este aviso contiene el formulario de renuncia — no estás obligado a firmarlo.'),stag('tag-green',T('Owner obligation','Obligación del dueño')))+
     ss(2,'#E6F1FB','#0C447C',T('Your right of first refusal activates','Tu derecho de primera negativa se activa'),T('The third-party purchase agreement is contingent on your right of first refusal. Any sale without following this process is null and void.','El contrato con el tercero está sujeto a tu derecho. Cualquier venta sin este proceso es nula.'),stag('tag-blue',T('Legally binding','Legalmente vinculante')))+
     ss(3,'#FAEEDA','#633806',T('Time to form tenant association','Tiempo para formar asociación'),u==='5+'?T('You have <strong>90 days</strong> from Notice of Sale to form association (75% consent) and notify owner + DOH.','Tienes <strong>90 días</strong> para formar una asociación (75% de consentimiento) y notificar al dueño y al DOH.'):u==='3-4'?T('You have <strong>30 days</strong> to form association (50% consent).','Tienes <strong>30 días</strong> para formar asociación (50%).'):T('You have <strong>15 days</strong> to notify the owner. No association required for 1–2 unit buildings.','Tienes <strong>15 días</strong> para notificar. No se requiere asociación para 1–2 unidades.'),stag('tag-amber',fw))+
     ss(4,'#FCEBEB','#791F1F',T('Exercise right of first refusal','Ejercer derecho de primera negativa'),T('Send written notice and earnest money deposit (max 5% of sale price). You purchase on the same terms as the third-party agreement.','Envía aviso escrito y depósito de garantía (máx. 5%). Compras en los mismos términos del tercero.'),stag('tag-red',T('Written notice + deposit','Aviso + depósito')))+
-    '</ul><div class="alert alert-amber">'+T("The right of first refusal is a continuing right — it applies every time the owner tries to sell.","El derecho de primera negativa es continuo — aplica cada vez que el dueño intenta vender.")+'</div></div></div>';
+    '</ul><div class="alert alert-amber">'+T("The right of first refusal is a continuing right — it applies every time the owner tries to sell.","El derecho de primera negativa es continuo — aplica cada vez que el dueño intenta vender.")+'</div><div class="alert alert-blue" style="margin-top:8px">'+T("<strong>Waiver:</strong> The waiver of your right of first refusal is now on the Notice of Third-Party Purchase Agreement (not the Notice of Intent to Sell). You can choose to waive in writing at any time — but the owner is not allowed to ask you to waive, coerce you, or make it a condition of anything.","<strong>Renuncia:</strong> El formulario de renuncia ahora está en el Aviso del Contrato con Tercero. Puedes elegir renunciar por escrito en cualquier momento, pero el dueño no puede pedirte que renuncies ni coaccionarte.")+'</div></div></div>';
   }
   if(s==='purchase'){
     var fd=u==='5+'?'90':u==='3-4'?'30':'15'; var cd=u==='5+'?'120':'60';
@@ -1104,7 +1468,7 @@ function renderRightsTo(elId,u,s,prog){
     '</ul><div class="alert alert-blue">'+T('You may assign your right of first refusal to a nonprofit (e.g. Here to Stay CLT) — notify the owner in writing within 10 business days.','Puedes ceder tu derecho de primera negativa a un tercero sin fines de lucro — notifica al dueño por escrito dentro de los 10 días hábiles.')+'</div></div></div>';
   }
   if(s==='general'){
-    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Your key protections under the ordinance','Tus protecciones clave bajo la ordenanza')+'</h3></div><div class="card-body"><ul class="rights-list"><li>'+T('Owner cannot evict you or disturb your tenancy during notice and negotiation periods.','El dueño NO puede desalojarte durante los períodos de aviso y negociación.')+'</li><li>'+T('Even if you waive the right of first refusal, a new owner must allow you to stay for at least 6 months from the sale, or until your lease expires — at the same rent and terms.','Incluso si renuncias, el nuevo dueño debe permitirte quedarte por al menos 6 meses — al mismo precio y condiciones.')+'</li><li>'+T('Owner cannot ask you to waive your right of first refusal as a condition of anything.','El dueño NO puede pedirte que renuncies como condición de nada.')+'</li><li>'+T('Owner cannot require a deposit of more than 5% of the sale price. Deposit must be refunded on good-faith failure.','El dueño NO puede requerir un depósito mayor al 5%. El depósito debe devolverse por buena fe.')+'</li><li>'+T('You cannot be required to prove financial ability before entering into a purchase contract.','No se te puede exigir que pruebes capacidad financiera antes de firmar un contrato.')+'</li><li>'+T('The right of first refusal applies every time the property is sold — it is a continuing right.','El derecho de primera negativa aplica cada vez que la propiedad se vende — es un derecho continuo.')+'</li><li>'+T('You may assign your rights to a nonprofit housing organization or government entity.','Puedes ceder tus derechos a una organización sin fines de lucro.')+'</li></ul><div class="alert alert-red">'+T("Owner violations: $200–$1,000 fine per day. You may sue for injunctive relief, treble damages, and attorney's fees.","Violaciones del dueño: multa de $200–$1,000 por día. Puedes demandar.")+'</div></div></div>';
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Your key protections under the ordinance','Tus protecciones clave bajo la ordenanza')+'</h3></div><div class="card-body"><ul class="rights-list"><li>'+T('Owner cannot evict you or disturb your tenancy during notice and negotiation periods.','El dueño NO puede desalojarte durante los períodos de aviso y negociación.')+'</li><li>'+T('Even if you waive the right of first refusal, a new owner must allow you to stay for at least 6 months from the sale, or until your lease expires — at the same rent and terms.','Incluso si renuncias, el nuevo dueño debe permitirte quedarte por al menos 6 meses — al mismo precio y condiciones.')+'</li><li>'+T('Owner cannot ask you to waive your right of first refusal as a condition of anything.','El dueño NO puede pedirte que renuncies como condición de nada.')+'</li><li>'+T('Owner cannot require a deposit of more than 5% of the sale price. Deposit must be refunded on good-faith failure.','El dueño NO puede requerir un depósito mayor al 5%. El depósito debe devolverse por buena fe.')+'</li><li>'+T('You cannot be required to prove financial ability before entering into a purchase contract.','No se te puede exigir que pruebes capacidad financiera antes de firmar un contrato.')+'</li><li>'+T('The right of first refusal applies every time the property is sold — it is a continuing right.','El derecho de primera negativa aplica cada vez que la propiedad se vende — es un derecho continuo.')+'</li><li>'+T('You may assign your rights to a nonprofit housing organization or government entity.','Puedes ceder tus derechos a una organización sin fines de lucro.')+'</li></ul><div class="alert alert-red">'+T("Owner violations: $200–$1,000 fine per day. You may sue for injunctive relief, treble damages, and attorney's fees.","Violaciones del dueño: multa de $200–$1,000 por día. Puedes demandar.")+'</div><div class="alert alert-blue" style="margin-top:8px">'+T('<strong>Questions or violations?</strong> Contact DOH: <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> or 312-744-3653. All program forms and rules are at <a href="https://www.chicago.gov/topa" target="_blank">chicago.gov/topa</a>.','<strong>¿Preguntas o violaciones?</strong> Contacta al DOH: <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> o 312-744-3653. Todos los formularios y reglas en <a href="https://www.chicago.gov/topa" target="_blank">chicago.gov/topa</a>.')+'</div></div></div>';
   }
 }
 
@@ -1581,6 +1945,15 @@ function renderCompare(){
 // ═══════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// RESOURCES ACCORDION
+// ═══════════════════════════════════════════════
+function toggleRes(btn){
+  var item = btn.closest('.res-item');
+  var isOpen = item.classList.contains('open');
+  item.classList.toggle('open', !isOpen);
+}
+
 window.addEventListener('load',function(){
   document.querySelectorAll('.es').forEach(function(e){e.style.display='none';});
   setProg('606',document.querySelector('#program-group .btn-opt.active'));
