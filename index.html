@@ -205,7 +205,8 @@ canvas{display:block;width:100%!important}
     <button class="nav-tab active" onclick="goPage('home',this)"><span class="en">About &amp; Eligibility</span><span class="es" style="display:none">Inicio y Elegibilidad</span></button>
     <button class="nav-tab" onclick="goPage('neighborhood',this)"><span class="en">Neighborhood</span><span class="es" style="display:none">Vecindario</span></button>
     <button class="nav-tab" onclick="goPage('finance',this)"><span class="en">Rental Feasibility</span><span class="es" style="display:none">Factibilidad Alquiler</span></button>
-    <button class="nav-tab" onclick="goPage('coop',this)"><span class="en">Co-op Calculator</span><span class="es" style="display:none">Calculadora Co-op</span></button>
+    <button class="nav-tab" onclick="goPage('coop',this)"><span class="en">Co-op Feasibility</span><span class="es" style="display:none">Factibilidad Co-op</span></button>
+    <button class="nav-tab" onclick="goPage('examples',this)"><span class="en">Examples</span><span class="es" style="display:none">Ejemplos</span></button>
     <button class="nav-tab" onclick="goPage('compare',this)"><span class="en">Rental vs. Co-op</span><span class="es" style="display:none">Alquiler vs. Co-op</span></button>
     <button class="nav-tab" onclick="goPage('resources',this)"><span class="en">Resources</span><span class="es" style="display:none">Recursos</span></button>
     <button class="nav-tab" onclick="goPage('sources',this)"><span class="en">Sources</span><span class="es" style="display:none">Fuentes</span></button>
@@ -218,23 +219,54 @@ canvas{display:block;width:100%!important}
 ═══════════════════════════════════════════════ -->
 <div class="page active" id="page-home">
   <div class="hero">
-    <h2><span class="en">Chicago Tenant Opportunity to Purchase Act</span><span class="es" style="display:none">Ley de Oportunidad de Compra para Inquilinos</span></h2>
-    <div class="hsub"><span class="en">A practical guide to Chicago's TOPA pilot programs, cooperative conversion, and financial tools for tenant groups</span><span class="es" style="display:none">Guía práctica sobre los programas piloto TOPA de Chicago y la conversión cooperativa</span></div>
+    <h2><span class="en">Chicago Tenant Opportunity to Purchase (TOPA)</span><span class="es" style="display:none">Ley de Oportunidad de Compra para Inquilinos de Chicago</span></h2>
+    <div class="hsub"><span class="en">Housing in Chicago is becoming less and less affordable to everyday working people. TOPA gives tenants a real shot at buying their building before it's sold to an outside investor.</span><span class="es" style="display:none">La vivienda en Chicago es cada vez menos asequible para la gente trabajadora. TOPA le da a los inquilinos una oportunidad real de comprar su edificio antes de que se venda a un inversionista externo.</span></div>
     <div class="hero-body en">
-      <p>Chicago faces a widening affordable housing gap. Decades of disinvestment followed by rapid reinvestment have displaced tens of thousands of long-term residents — with the heaviest losses in historically Black and Latine neighborhoods on the northwest and south sides. Between 2012 and 2021, the Chicago metro lost hundreds of thousands of units affordable to low-income renters.</p>
-      <p><strong>Preservation is among the most cost-effective anti-displacement strategies.</strong> Keeping existing affordable rental housing in community hands — through tenant purchase, cooperative ownership, community land trusts, or nonprofit stewardship — avoids the higher costs of new construction while protecting residents already in place.</p>
-      <p><strong>Tenant Opportunity to Purchase (TOPA)</strong> gives renters a structured right to purchase their building before it can be sold to an outside investor. Chicago City Council has passed two TOPA pilot ordinances: the <strong>Block (606) District</strong> (<a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2701738" target="_blank" style="color:#9FE1CB">Municipal Code Ch. 5-11</a>, effective March 1, 2025), covering northwest side neighborhoods along the 606 Trail corridor, and the <strong>Jackson Park District</strong> (<a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2638930" target="_blank" style="color:#9FE1CB">Municipal Code Ch. 5-10</a>, effective April 6, 2026), covering Woodlawn, South Shore, and Greater Grand Crossing. Full program details are available at <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank" style="color:#9FE1CB">chicago.gov/topa</a>. Making these pilots work requires sustained investment in tenant education, acquisition financing, and organizational capacity.</p>
+      <p>Long-time renters — especially in Black and Latino neighborhoods on the northwest and south sides — are being pushed out as buildings get sold and rents climb. The city has launched two pilot programs that give tenants a legal right to buy their building first.</p>
+      <p><strong>Tenant Opportunity to Purchase (TOPA)</strong> means that when your landlord decides to sell, they must tell you first — and give you the chance to match any offer they receive. You can buy as an individual, as a tenant group, or pass the right to a nonprofit or other organization.</p>
+
+      <!-- PROCESS MINI-GRAPHIC -->
+      <div style="margin:12px 0 4px">
+        <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;font-size:11px">
+          <div style="background:#E1F5EE;border:1.5px solid #1D9E75;border-radius:7px;padding:6px 10px;color:#085041;font-weight:600;text-align:center;min-width:80px">
+            <div style="font-size:9px;opacity:.7;margin-bottom:1px">STEP 1</div>
+            Owner notifies tenants of intent to sell
+            <div style="font-size:9px;margin-top:2px;opacity:.7">30–60 days before listing</div>
+          </div>
+          <div style="color:#1D9E75;font-size:16px;padding:0 4px">›</div>
+          <div style="background:#E6F1FB;border:1.5px solid #378ADD;border-radius:7px;padding:6px 10px;color:#0C447C;font-weight:600;text-align:center;min-width:80px">
+            <div style="font-size:9px;opacity:.7;margin-bottom:1px">STEP 2</div>
+            Owner accepts third-party offer
+            <div style="font-size:9px;margin-top:2px;opacity:.7">Your ROFR activates</div>
+          </div>
+          <div style="color:#1D9E75;font-size:16px;padding:0 4px">›</div>
+          <div style="background:#FAEEDA;border:1.5px solid #E09B3D;border-radius:7px;padding:6px 10px;color:#633806;font-weight:600;text-align:center;min-width:80px">
+            <div style="font-size:9px;opacity:.7;margin-bottom:1px">STEP 3</div>
+            Tenants organize &amp; decide
+            <div style="font-size:9px;margin-top:2px;opacity:.7">15–90 days to form group</div>
+          </div>
+          <div style="color:#1D9E75;font-size:16px;padding:0 4px">›</div>
+          <div style="background:#EAF3DE;border:1.5px solid #6AAF38;border-radius:7px;padding:6px 10px;color:#3B6D11;font-weight:600;text-align:center;min-width:80px">
+            <div style="font-size:9px;opacity:.7;margin-bottom:1px">STEP 4</div>
+            Buy, transfer, or waive
+            <div style="font-size:9px;margin-top:2px;opacity:.7">60–120 days to close</div>
+          </div>
+        </div>
+        <p style="font-size:10px;color:#9FE1CB;margin-top:5px">↓ See detailed phase breakdown below</p>
+      </div>
+
+      <p style="margin-top:8px">Chicago has two active TOPA pilot areas: the <strong>Block (606) District</strong> on the northwest side (effective March 1, 2025) and the <strong>Jackson Park District</strong> on the south side (effective April 6, 2026). Full program details at <a href="https://www.chicago.gov/topa" target="_blank" style="color:#9FE1CB">chicago.gov/topa</a>.</p>
     </div>
     <div class="hero-body es" style="display:none">
-      <p>Chicago enfrenta una brecha creciente de vivienda asequible. Entre 2012 y 2021, el área metropolitana perdió cientos de miles de unidades asequibles para inquilinos de bajos ingresos, con las mayores pérdidas en vecindarios históricamente negros y latinos.</p>
-      <p><strong>La preservación es una de las estrategias anti-desplazamiento más rentables.</strong> Mantener la vivienda asequible existente en manos comunitarias evita los costos más altos de la nueva construcción mientras protege a los residentes.</p>
-      <p><strong>El TOPA</strong> otorga a los inquilinos el derecho estructurado de comprar su edificio antes de que se venda a un inversionista externo. El Concejo Municipal de Chicago ha aprobado dos ordenanzas piloto TOPA: el <strong>Distrito Bloque (606)</strong> (<a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2701738" target="_blank" style="color:#9FE1CB">Código Municipal Cap. 5-11</a>, vigente desde el 1 de marzo de 2025) y el <strong>Distrito Jackson Park</strong> (<a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2638930" target="_blank" style="color:#9FE1CB">Cap. 5-10</a>, vigente desde el 6 de abril de 2026). Los detalles completos están disponibles en <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank" style="color:#9FE1CB">chicago.gov/topa</a>.</p>
+      <p>Los inquilinos de larga data — especialmente en vecindarios negros y latinos del noroeste y sur — están siendo desplazados mientras los edificios se venden y las rentas suben. La ciudad ha lanzado dos programas piloto que dan a los inquilinos el derecho legal de comprar su edificio primero.</p>
+      <p><strong>El TOPA</strong> significa que cuando tu arrendador decide vender, debe notificarte primero — y darte la oportunidad de igualar cualquier oferta que reciba. Puedes comprar como individuo, como grupo de inquilinos, o transferir el derecho a una organización sin fines de lucro.</p>
+      <p>Chicago tiene dos áreas piloto TOPA activas: el <strong>Distrito Bloque (606)</strong> en el lado noroeste (vigente desde el 1 de marzo de 2025) y el <strong>Distrito Jackson Park</strong> en el lado sur (vigente desde el 6 de abril de 2026). Detalles completos en <a href="https://www.chicago.gov/topa" target="_blank" style="color:#9FE1CB">chicago.gov/topa</a>.</p>
     </div>
     <div class="hero-pills">
       <span class="hero-pill">🏘 Block (606) District <span class="en">— NW Side, eff. Mar 1 2025</span><span class="es" style="display:none">— Lado NW, vigente 1 mar 2025</span></span>
       <span class="hero-pill">🌳 Jackson Park District <span class="en">— South Side, eff. Apr 6 2026</span><span class="es" style="display:none">— Lado Sur, vigente 6 abr 2026</span></span>
     </div>
-    <div class="hero-updated"><span class="en">Updated April 15, 2026 &nbsp;·&nbsp; Created by <strong>James Yelen</strong> &nbsp;·&nbsp; Working draft — intended for public education and tenant support. Not legal or financial advice.</span><span class="es" style="display:none">Actualizado: 15 de abril de 2026 &nbsp;·&nbsp; Creado por <strong>James Yelen</strong> &nbsp;·&nbsp; Borrador de trabajo — para educación pública y apoyo a inquilinos. No es asesoramiento legal ni financiero.</span></div>
+    <div class="hero-updated"><span class="en">Updated April 29, 2026 &nbsp;·&nbsp; Created by <strong>James Yelen</strong> &nbsp;·&nbsp; Working draft — for public education and tenant support. Not legal or financial advice.</span><span class="es" style="display:none">Actualizado: 29 de abril de 2026 &nbsp;·&nbsp; Creado por <strong>James Yelen</strong> &nbsp;·&nbsp; Borrador de trabajo — para educación pública. No es asesoramiento legal ni financiero.</span></div>
   </div>
 
   <!-- ADDRESS LOOKUP -->
@@ -252,8 +284,24 @@ canvas{display:block;width:100%!important}
   <div id="map-tooltip" style="display:none;background:#fff;border:1px solid #e2e0d8;border-radius:7px;padding:9px 13px;margin-top:6px;font-size:12px;line-height:1.6;color:#1a1a1a"></div>
   <p class="text-xs mt-1"><span class="en">OpenStreetMap basemap. District boundaries from ordinance descriptions — click polygons for details. Official boundary: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span><span class="es" style="display:none">Mapa base OSM. Para límites definitivos: <a href="https://www.chicago.gov/city/en/depts/doh/supp_info/topa.html" target="_blank">chicago.gov/topa</a></span></p>
 
-  <!-- PROGRAM SELECTOR  <!-- PROGRAM SELECTOR FOR RIGHTS -->
-  <div class="card"><div class="card-header"><h3><span class="en">Select your program to see your rights</span><span class="es" style="display:none">Selecciona tu programa para ver tus derechos</span></h3></div><div class="card-body">
+  <!-- GENERAL PROTECTIONS — always visible -->
+  <div class="card" style="border-left:4px solid #1D9E75;margin-top:.75rem"><div class="card-header" style="padding-bottom:4px"><h3>🛡 <span class="en">Your core rights as a tenant — always in effect</span><span class="es" style="display:none">Tus derechos fundamentales como inquilino — siempre vigentes</span></h3></div><div class="card-body" style="padding-top:6px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px">
+      <div style="font-size:12px;color:#1a1a1a;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#0F6E56;font-weight:700">✓</span> <span class="en">Owner <strong>cannot sell</strong> without first following the TOPA process</span><span class="es" style="display:none">El dueño <strong>no puede vender</strong> sin seguir primero el proceso TOPA</span></div>
+      <div style="font-size:12px;color:#1a1a1a;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#0F6E56;font-weight:700">✓</span> <span class="en">Owner <strong>cannot evict</strong> you during notice or negotiation periods</span><span class="es" style="display:none">El dueño <strong>no puede desalojarte</strong> durante los períodos de aviso o negociación</span></div>
+      <div style="font-size:12px;color:#1a1a1a;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#0F6E56;font-weight:700">✓</span> <span class="en">Even if you <strong>don't buy</strong>, new owner must let you stay <strong>6 months</strong> at the same rent</span><span class="es" style="display:none">Incluso si <strong>no compras</strong>, el nuevo dueño debe dejarte quedarte <strong>6 meses</strong> al mismo precio</span></div>
+      <div style="font-size:12px;color:#1a1a1a;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#0F6E56;font-weight:700">✓</span> <span class="en">Owner <strong>cannot ask</strong> you to waive your right or make it a condition of anything</span><span class="es" style="display:none">El dueño <strong>no puede pedirte</strong> que renuncies ni hacerlo condición de nada</span></div>
+      <div style="font-size:12px;color:#1a1a1a;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#0F6E56;font-weight:700">✓</span> <span class="en">Deposit cannot exceed <strong>5% of sale price</strong> — refunded if financing falls through</span><span class="es" style="display:none">El depósito no puede superar el <strong>5% del precio</strong> — se devuelve si el financiamiento falla</span></div>
+      <div style="font-size:12px;color:#1a1a1a;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#0F6E56;font-weight:700">✓</span> <span class="en">Your right applies <strong>every time</strong> the property is listed for sale — it's a continuing right</span><span class="es" style="display:none">Tu derecho aplica <strong>cada vez</strong> que la propiedad se pone a la venta — es un derecho continuo</span></div>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:#555">
+      <span class="en">Violations: $200–$1,000 fine per day. You may sue for injunctive relief, treble damages, and attorney's fees. Questions? <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> · 312-744-3653</span>
+      <span class="es" style="display:none">Violaciones: multa de $200–$1,000 por día. Puedes demandar. Preguntas: <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> · 312-744-3653</span>
+    </div>
+  </div></div>
+
+  <!-- PROGRAM SELECTOR FOR RIGHTS -->
+  <div class="card" style="margin-top:.75rem"><div class="card-header"><h3><span class="en">Select your program to see your rights</span><span class="es" style="display:none">Selecciona tu programa para ver tus derechos</span></h3></div><div class="card-body">
     <div class="btn-group" id="program-group" style="margin-bottom:6px">
       <button class="btn-opt active" onclick="setProg('606',this)">Block (606) — <span class="en">NW Side</span><span class="es" style="display:none">Lado NW</span></button>
       <button class="btn-opt" onclick="setProg('jp',this)">Jackson Park — <span class="en">South Side</span><span class="es" style="display:none">Lado Sur</span></button>
@@ -268,12 +316,16 @@ canvas{display:block;width:100%!important}
       </div>
     </div>
     <div>
-      <label><span class="en">Situation?</span><span class="es" style="display:none">¿Situación?</span></label>
-      <div class="btn-group" style="margin-bottom:0" id="sit-group">
-        <button class="btn-opt" onclick="setSit('intent',this)"><span class="en">Owner wants to sell</span><span class="es" style="display:none">Dueño quiere vender</span></button>
-        <button class="btn-opt" onclick="setSit('offer',this)"><span class="en">Offer accepted</span><span class="es" style="display:none">Oferta aceptada</span></button>
-        <button class="btn-opt" onclick="setSit('purchase',this)"><span class="en">We want to buy</span><span class="es" style="display:none">Queremos comprar</span></button>
-        <button class="btn-opt" onclick="setSit('general',this)"><span class="en">General protections</span><span class="es" style="display:none">Protecciones generales</span></button>
+      <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:5px">
+        <label style="margin-bottom:0"><span class="en">What's your situation?</span><span class="es" style="display:none">¿Cuál es tu situación?</span></label>
+        <span style="font-size:11px;color:#888;font-style:italic"><span class="en">Click each phase to understand your rights along the way</span><span class="es" style="display:none">Haz clic en cada fase para entender tus derechos</span></span>
+      </div>
+      <div class="btn-group" style="margin-bottom:0;flex-wrap:wrap" id="sit-group">
+        <button class="btn-opt" onclick="setSit('intent',this)"><span class="en">Phase 1: Owner wants to sell</span><span class="es" style="display:none">Fase 1: Dueño quiere vender</span></button>
+        <button class="btn-opt" onclick="setSit('offer',this)"><span class="en">Phase 2: Third-party offer accepted</span><span class="es" style="display:none">Fase 2: Oferta de tercero aceptada</span></button>
+        <button class="btn-opt" onclick="setSit('purchase',this)"><span class="en">Phase 3: We want to buy</span><span class="es" style="display:none">Fase 3: Queremos comprar</span></button>
+        <button class="btn-opt" onclick="setSit('begin_purchase',this)"><span class="en">Phase 4: Begin purchasing process</span><span class="es" style="display:none">Fase 4: Iniciar proceso de compra</span></button>
+        <button class="btn-opt" onclick="setSit('assign',this)"><span class="en">Assigning rights to a third party</span><span class="es" style="display:none">Ceder derechos a un tercero</span></button>
       </div>
     </div>
     <div id="rights-result" style="margin-top:10px"></div>
@@ -310,7 +362,29 @@ canvas{display:block;width:100%!important}
 ═══════════════════════════════════════════════ -->
 <div class="page" id="page-finance">
   <div class="section-title"><span class="en">Rental Feasibility Calculator</span><span class="es" style="display:none">Calculadora de Factibilidad de Alquiler</span></div>
-  <div class="section-sub"><span class="en">Model the building as a rental property. Mortgage constrained by the lower of LTV or DSCR. The gap drives required equity or subsidy. Results feed into the Rental vs. Co-op comparison tab.</span><span class="es" style="display:none">Modela el edificio como propiedad de alquiler. La hipoteca está limitada por el menor del LTV o DSCR. Los resultados alimentan la pestaña de comparación.</span></div>
+  <div class="section-sub"><span class="en">Model the building as a rental property.</span><span class="es" style="display:none">Modela el edificio como propiedad de alquiler.</span></div>
+
+  <!-- WHY/WHY NOT RENT INTRO -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
+    <div style="background:#f0fdf8;border:1.5px solid #B5DFC9;border-radius:9px;padding:12px 14px">
+      <div style="font-size:11px;font-weight:700;color:#085041;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">✓ <span class="en">Why tenants might keep it as a rental</span><span class="es" style="display:none">Por qué mantenerlo como alquiler</span></div>
+      <ul style="list-style:none;font-size:11px;color:#1a3a2a;line-height:1.8">
+        <li>→ <span class="en">Simpler to operate than a co-op — no member governance required</span><span class="es" style="display:none">Más sencillo que una cooperativa</span></li>
+        <li>→ <span class="en">Can assign TOPA rights to a nonprofit that keeps rents affordable long-term</span><span class="es" style="display:none">Ceder derechos a una organización sin fines de lucro</span></li>
+        <li>→ <span class="en">Existing tenants can stay as renters without needing to qualify for a mortgage</span><span class="es" style="display:none">Los inquilinos existentes permanecen sin necesitar una hipoteca</span></li>
+        <li>→ <span class="en">Rental income can support a blanket mortgage and operating costs</span><span class="es" style="display:none">Los ingresos de renta pueden cubrir la hipoteca y los costos operativos</span></li>
+      </ul>
+    </div>
+    <div style="background:#fdf4f0;border:1.5px solid #e8c4b4;border-radius:9px;padding:12px 14px">
+      <div style="font-size:11px;font-weight:700;color:#7A2000;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">⚠ <span class="en">Challenges to consider</span><span class="es" style="display:none">Desafíos a considerar</span></div>
+      <ul style="list-style:none;font-size:11px;color:#3a1a0a;line-height:1.8">
+        <li>→ <span class="en">Tenants remain renters — a landlord still controls rent levels, maintenance decisions, and how long you stay</span><span class="es" style="display:none">Los inquilinos siguen siendo arrendatarios — un arrendador todavía controla los niveles de renta, decisiones de mantenimiento y cuánto tiempo permaneces</span></li>
+        <li>→ <span class="en">No wealth-building — rent payments don't build equity or ownership stake the way a co-op share does</span><span class="es" style="display:none">Sin construcción de patrimonio — los pagos de renta no generan capital propio como sí lo hace una acción cooperativa</span></li>
+        <li>→ <span class="en">Without a mission-driven owner (CLT or nonprofit), rents can still rise over time even if lower than market initially</span><span class="es" style="display:none">Sin un propietario con misión social, las rentas pueden aumentar con el tiempo aunque sean más bajas al principio</span></li>
+        <li>→ <span class="en">Management and maintenance must be handled by whoever owns the building — requires strong nonprofit or management partner</span><span class="es" style="display:none">La gestión y el mantenimiento debe ser manejada por quien posea el edificio — requiere un socio sólido</span></li>
+      </ul>
+    </div>
+  </div>
   <div class="two-col">
   <div>
     <div class="card"><div class="card-header"><h3><span class="en">Acquisition &amp; Rehab</span><span class="es" style="display:none">Adquisición y Rehabilitación</span></h3></div><div class="card-body">
@@ -318,16 +392,16 @@ canvas{display:block;width:100%!important}
         <div><label><span class="en">Purchase price</span><span class="es" style="display:none">Precio de compra</span></label><input type="number" id="f_price" value="1200000" oninput="calcF()"></div>
         <div><label><span class="en">Number of units</span><span class="es" style="display:none">Núm. de unidades</span></label><input type="number" id="f_units" value="6" oninput="calcF();buildRoll()"></div>
       </div>
-      <div class="form-group"><label><span class="en">Rehab cost / unit</span><span class="es" style="display:none">Costo de rehab / unidad</span></label><input type="number" id="f_rehab" value="25000" oninput="calcF()"></div>
+      <div class="form-group"><label><span class="en"><span class="has-tip">Rehab cost<span class="tip">Rehabilitation cost per unit: estimated construction cost to bring each unit up to habitable standard. This is a "hard cost" — actual construction labor and materials. Separate from soft costs and contingency.</span></span> / unit</span><span class="es" style="display:none">Costo de rehab / unidad</span></label><input type="number" id="f_rehab" value="25000" oninput="calcF()"></div>
       <div class="form-row">
-        <div><label><span class="en">Soft costs (%)</span><span class="es" style="display:none">Costos blandos (%)</span></label><input type="number" id="f_soft" value="15" oninput="calcF()"></div>
-        <div><label><span class="en">Contingency (%)</span><span class="es" style="display:none">Contingencia (%)</span></label><input type="number" id="f_cont" value="10" oninput="calcF()"></div>
+        <div><label><span class="en"><span class="has-tip">Soft costs<span class="tip">Soft costs include architecture, engineering, legal, financing fees, permits, and other non-construction expenses — typically 10–20% of hard construction (rehab) costs.</span></span> (%)</span><span class="es" style="display:none">Costos blandos (%)</span></label><input type="number" id="f_soft" value="15" oninput="calcF()"></div>
+        <div><label><span class="en"><span class="has-tip">Contingency<span class="tip">Contingency: a budget reserve for unexpected construction costs, typically 10–15% of hard + soft costs. Required by most lenders. Unused contingency can reduce the loan amount at closing.</span></span> (%)</span><span class="es" style="display:none">Contingencia (%)</span></label><input type="number" id="f_cont" value="10" oninput="calcF()"></div>
       </div>
     </div></div>
-    <div class="card"><div class="card-header"><h3><span class="en">Rent Scenario</span><span class="es" style="display:none">Escenario de Renta</span></h3></div><div class="card-body">
+    <div class="card"><div class="card-header"><h3><span class="en">Rent Scenario <span class="has-tip" style="font-weight:400;font-size:11px;color:#888">(what is AMI?<span class="tip" style="width:260px">Area Median Income (AMI): the midpoint income for the Chicago metro area, published annually by HUD. TOPA and affordable housing programs use AMI to set affordable rent limits — e.g. "60% AMI rent" means the rent affordable to a household earning 60% of the area median income, spending no more than 30% of income on housing.</span>)</span></span><span class="es" style="display:none">Escenario de Renta</span></h3></div><div class="card-body">
       <div class="stabs" id="rent-mode-tabs">
         <button class="stab active" onclick="setRentMode('avg',this)"><span class="en">Avg. rent</span><span class="es" style="display:none">Renta promedio</span></button>
-        <button class="stab" onclick="setRentMode('roll',this)"><span class="en">Full rent roll</span><span class="es" style="display:none">Lista completa</span></button>
+        <button class="stab" onclick="setRentMode('roll',this)"><span class="en">Full <span class="has-tip" style="border-bottom:1px dashed rgba(255,255,255,.5)">rent roll<span class="tip">Rent roll: a unit-by-unit list of all units in the building, their bedroom size, and current monthly rent. Use this mode to enter actual rents for each unit rather than an average.</span></span></span><span class="es" style="display:none">Lista completa</span></button>
       </div>
       <div id="rent-avg-block">
         <div class="stabs" id="rent-bench-tabs">
@@ -337,7 +411,7 @@ canvas{display:block;width:100%!important}
           <button class="stab" onclick="setBench('60ami',this)">60% AMI</button>
           <button class="stab" onclick="setBench('80ami',this)">80% AMI</button>
           <button class="stab" onclick="setBench('100ami',this)">100% AMI</button>
-          <button class="stab" onclick="setBench('fmr',this)">FMR</button>
+          <button class="stab" onclick="setBench('fmr',this)"><span class="has-tip" style="border-bottom:1px dashed rgba(255,255,255,.5)">FMR<span class="tip">Fair Market Rent: HUD's estimate of the rent needed to lease a modest unit in a given area. Used as a voucher payment standard. Chicago uses Small Area FMRs (SAFMRs) by ZIP code, so FMR varies by neighborhood.</span></span></button>
           <button class="stab" onclick="setBench('market',this)"><span class="en">Custom</span><span class="es" style="display:none">Personalizado</span></button>
         </div>
         <div id="bench-note" class="alert alert-blue text-sm" style="margin-top:0;margin-bottom:7px"></div>
@@ -356,26 +430,26 @@ canvas{display:block;width:100%!important}
       </div>
       <div class="form-row">
         <div><label><span class="en">Maint. &amp; mgmt / yr</span><span class="es" style="display:none">Mant. y admin / año</span></label><input type="number" id="f_maint" value="9000" oninput="calcF()"></div>
-        <div><label><span class="en">Reserve / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="f_reserve" value="500" oninput="calcF()"></div>
+        <div><label><span class="en"><span class="has-tip">Reserve<span class="tip">Capital reserve: money set aside annually per unit for future major repairs (roof, HVAC, plumbing, etc.). Lenders typically require $300–$800/unit/year. This is an operating expense, not a savings account — it directly reduces net operating income.</span></span> / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="f_reserve" value="500" oninput="calcF()"></div>
       </div>
-      <div><label><span class="en">Vacancy (%)</span><span class="es" style="display:none">Vacancia (%)</span></label><input type="number" id="f_vac" value="5" oninput="calcF()"></div>
+      <div><label><span class="en"><span class="has-tip">Vacancy rate<span class="tip">Vacancy rate: the percentage of units assumed to be unoccupied at any given time. Used to reduce gross rent income to effective gross income. Typical multifamily vacancy in Chicago is 3–8%.</span></span> (%)</span><span class="es" style="display:none">Vacancia (%)</span></label><input type="number" id="f_vac" value="5" oninput="calcF()"></div>
     </div></div>
 
     <div class="card"><div class="card-header"><h3><span class="en">Equity Contribution</span><span class="es" style="display:none">Contribución de Capital</span></h3></div><div class="card-body">
       <p class="text-sm" style="margin-bottom:8px"><span class="en">Enter the amount of equity (grants, subordinate debt, owner investment) being contributed to the project.</span><span class="es" style="display:none">Ingresa el monto de capital (subsidios, deuda subordinada, inversión propia) que se aportará al proyecto.</span></p>
       <div class="form-row">
-        <div><label><span class="en">Equity contribution ($)</span><span class="es" style="display:none">Aportación de capital ($)</span></label><input type="number" id="f_equity_contrib" value="0" oninput="calcF()"></div>
+        <div><label><span class="en"><span class="has-tip">Equity<span class="tip">Equity contribution: upfront cash contributed to the project from grants, subordinate loans, seller concessions, or investor equity — reducing the amount that must be borrowed. The higher the equity, the lower the financing gap.</span></span> contribution ($)</span><span class="es" style="display:none">Aportación de capital ($)</span></label><input type="number" id="f_equity_contrib" value="0" oninput="calcF()"></div>
         <div><div class="hbox" style="margin-top:16px"><div class="hbox-label"><span class="en">% of total project cost</span><span class="es" style="display:none">% del costo total</span></div><div class="hbox-val" id="f-equity-pct">—</div></div></div>
       </div>
     </div></div>
     <div class="card"><div class="card-header"><h3><span class="en">Mortgage Assumptions</span><span class="es" style="display:none">Supuestos del Préstamo</span></h3></div><div class="card-body">
       <div class="form-row">
-        <div><label><span class="en">Max LTV (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="f_ltv" value="70" oninput="calcF()"></div>
+        <div><label><span class="en">Max <span class="has-tip">LTV<span class="tip">Loan-to-Value ratio: the maximum percentage of the total project cost that a lender will finance. E.g. 70% LTV on a $1M project = $700K loan maximum.</span></span> (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="f_ltv" value="70" oninput="calcF()"></div>
         <div><label><span class="en">Interest rate (%)</span><span class="es" style="display:none">Tasa (%)</span></label><input type="number" id="f_rate" value="7.0" step="0.25" oninput="calcF()"></div>
       </div>
       <div class="form-row">
-        <div><label><span class="en">Amort. term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="f_term" value="30" oninput="calcF()"></div>
-        <div><label><span class="en">Min DSCR</span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="f_dscr_min" value="1.20" step="0.05" oninput="calcF()"></div>
+        <div><label><span class="en"><span class="has-tip">Amort. term<span class="tip">Amortization term: the number of years over which the loan is repaid. A 30-year term has lower monthly payments than a 20-year term, but costs more in total interest. Most affordable housing loans are 25–40 years.</span></span> (yrs)</span><span class="es" style="display:none">Plazo de amortización (años)</span></label><input type="number" id="f_term" value="30" oninput="calcF()"></div>
+        <div><label><span class="en">Min <span class="has-tip">DSCR<span class="tip">Debt Service Coverage Ratio: lenders require that net operating income covers mortgage payments by at least this multiple (e.g. 1.20 means income must be 20% greater than debt payments). A binding DSCR constraint means the property can't safely support more debt.</span></span></span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="f_dscr_min" value="1.20" step="0.05" oninput="calcF()"></div>
       </div>
       <div class="hbox"><div class="hbox-label"><span class="en">Max supportable mortgage</span><span class="es" style="display:none">Hipoteca máxima soportable</span></div><div class="hbox-val" id="f-max-loan">—</div><div class="hbox-sub" id="f-max-loan-why"></div></div>
     </div></div>
@@ -411,8 +485,8 @@ canvas{display:block;width:100%!important}
         <div><label><span class="en">Avg. bedrooms / unit</span><span class="es" style="display:none">Recámaras prom. / unidad</span></label><select id="c_br" onchange="calcC()"><option value="0">Studio</option><option value="1">1 BR</option><option value="2" selected>2 BR</option><option value="3">3 BR</option></select></div>
       </div>
       <div class="form-row">
-        <div><label><span class="en">Soft costs (%)</span><span class="es" style="display:none">Costos blandos (%)</span></label><input type="number" id="c_soft" value="15" oninput="calcC()"></div>
-        <div><label><span class="en">Contingency (%)</span><span class="es" style="display:none">Contingencia (%)</span></label><input type="number" id="c_cont" value="10" oninput="calcC()"></div>
+        <div><label><span class="en"><span class="has-tip">Soft costs<span class="tip">Soft costs: architecture, engineering, legal, financing fees, permits, and other non-construction expenses — typically 10–20% of hard (rehab) costs. Co-ops have additional soft costs for legal formation and co-op training.</span></span> (%)</span><span class="es" style="display:none">Costos blandos (%)</span></label><input type="number" id="c_soft" value="15" oninput="calcC()"></div>
+        <div><label><span class="en"><span class="has-tip">Contingency<span class="tip">Contingency: a budget reserve for unexpected construction costs, typically 10–15% of hard + soft costs. Unused contingency can reduce the loan at closing.</span></span> (%)</span><span class="es" style="display:none">Contingencia (%)</span></label><input type="number" id="c_cont" value="10" oninput="calcC()"></div>
       </div>
       <div class="form-row">
         <div><label><span class="en">Co-op org / legal (one-time)</span><span class="es" style="display:none">Org. / legal (único)</span></label><input type="number" id="c_org" value="15000" oninput="calcC()"></div>
@@ -421,7 +495,7 @@ canvas{display:block;width:100%!important}
     </div></div>
 
     <!-- STEP 2: AFFORDABILITY TARGET -->
-    <div class="card" style="border-color:#1D9E75"><div class="card-header" style="background:#f0fdf8;border-color:#B5DFC9"><h3 style="color:#085041">② <span class="en">Affordability target</span><span class="es" style="display:none">② Objetivo de asequibilidad</span></h3></div><div class="card-body">
+    <div class="card" style="border-color:#1D9E75"><div class="card-header" style="background:#f0fdf8;border-color:#B5DFC9"><h3 style="color:#085041">② <span class="en">Affordability target <span class="has-tip" style="font-weight:400;font-size:11px;color:#2D7055">(what is AMI?<span class="tip" style="width:260px">Area Median Income (AMI): HUD's annual estimate of the midpoint household income for the Chicago metro. Used to set affordable rent/carrying charge targets. 60% AMI = a household earning 60% of area median, paying no more than 30% of income on housing.</span>)</span></span><span class="es" style="display:none">② Objetivo de asequibilidad</span></h3></div><div class="card-body">
       <p class="text-sm" style="margin-bottom:8px"><span class="en">Select an AMI level or FMR to set the carrying charge target automatically, or choose Custom to enter a specific amount. The tool subtracts utilities and share loan payments (if any) to arrive at the max carrying charge.</span><span class="es" style="display:none">Selecciona un nivel de AMI o FMR para establecer automáticamente la cuota objetivo, o elige Personalizado para ingresar un monto específico. La herramienta resta servicios y pagos de préstamo de acción para obtener la cuota máxima.</span></p>
 
       <div class="form-row" style="margin-bottom:8px">
@@ -434,7 +508,7 @@ canvas{display:block;width:100%!important}
         <button class="stab" onclick="setAmiBench('60',this)" data-bench="60">60% AMI</button>
         <button class="stab" onclick="setAmiBench('80',this)" data-bench="80">80% AMI</button>
         <button class="stab" onclick="setAmiBench('100',this)" data-bench="100">100% AMI</button>
-        <button class="stab" onclick="setAmiBench('fmr',this)" data-bench="fmr">FMR</button>
+        <button class="stab" onclick="setAmiBench('fmr',this)" data-bench="fmr"><span class="has-tip" style="border-bottom:1px dashed rgba(255,255,255,.5)">FMR<span class="tip">Fair Market Rent: HUD's estimate of the rent needed to lease a modest unit in a given area. Chicago uses Small Area FMRs (SAFMRs) by ZIP code.</span></span></button>
         <button class="stab active" onclick="setAmiBench('custom',this)" data-bench="custom"><span class="en">Custom</span><span class="es" style="display:none">Personalizado</span></button>
       </div>
 
@@ -468,14 +542,14 @@ canvas{display:block;width:100%!important}
       </div>
       <div class="form-row">
         <div><label><span class="en">Maintenance &amp; mgmt / yr</span><span class="es" style="display:none">Mant. y admin / año</span></label><input type="number" id="c_maint" value="9000" oninput="calcC()"></div>
-        <div><label><span class="en">Reserve / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="c_reserve" value="600" oninput="calcC()"></div>
+        <div><label><span class="en"><span class="has-tip">Reserve<span class="tip">Capital reserve: annual savings per unit for future major repairs — roof, HVAC, windows, plumbing. LEHCs typically set $500–$800/unit/year. Funded through the carrying charge and counted as an operating expense when sizing the blanket mortgage.</span></span> / unit / yr</span><span class="es" style="display:none">Reserva / unidad / año</span></label><input type="number" id="c_reserve" value="600" oninput="calcC()"></div>
       </div>
       <div class="form-row">
         <div><label><span class="en">Common area utilities / yr</span><span class="es" style="display:none">Servicios comunes / año</span></label><input type="number" id="c_utilities" value="4000" oninput="calcC()"></div>
         <div><label><span class="en">Co-op monitoring &amp; training / yr</span><span class="es" style="display:none">Monitoreo y capacitación / año</span></label><input type="number" id="c_trainyr" value="2000" oninput="calcC()"></div>
       </div>
       <div class="form-row">
-        <div><label><span class="en">Vacancy rate (%)</span><span class="es" style="display:none">Tasa de vacancia (%)</span></label><input type="number" id="c_vac" value="5" oninput="calcC()"></div>
+        <div><label><span class="en"><span class="has-tip">Vacancy rate<span class="tip">Vacancy rate: percentage of units assumed unoccupied at any given time (due to member turnover, unit changes, etc.). Applied to gross carrying charge income to get effective gross income. Co-ops typically have lower vacancy than market rentals — 2–5% is typical.</span></span> (%)</span><span class="es" style="display:none">Tasa de vacancia (%)</span></label><input type="number" id="c_vac" value="5" oninput="calcC()"></div>
         <div><label><span class="en">Annual carrying charge growth (%)</span><span class="es" style="display:none">Crecimiento anual de la cuota (%)</span></label><input type="number" id="c_carry_growth" value="2.5" step="0.5" oninput="calcC()"></div>
       </div>
     </div></div>
@@ -484,12 +558,12 @@ canvas{display:block;width:100%!important}
     <div class="card"><div class="card-header"><h3><span class="en">④ Blanket Mortgage Sizing</span><span class="es" style="display:none">④ Dimensionamiento de la Hipoteca Global</span></h3></div><div class="card-body">
       <p class="text-sm" style="margin-bottom:8px"><span class="en">Mortgage sized by the lower of LTV and DSCR — same as rental. DSCR = NOI ÷ Annual Debt Service, where NOI = effective gross carrying charges (after vacancy) minus all operating expenses. The mortgage payment is then the largest annual debt service consistent with NOI ÷ DSCR ≥ minimum.</span><span class="es" style="display:none">La hipoteca se dimensiona por el menor de LTV y DSCR. DSCR = NOI ÷ Servicio de Deuda Anual, donde NOI = cuotas efectivas brutas (tras vacancia) menos todos los gastos operativos.</span></p>
       <div class="form-row">
-        <div><label><span class="en">Max LTV (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="c_ltv" value="70" oninput="calcC()"></div>
+        <div><label><span class="en">Max <span class="has-tip">LTV<span class="tip">Loan-to-Value ratio: the maximum percentage of the total project cost a lender will finance. For co-ops, this is typically 70–80% of appraised value. The remaining 20–30% must come from member equity, grants, or subordinate financing.</span></span> (%)</span><span class="es" style="display:none">LTV máx. (%)</span></label><input type="number" id="c_ltv" value="70" oninput="calcC()"></div>
         <div><label><span class="en">Interest rate (%)</span><span class="es" style="display:none">Tasa (%)</span></label><input type="number" id="c_mrate" value="7.0" step="0.25" oninput="calcC()"></div>
       </div>
       <div class="form-row">
-        <div><label><span class="en">Term (yrs)</span><span class="es" style="display:none">Plazo (años)</span></label><input type="number" id="c_mterm" value="30" oninput="calcC()"></div>
-        <div><label><span class="en">Min DSCR</span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="c_mdscr" value="1.15" step="0.05" oninput="calcC()"></div>
+        <div><label><span class="en"><span class="has-tip">Amort. term<span class="tip">Amortization term: the number of years over which the loan is repaid. Longer terms mean lower monthly payments, which allows the co-op to support more debt at the same carrying charge level.</span></span> (yrs)</span><span class="es" style="display:none">Plazo de amortización (años)</span></label><input type="number" id="c_mterm" value="30" oninput="calcC()"></div>
+        <div><label><span class="en">Min <span class="has-tip">DSCR<span class="tip">Debt Service Coverage Ratio: net operating income divided by annual mortgage payments. A DSCR of 1.15 means income must be 15% more than debt service. The co-op's DSCR threshold is often slightly lower than rental (1.10–1.20) because carrying charges are more stable than market rents.</span></span></span><span class="es" style="display:none">DSCR mín.</span></label><input type="number" id="c_mdscr" value="1.15" step="0.05" oninput="calcC()"></div>
       </div>
       <div class="hbox"><div class="hbox-label"><span class="en">Max supportable blanket mortgage</span><span class="es" style="display:none">Hipoteca global máxima soportable</span></div><div class="hbox-val" id="c-max-loan">—</div><div class="hbox-sub" id="c-max-loan-why"></div></div>
     </div></div>
@@ -538,6 +612,158 @@ canvas{display:block;width:100%!important}
     </div></div>
   </div>
   <div><div id="coop-output"></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 3b: EXAMPLES
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-examples">
+  <div class="section-title"><span class="en">Sample Projects &amp; How to Use the Tool</span><span class="es" style="display:none">Proyectos de Ejemplo y Cómo Usar la Herramienta</span></div>
+  <div class="section-sub"><span class="en">Three realistic scenarios illustrating how the Rental Feasibility and Co-op calculators work. Click "Load this example" to populate the calculator with these numbers.</span><span class="es" style="display:none">Tres escenarios realistas que ilustran cómo funcionan las calculadoras. Haz clic en "Cargar este ejemplo" para llenar la calculadora con estos números.</span></div>
+
+  <!-- HOW TO USE -->
+  <div class="card" style="border-left:4px solid #378ADD;margin-bottom:1rem"><div class="card-body" style="padding:14px 16px">
+    <p style="font-size:13px;font-weight:700;color:#0C447C;margin-bottom:8px">💡 <span class="en">How to use the calculators</span><span class="es" style="display:none">Cómo usar las calculadoras</span></p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="font-size:12px;color:#444;line-height:1.6">
+        <p style="font-weight:600;color:#0C447C;margin-bottom:3px"><span class="en">Rental Feasibility tab</span><span class="es" style="display:none">Pestaña de Factibilidad de Alquiler</span></p>
+        <ol style="padding-left:16px;margin:0">
+          <li><span class="en">Enter the <strong>purchase price</strong> and number of units</span><span class="es" style="display:none">Ingresa el <strong>precio de compra</strong> y número de unidades</span></li>
+          <li><span class="en">Set a <strong>rent scenario</strong> — use AMI benchmarks, FMR, or enter current rents</span><span class="es" style="display:none">Establece un <strong>escenario de renta</strong> — usa AMI, FMR o rentas actuales</span></li>
+          <li><span class="en">Fill in <strong>operating expenses</strong> (tax, insurance, maintenance, reserves)</span><span class="es" style="display:none">Ingresa los <strong>gastos operativos</strong></span></li>
+          <li><span class="en">Adjust <strong>mortgage assumptions</strong> — the gap between total cost and supportable loan = required subsidy</span><span class="es" style="display:none">Ajusta los <strong>supuestos de hipoteca</strong> — la brecha es el subsidio requerido</span></li>
+          <li><span class="en">Check the <strong>Rental vs. Co-op tab</strong> to compare 20-year cost trajectories</span><span class="es" style="display:none">Revisa la <strong>pestaña Alquiler vs. Co-op</strong> para comparar</span></li>
+        </ol>
+      </div>
+      <div style="font-size:12px;color:#444;line-height:1.6">
+        <p style="font-weight:600;color:#085041;margin-bottom:3px"><span class="en">Co-op Calculator tab</span><span class="es" style="display:none">Pestaña Calculadora Co-op</span></p>
+        <ol style="padding-left:16px;margin:0">
+          <li><span class="en">Enter the same <strong>project costs</strong> as the rental calculator</span><span class="es" style="display:none">Ingresa los mismos <strong>costos del proyecto</strong></span></li>
+          <li><span class="en">Set an <strong>affordability target</strong> — what carrying charge can members afford? (AMI or custom)</span><span class="es" style="display:none">Establece un <strong>objetivo de asequibilidad</strong> — ¿cuánto pueden pagar los miembros?</span></li>
+          <li><span class="en">The tool <strong>works backwards</strong> — from carrying charge → mortgage → financing gap</span><span class="es" style="display:none">La herramienta trabaja <strong>al revés</strong> — desde cuota → hipoteca → brecha</span></li>
+          <li><span class="en">Add a <strong>share loan</strong> if members will contribute individual financing</span><span class="es" style="display:none">Añade un <strong>préstamo de acción</strong> si los miembros aportarán financiamiento individual</span></li>
+          <li><span class="en">The gap = subsidy needed to make the co-op financially viable at the target carrying charge</span><span class="es" style="display:none">La brecha = subsidio necesario para que la co-op sea viable</span></li>
+        </ol>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:9px 12px;background:#EBF4FF;border-radius:7px;font-size:11px;color:#0C447C">
+      <strong><span class="en">Key insight:</span><span class="es" style="display:none">Punto clave:</span></strong>
+      <span class="en"> In both calculators, the <strong>financing gap</strong> (required subsidy) is the difference between total project cost and the mortgage the property can support at affordable rents or carrying charges. Closing this gap typically requires grants, subordinate loans, or seller concessions. In high-cost TOPA neighborhoods, this gap is often $100K–$300K+ per unit.</span>
+      <span class="es" style="display:none"> En ambas calculadoras, la <strong>brecha de financiamiento</strong> es la diferencia entre el costo total del proyecto y la hipoteca que la propiedad puede soportar con rentas asequibles. Cerrar esta brecha generalmente requiere subvenciones o préstamos subordinados.</span>
+    </div>
+  </div></div>
+
+  <!-- EXAMPLE 1 -->
+  <div class="card" style="margin-bottom:.875rem">
+    <div class="card-header" style="background:#f0fdf8;border-color:#B5DFC9">
+      <h3 style="color:#085041">📋 <span class="en">Example 1 — Small Building, Affordable Rents</span><span class="es" style="display:none">Ejemplo 1 — Edificio Pequeño, Rentas Asequibles</span></h3>
+    </div>
+    <div class="card-body">
+      <p class="text-sm" style="margin-bottom:10px"><span class="en"><strong>Scenario:</strong> A 4-unit building in Humboldt Park. Current tenants pay below-market rent. The group wants to keep rents at 60% AMI. This shows a common challenge: affordable rents produce modest NOI that limits mortgage size, creating a significant gap.</span><span class="es" style="display:none"><strong>Escenario:</strong> Un edificio de 4 unidades en Humboldt Park. Los inquilinos actuales pagan rentas por debajo del mercado. El grupo quiere mantener rentas al 60% AMI.</span></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;font-size:12px">
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Project</div>
+          <div>Purchase price: <strong>$600,000</strong></div>
+          <div>Units: <strong>4</strong> (2BR avg.)</div>
+          <div>Rehab/unit: <strong>$20,000</strong></div>
+          <div>Soft costs: <strong>15%</strong> · Contingency: <strong>10%</strong></div>
+        </div>
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Income</div>
+          <div>Rent target: <strong>60% AMI</strong> (~$1,620/mo)</div>
+          <div>Gross annual rent: <strong>~$77,760</strong></div>
+          <div>Vacancy: <strong>5%</strong> · EGI: <strong>~$73,872</strong></div>
+        </div>
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Key results</div>
+          <div>Total project cost: <strong>~$737K</strong></div>
+          <div>Max loan (DSCR): <strong>~$390K</strong></div>
+          <div style="color:#A32D2D;font-weight:700">Gap: ~$347K (~$87K/unit)</div>
+        </div>
+      </div>
+      <div style="background:#fff8e7;border:1px solid #E09B3D;border-radius:7px;padding:9px 12px;font-size:11px;color:#633806;margin-bottom:8px">
+        <strong>💬 <span class="en">What this tells you:</span><span class="es" style="display:none">Qué te dice esto:</span></strong>
+        <span class="en"> The DSCR constraint is binding here — affordable rents just don't produce enough NOI to support a large mortgage. The ~$87K/unit gap is typical for small TOPA buildings and would need to be covered by grants (City Shared Equity program, CCLF, IHDA) or a seller price reduction.</span>
+        <span class="es" style="display:none"> El DSCR es la restricción vinculante aquí — las rentas asequibles no generan suficiente NOI para soportar una hipoteca grande. La brecha de ~$87K/unidad es típica para edificios pequeños de TOPA.</span>
+      </div>
+      <button class="btn-opt active" onclick="loadExample(1)" style="font-size:12px;padding:6px 14px"><span class="en">Load in Rental Calculator →</span><span class="es" style="display:none">Cargar en Calculadora →</span></button>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 2 -->
+  <div class="card" style="margin-bottom:.875rem">
+    <div class="card-header" style="background:#f0f4ff;border-color:#B8C9F0">
+      <h3 style="color:#0C447C">📋 <span class="en">Example 2 — Mid-Size Building, Mixed Rents</span><span class="es" style="display:none">Ejemplo 2 — Edificio Mediano, Rentas Mixtas</span></h3>
+    </div>
+    <div class="card-body">
+      <p class="text-sm" style="margin-bottom:10px"><span class="en"><strong>Scenario:</strong> An 8-unit building in Logan Square. The strategy is mixed income — half units at 60% AMI, half at 80% AMI — to generate more revenue while keeping most units deeply affordable. This is a common approach to reduce the subsidy gap.</span><span class="es" style="display:none"><strong>Escenario:</strong> Un edificio de 8 unidades en Logan Square con estrategia de ingreso mixto — mitad al 60% AMI, mitad al 80% AMI.</span></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;font-size:12px">
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Project</div>
+          <div>Purchase price: <strong>$1,400,000</strong></div>
+          <div>Units: <strong>8</strong> (2BR avg.)</div>
+          <div>Rehab/unit: <strong>$30,000</strong></div>
+          <div>Soft costs: <strong>15%</strong> · Contingency: <strong>10%</strong></div>
+        </div>
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Income</div>
+          <div>Blended rent: <strong>~$1,890/mo</strong></div>
+          <div>(4 units @60% + 4 units @80%)</div>
+          <div>EGI: <strong>~$172K/yr</strong></div>
+        </div>
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Key results</div>
+          <div>Total project cost: <strong>~$1.84M</strong></div>
+          <div>Max loan (DSCR): <strong>~$1.0M</strong></div>
+          <div style="color:#A32D2D;font-weight:700">Gap: ~$840K (~$105K/unit)</div>
+        </div>
+      </div>
+      <div style="background:#fff8e7;border:1px solid #E09B3D;border-radius:7px;padding:9px 12px;font-size:11px;color:#633806;margin-bottom:8px">
+        <strong>💬 <span class="en">What this tells you:</span><span class="es" style="display:none">Qué te dice esto:</span></strong>
+        <span class="en"> The mixed-income approach increases revenue vs. Example 1, but Logan Square's high purchase price drives a larger total gap. The per-unit gap (~$105K) is similar — showing that purchase price matters more than rent level for the gap size. A seller price reduction or city acquisition support is critical.</span>
+        <span class="es" style="display:none"> El enfoque de ingreso mixto aumenta los ingresos, pero el alto precio de compra en Logan Square genera una brecha total mayor.</span>
+      </div>
+      <button class="btn-opt active" onclick="loadExample(2)" style="font-size:12px;padding:6px 14px"><span class="en">Load in Rental Calculator →</span><span class="es" style="display:none">Cargar en Calculadora →</span></button>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 3 -->
+  <div class="card" style="margin-bottom:.875rem">
+    <div class="card-header" style="background:#f5f0fd;border-color:#C9B8E8">
+      <h3 style="color:#4A235A">📋 <span class="en">Example 3 — Co-op Conversion, 6 Units</span><span class="es" style="display:none">Ejemplo 3 — Conversión Co-op, 6 Unidades</span></h3>
+    </div>
+    <div class="card-body">
+      <p class="text-sm" style="margin-bottom:10px"><span class="en"><strong>Scenario:</strong> The same 6-unit building from the rental calculator default, modeled as a co-op. Members target a carrying charge at 60% AMI. This illustrates how the co-op model works backwards from affordability — and shows that the gap is often similar to the rental scenario.</span><span class="es" style="display:none"><strong>Escenario:</strong> El mismo edificio de 6 unidades del calculador de alquiler, modelado como cooperativa. Los miembros apuntan a una cuota al 60% AMI.</span></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;font-size:12px">
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Project</div>
+          <div>Purchase price: <strong>$1,200,000</strong></div>
+          <div>Units: <strong>6</strong> (2BR avg.)</div>
+          <div>Rehab/unit: <strong>$25,000</strong></div>
+          <div>Co-op formation: <strong>$15K + $5K training</strong></div>
+        </div>
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Affordability</div>
+          <div>Target: <strong>60% AMI</strong> (~$1,620/mo)</div>
+          <div>Less utilities: <strong>$75/mo</strong></div>
+          <div>Carrying charge: <strong>~$1,545/mo</strong></div>
+          <div>EGI: <strong>~$105K/yr</strong></div>
+        </div>
+        <div style="background:#f9f8f5;border-radius:7px;padding:10px">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Key results</div>
+          <div>Total project cost: <strong>~$1.62M</strong></div>
+          <div>Max blanket loan: <strong>~$580K</strong></div>
+          <div style="color:#A32D2D;font-weight:700">Gap: ~$1.04M (~$174K/unit)</div>
+        </div>
+      </div>
+      <div style="background:#f5f0fd;border:1px solid #C9B8E8;border-radius:7px;padding:9px 12px;font-size:11px;color:#4A235A;margin-bottom:8px">
+        <strong>💬 <span class="en">What this tells you:</span><span class="es" style="display:none">Qué te dice esto:</span></strong>
+        <span class="en"> The co-op gap is larger than the rental gap for this building, because carrying charges (the co-op's "income") are typically lower than market rents. However, if members contribute individual share loans (~$20K–$50K each), this directly reduces the blanket mortgage gap. The co-op model's advantage is long-term: once the mortgage is paid, carrying charges drop significantly — creating permanent affordable housing with member equity.</span>
+        <span class="es" style="display:none"> La brecha de la co-op es mayor que la del alquiler para este edificio, porque las cuotas son típicamente más bajas que las rentas de mercado. Sin embargo, si los miembros contribuyen préstamos de acción individuales, esto reduce directamente la brecha de la hipoteca colectiva.</span>
+      </div>
+      <button class="btn-opt active" onclick="loadExample(3)" style="font-size:12px;padding:6px 14px;background:#4A235A;border-color:#4A235A"><span class="en">Load in Co-op Calculator →</span><span class="es" style="display:none">Cargar en Calculadora Co-op →</span></button>
+    </div>
   </div>
 </div>
 
@@ -1155,23 +1381,23 @@ var cShareChart=null, compareChart=null;
 // Format: ZIP: [studio, 1BR, 2BR, 3BR]
 // Metro-level fallback: [1458, 1560, 1761, 2262]
 var ZIP_FMR={
-  '60601':[1700,1820,2060,2640],'60602':[1700,1820,2060,2640],'60603':[1700,1820,2060,2640],
-  '60604':[1700,1820,2060,2640],'60605':[1900,2040,2310,2960],'60606':[1700,1820,2060,2640],
-  '60607':[1800,1930,2180,2800],'60608':[1350,1450,1640,2100],'60609':[1200,1290,1460,1870],
-  '60610':[2100,2250,2550,3270],'60611':[2500,2680,3030,3880],'60612':[1300,1390,1580,2020],
-  '60613':[1900,2040,2310,2960],'60614':[2200,2360,2670,3420],'60615':[1400,1500,1700,2180],
-  '60616':[1500,1610,1820,2330],'60617':[1100,1180,1340,1710],'60618':[1600,1720,1940,2490],
-  '60619':[1050,1130,1280,1630],'60620':[1100,1180,1340,1710],'60621':[1000,1070,1210,1550],
-  '60622':[2000,2150,2430,3110],'60623':[1200,1290,1460,1870],'60624':[1100,1180,1340,1710],
-  '60625':[1650,1770,2000,2570],'60626':[1550,1660,1880,2410],'60628':[1050,1130,1280,1630],
-  '60629':[1200,1290,1460,1870],'60630':[1500,1610,1820,2330],'60632':[1200,1290,1460,1870],
-  '60634':[1450,1560,1760,2260],'60636':[1050,1130,1280,1630],'60637':[1350,1450,1640,2100],
-  '60638':[1350,1450,1640,2100],'60639':[1400,1500,1700,2180],'60640':[1800,1930,2180,2800],
-  '60641':[1500,1610,1820,2330],'60643':[1150,1230,1400,1790],'60644':[1100,1180,1340,1710],
-  '60645':[1450,1560,1760,2260],'60647':[1900,2040,2310,2960],'60649':[1200,1290,1460,1870],
-  '60651':[1350,1450,1640,2100],'60652':[1150,1230,1400,1790],'60653':[1400,1500,1700,2180],
-  '60655':[1200,1290,1460,1870],'60657':[2000,2150,2430,3110],'60660':[1550,1660,1880,2410],
-  '60707':[1400,1500,1700,2180],'60804':[1250,1340,1520,1940]
+  '60601':[1780,1910,2160,2770],'60602':[1780,1910,2160,2770],'60603':[1780,1910,2160,2770],
+  '60604':[1780,1910,2160,2770],'60605':[2000,2140,2430,3110],'60606':[1780,1910,2160,2770],
+  '60607':[1890,2030,2290,2940],'60608':[1420,1520,1720,2200],'60609':[1260,1350,1530,1960],
+  '60610':[2200,2360,2680,3430],'60611':[2620,2810,3180,4070],'60612':[1360,1460,1660,2120],
+  '60613':[2000,2140,2430,3110],'60614':[2310,2480,2800,3590],'60615':[1470,1580,1780,2290],
+  '60616':[1580,1690,1910,2450],'60617':[1160,1240,1410,1800],'60618':[1680,1810,2040,2610],
+  '60619':[1100,1190,1340,1710],'60620':[1160,1240,1410,1800],'60621':[1050,1120,1270,1630],
+  '60622':[2100,2260,2550,3270],'60623':[1260,1350,1530,1960],'60624':[1160,1240,1410,1800],
+  '60625':[1730,1860,2100,2700],'60626':[1630,1740,1970,2530],'60628':[1100,1190,1340,1710],
+  '60629':[1260,1350,1530,1960],'60630':[1580,1690,1910,2450],'60632':[1260,1350,1530,1960],
+  '60634':[1520,1640,1850,2370],'60636':[1100,1190,1340,1710],'60637':[1420,1520,1720,2200],
+  '60638':[1420,1520,1720,2200],'60639':[1470,1580,1780,2290],'60640':[1890,2030,2290,2940],
+  '60641':[1580,1690,1910,2450],'60643':[1210,1290,1470,1880],'60644':[1160,1240,1410,1800],
+  '60645':[1520,1640,1850,2370],'60647':[2000,2140,2430,3110],'60649':[1260,1350,1530,1960],
+  '60651':[1420,1520,1720,2200],'60652':[1210,1290,1470,1880],'60653':[1470,1580,1780,2290],
+  '60655':[1260,1350,1530,1960],'60657':[2100,2260,2550,3270],'60660':[1630,1740,1970,2530],
+  '60707':[1470,1580,1780,2290],'60804':[1310,1410,1600,2040]
 };
 function getZipFmr(zip,br){
   var d=ZIP_FMR[String(zip).trim()];
@@ -1491,29 +1717,152 @@ function renderRights2(){renderRightsTo('rights-result2',cUnits2,cSit2,curProg2)
 function renderRightsTo(elId,u,s,prog){
   var el=document.getElementById(elId);if(!el)return;
   if(!u||!s){el.innerHTML='';return;}
+
+  // ── TIMELINE GRAPHIC helper ──
+  // phases: array of {label, days, active, done}
+  function tlPhase(p){
+    var bg=p.active?'#0F6E56':p.done?'#B8DDD2':'#e8e4de';
+    var fg=p.active?'#fff':p.done?'#085041':'#888';
+    var dg=p.active?'#fff':p.done?'#085041':'#aaa';
+    return '<div style="flex:1;min-width:0;text-align:center;position:relative">'
+      +'<div style="background:'+bg+';border-radius:6px;padding:6px 4px 5px;margin:0 2px">'
+      +'<div style="font-size:9px;font-weight:700;color:'+fg+';line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+p.label+'</div>'
+      +(p.days?'<div style="font-size:11px;font-weight:800;color:'+dg+';margin-top:1px">'+p.days+'</div>':'')
+      +'</div></div>';
+  }
+  function tlArrow(){return '<div style="display:flex;align-items:center;color:#bbb;font-size:10px;padding:0 1px;margin-top:-8px">›</div>';}
+  function timeline(phases){
+    var html='<div style="display:flex;align-items:stretch;margin:10px 0 4px;gap:0">';
+    phases.forEach(function(p,i){html+=tlPhase(p);if(i<phases.length-1)html+=tlArrow();});
+    html+='</div><div style="font-size:9px;color:#888;text-align:center;margin-bottom:4px">'+T('Day counts start from Notice of Third-Party Purchase Agreement','Los plazos comienzan desde el Aviso del Contrato con Tercero')+'</div>';
+    return html;
+  }
+
   if(s==='intent'){
     var days=u==='5+'?'60':'30';
-    var who=u==='5+'?T('Tenant association + Dept. of Housing','Asociación de inquilinos + DOH'):T('Each tenant individually','Cada inquilino individualmente');
-    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Owner must notify you before selling','El dueño debe notificarte antes de vender')+'</h3></div><div class="card-body"><div class="info-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.5rem 0"><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Notice required','Aviso requerido')+'</div><div style="font-size:18px;font-weight:600">'+days+' '+T('days','días')+'</div><div style="font-size:10px;color:#888">'+T('before listing','antes de listar')+'</div></div><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Who gets notice','Quién recibe')+'</div><div style="font-size:12px;font-weight:600;margin-top:4px">'+who+'</div></div></div><p class="text-sm" style="margin-top:8px">'+T('The owner must use the two-part DOH Notice of Intent to Sell: an Owner Declaration (notarized) and a Tenant Notice for each unit. Both documents must be delivered in English and Spanish (and in any other language the tenant uses to communicate). The notice must include: owner contact, address, number of units, proposed price, and a summary of tenant rights. Owner must also post notice at all public entrances. Submit all documents via the DOH TOPA E-Form Portal (compulsory from May 6, 2026) or by exception via email.','El dueño debe usar el Aviso DOH de dos partes: una Declaración del Propietario (notariada) y un Aviso al Inquilino para cada unidad. Ambos documentos deben entregarse en inglés y español. El aviso debe incluir: contacto del dueño, dirección, número de unidades, precio propuesto y resumen de derechos. Enviar via el Portal E-Form del DOH TOPA (obligatorio desde el 6 de mayo de 2026).')+'</p><ul class="rights-list mt-1"><li>'+T('Most recent rent roll','Lista de rentas actual')+'</li><li>'+T('Vacant unit list and 12-month vacancy rate','Lista de unidades vacías y tasa de vacancia')+'</li><li>'+T('Income and expense report for prior 12 months','Reporte de ingresos y gastos')+'</li><li>'+T('Architectural and engineering plans','Planos arquitectónicos y de ingeniería')+'</li><li>'+T('Building code violations and litigation','Violaciones al Código de Construcción y litigios')+'</li></ul><div class="alert alert-red">'+T('Failure to give proper notice: $200–$1,000 fine per day. Tenants may also sue for injunctive relief or treble damages.','Falta de aviso adecuado: multa de $200–$1,000 por día. Los inquilinos también pueden demandar.')+'</div></div></div>';
+    var who=u==='5+'?T('Each unit + DOH (5+ buildings)','Cada unidad + DOH (5+ unidades)'):T('Each tenant individually','Cada inquilino individualmente');
+    var tl=timeline([
+      {label:T('Notice of Intent to Sell','Aviso de Intención'),days:days+T(' days','d'),active:true,done:false},
+      {label:T('Listing period','Período de lista'),days:'',active:false,done:false},
+      {label:T('3rd-party offer','Oferta de tercero'),days:'',active:false,done:false},
+      {label:T('Organize','Organizar'),days:u==='5+'?'90d':u==='3-4'?'30d':'15d',active:false,done:false},
+      {label:T('Close','Cerrar'),days:u==='5+'?'120d':'60d',active:false,done:false}
+    ]);
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Phase 1 — Notice of Intent to Sell','Fase 1 — Aviso de Intención de Venta')+'</h3></div><div class="card-body">'
+    +tl
+    +'<p class="text-sm"><span style="font-weight:600">'+T('What this means:','Qué significa:')+'</span> '+T('The owner must give you advance notice before listing the property. This is your window to start organizing — even before any offer exists.','El dueño debe avisarte antes de listar la propiedad. Esta es tu ventana para empezar a organizarte.')+'</p>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.5rem 0">'
+    +'<div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Notice period','Período de aviso')+'</div><div style="font-size:20px;font-weight:700">'+days+'</div><div style="font-size:10px;color:#888">'+T('days before listing','días antes de listar')+'</div></div>'
+    +'<div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Who receives notice','Quién recibe')+'</div><div style="font-size:12px;font-weight:600;margin-top:4px">'+who+'</div></div>'
+    +'</div>'
+    +'<p class="text-sm" style="margin-top:6px">'+T('The owner must use the two-part DOH Notice of Intent to Sell: a notarized <strong>Owner Declaration</strong> and a <strong>Tenant Notice</strong> for each unit. Both must be delivered in English and Spanish. The notice must include owner contact, address, number of units, proposed price, and a summary of tenant rights.','El dueño debe usar el Aviso DOH de dos partes: una Declaración del Propietario notariada y un Aviso al Inquilino para cada unidad. Ambos en inglés y español.')+'</p>'
+    +'<p class="text-sm" style="font-weight:600;margin-top:6px">'+T('Use this time to:','Usa este tiempo para:')+'</p>'
+    +'<ul class="rights-list"><li>'+T('Connect with a tenant organizer — contact Palenque LSNA or The Community WEB','Conecta con un organizador — contacta a Palenque LSNA o The Community WEB')+'</li><li>'+T('Request financial documents from the owner (rent roll, income/expense report, violation history)','Solicita documentos financieros al dueño (lista de rentas, reporte de ingresos/gastos, historial de violaciones)')+'</li><li>'+T('Begin informally gauging neighbor interest in a purchase','Comienza a evaluar el interés de los vecinos en comprar')+'</li><li>'+T('Contact a housing attorney or Chicago Legal Aid','Contacta a un abogado de vivienda o Chicago Legal Aid')+'</li></ul>'
+    +'<div class="alert alert-red">'+T('Failure to give proper notice: $200–$1,000 fine per day. Tenants may also sue for injunctive relief or treble damages.','Falta de aviso adecuado: multa de $200–$1,000 por día. Los inquilinos también pueden demandar.')+'</div>'
+    +'</div></div>';
   }
   if(s==='offer'){
-    var fw=u==='5+'?T('90 days','90 días'):u==='3-4'?T('30 days','30 días'):T('15 days','15 días');
-    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T("Offer accepted — here's what happens","Oferta aceptada — aquí lo que ocurre")+'</h3></div><div class="card-body"><ul class="timeline">'+
-    ss(1,'#E1F5EE','#085041',T('Owner must send Notice of Third-Party Purchase Agreement','El dueño debe enviar el Aviso del Contrato con Tercero'),T('Once the owner accepts a bona fide offer, they must send you the Notice of Third-Party Purchase Agreement along with a full copy of the purchase contract within 10 business days (5 days for 1–4 unit buildings). This notice also contains the Waiver of Right of First Refusal — you are not required to sign it.','Una vez aceptada la oferta, el dueño debe enviarte el Aviso del Contrato con el Tercero junto con el contrato completo. Este aviso contiene el formulario de renuncia — no estás obligado a firmarlo.'),stag('tag-green',T('Owner obligation','Obligación del dueño')))+
-    ss(2,'#E6F1FB','#0C447C',T('Your right of first refusal activates','Tu derecho de primera negativa se activa'),T('The third-party purchase agreement is contingent on your right of first refusal. Any sale without following this process is null and void.','El contrato con el tercero está sujeto a tu derecho. Cualquier venta sin este proceso es nula.'),stag('tag-blue',T('Legally binding','Legalmente vinculante')))+
-    ss(3,'#FAEEDA','#633806',T('Time to form tenant association','Tiempo para formar asociación'),u==='5+'?T('You have <strong>90 days</strong> from Notice of Sale to form association (75% consent) and notify owner + DOH.','Tienes <strong>90 días</strong> para formar una asociación (75% de consentimiento) y notificar al dueño y al DOH.'):u==='3-4'?T('You have <strong>30 days</strong> to form association (50% consent).','Tienes <strong>30 días</strong> para formar asociación (50%).'):T('You have <strong>15 days</strong> to notify the owner. No association required for 1–2 unit buildings.','Tienes <strong>15 días</strong> para notificar. No se requiere asociación para 1–2 unidades.'),stag('tag-amber',fw))+
-    ss(4,'#FCEBEB','#791F1F',T('Exercise right of first refusal','Ejercer derecho de primera negativa'),T('Send written notice and earnest money deposit (max 5% of sale price). You purchase on the same terms as the third-party agreement.','Envía aviso escrito y depósito de garantía (máx. 5%). Compras en los mismos términos del tercero.'),stag('tag-red',T('Written notice + deposit','Aviso + depósito')))+
-    '</ul><div class="alert alert-amber">'+T("The right of first refusal is a continuing right — it applies every time the owner tries to sell.","El derecho de primera negativa es continuo — aplica cada vez que el dueño intenta vender.")+'</div><div class="alert alert-blue" style="margin-top:8px">'+T("<strong>Waiver:</strong> The waiver of your right of first refusal is now on the Notice of Third-Party Purchase Agreement (not the Notice of Intent to Sell). You can choose to waive in writing at any time — but the owner is not allowed to ask you to waive, coerce you, or make it a condition of anything.","<strong>Renuncia:</strong> El formulario de renuncia ahora está en el Aviso del Contrato con Tercero. Puedes elegir renunciar por escrito en cualquier momento, pero el dueño no puede pedirte que renuncies ni coaccionarte.")+'</div></div></div>';
+    var odays=u==='5+'?'10 '+T('business days','días hábiles'):'5 '+T('business days','días hábiles');
+    var fw=u==='5+'?'90':u==='3-4'?'30':'15';
+    var cd=u==='5+'?'120':'60';
+    var tl=timeline([
+      {label:T('Intent to Sell','Intención de venta'),days:'',active:false,done:true},
+      {label:T('Notice of 3rd-party offer','Aviso de oferta'),days:odays,active:true,done:false},
+      {label:T('Organize','Organizar'),days:fw+'d',active:false,done:false},
+      {label:T('Exercise ROFR','Ejercer ROFR'),days:'',active:false,done:false},
+      {label:T('Close','Cerrar'),days:cd+'d',active:false,done:false}
+    ]);
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Phase 2 — Third-Party Offer Accepted','Fase 2 — Oferta de Tercero Aceptada')+'</h3></div><div class="card-body">'
+    +tl
+    +'<p class="text-sm"><span style="font-weight:600">'+T('What this means:','Qué significa:')+'</span> '+T('A buyer has made an offer the owner intends to accept. This is when your Right of First Refusal officially activates. The owner now has legal obligations — and your clock starts.','Un comprador hizo una oferta que el dueño tiene intención de aceptar. Aquí es cuando tu Derecho de Primera Negativa se activa oficialmente.')+'</p>'
+    +'<p class="text-sm" style="font-weight:600;margin-top:8px">'+T('What the owner must do — immediately:','Lo que el dueño debe hacer — inmediatamente:')+'</p>'
+    +'<ul class="rights-list">'
+    +'<li>'+T('Send you the <strong>Notice of Third-Party Purchase Agreement</strong> within '+odays+' of accepting the offer','Enviarte el <strong>Aviso del Contrato con Tercero</strong> dentro de '+odays+' de aceptar la oferta')+'</li>'
+    +'<li>'+T('Attach a <strong>full copy of the purchase contract</strong> and all financial disclosures','Adjuntar una <strong>copia completa del contrato de compra</strong> y todas las divulgaciones financieras')+'</li>'
+    +'<li>'+T('Deliver in English and Spanish (or your preferred language)','Entregar en inglés y español (o tu idioma preferido)')+'</li>'
+    +'</ul>'
+    +'<p class="text-sm" style="font-weight:600;margin-top:8px">'+T('Your rights at this moment:','Tus derechos en este momento:')+'</p>'
+    +'<ul class="rights-list">'
+    +'<li>'+T('The sale <strong>cannot close</strong> without following the TOPA process — any sale that skips this is null and void','La venta <strong>no puede cerrarse</strong> sin seguir el proceso TOPA — cualquier venta que lo omita es nula')+'</li>'
+    +'<li>'+T('You have three options: <strong>exercise</strong> your ROFR (buy the property on the same terms), <strong>transfer</strong> your ROFR to another entity, or <strong>waive</strong> it','Tienes tres opciones: <strong>ejercer</strong> tu ROFR (comprar en los mismos términos), <strong>transferir</strong> tu ROFR a otra entidad, o <strong>renunciar</strong> a él')+'</li>'
+    +'<li>'+T('You are <strong>not required</strong> to sign the waiver — the owner cannot ask you to or make it a condition of anything','<strong>No estás obligado</strong> a firmar la renuncia — el dueño no puede pedirte que la firmes')+'</li>'
+    +'</ul>'
+    +'<div class="alert alert-amber">'+T('Thinking about buying? Go to the "We want to exercise our right to buy" tab to see your full timeline and what to do next.','¿Pensando en comprar? Ve a la pestaña "Queremos ejercer nuestro derecho de compra" para ver el cronograma completo.')+'</div>'
+    +'<div class="alert alert-blue" style="margin-top:8px">'+T('<strong>ROFR is a continuing right</strong> — it applies every time the owner tries to sell, not just this time.','<strong>El ROFR es un derecho continuo</strong> — aplica cada vez que el dueño intenta vender, no solo esta vez.')+'</div>'
+    +'</div></div>';
   }
   if(s==='purchase'){
-    var fd=u==='5+'?'90':u==='3-4'?'30':'15'; var cd=u==='5+'?'120':'60';
-    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Buying your building — timeline','Comprando tu edificio — cronograma')+'</h3></div><div class="card-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.5rem 0"><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('To organize','Para organizar')+'</div><div style="font-size:18px;font-weight:600">'+fd+' '+T('days','días')+'</div></div><div style="background:#f9f8f5;border-radius:7px;padding:10px"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('To close','Para cerrar')+'</div><div style="font-size:18px;font-weight:600">'+cd+' '+T('days','días')+'</div></div></div><ul class="timeline mt-1">'+
-    ss(1,'#E1F5EE','#085041',T('Receive Notice of Sale','Recibir aviso de venta'),T('Written notice from owner once third-party offer accepted, including full purchase agreement.','Aviso escrito del dueño una vez aceptada una oferta, incluyendo el contrato completo.'),stag('tag-green',T('Clock starts here','El reloj comienza')))+
-    ss(2,'#E6F1FB','#0C447C',T('Form tenant association','Formar la asociación'),u==='1-2'?T('At least one tenant exercises right individually — no association needed.','Al menos un inquilino ejerce el derecho individualmente.'):T('Get '+(u==='5+'?'75%':'50%')+' of occupied units to consent. Notify owner and DOH.','Obtener consentimiento del '+(u==='5+'?'75%':'50%')+' de las unidades. Notificar al dueño y al DOH.'),stag('tag-blue',fd+T('-day window',' días')))+
-    ss(3,'#FAEEDA','#633806',T('Exercise right of first refusal','Ejercer derecho de primera negativa'),T('Send written notice and deposit (max 5%). Deposit refunded on good-faith failure to close.','Envía aviso escrito y depósito (máx. 5%). El depósito se devuelve por razones de buena fe.'),stag('tag-amber',T('Notice + deposit','Aviso + depósito')))+
-    ss(4,'#FCEBEB','#791F1F',T('Due diligence & financing','Diligencia y financiamiento'),T('You have '+cd+' days to inspect and arrange financing. Owner must provide full access and all requested records.','Tienes '+cd+' días para inspeccionar y asegurar financiamiento.'),stag('tag-red',cd+T(' days to close',' días para cerrar')))+
-    ss(5,'#EAF3DE','#3B6D11',T('Close on the property','Cerrar la compra'),T('Purchase on same terms. If public funds used, property must remain affordable for ≥30 years under a restrictive covenant.','Compra en los mismos términos. Si se usan fondos públicos, la propiedad debe permanecer asequible ≥30 años.'),stag('tag-green',T('30-yr affordability covenant if public funds','Pacto de asequibilidad de 30 años si fondos públicos')))+
-    '</ul><div class="alert alert-blue">'+T('You may assign your right of first refusal to any nonprofit, for-profit, or public entity — the same percentage of tenants must consent as is required to form the tenant association. Notify the owner in writing within 10 business days.','Puedes ceder tu derecho de primera negativa a cualquier entidad sin fines de lucro, con fines de lucro o pública — el mismo porcentaje de inquilinos debe consentir que el requerido para formar la asociación de inquilinos. Notifica al dueño por escrito en 10 días hábiles.')+'</div></div></div>';
+    var fd=u==='5+'?'90':u==='3-4'?'30':'15';
+    var pct=u==='5+'?'75%':u==='3-4'?'50%':T('N/A (individual)','N/A (individual)');
+    var tl=timeline([
+      {label:T('Intent to Sell','Intención de venta'),days:'',active:false,done:true},
+      {label:T('Notice of 3rd-party offer','Aviso de oferta'),days:'',active:false,done:true},
+      {label:T('Form association','Formar asociación'),days:fd+'d',active:true,done:false},
+      {label:T('Exercise ROFR','Ejercer ROFR'),days:'',active:false,done:false},
+      {label:T('Due diligence & close','Diligencia y cierre'),days:'',active:false,done:false}
+    ]);
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Phase 3 — Organizing to Buy','Fase 3 — Organizarse para Comprar')+'</h3></div><div class="card-body">'
+    +tl
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.5rem 0">'
+    +'<div style="background:#f9f8f5;border-radius:7px;padding:10px;text-align:center"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Time to organize','Tiempo para organizar')+'</div><div style="font-size:20px;font-weight:700">'+fd+'</div><div style="font-size:10px;color:#888">'+T('days','días')+'</div></div>'
+    +'<div style="background:#f9f8f5;border-radius:7px;padding:10px;text-align:center"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">'+T('Consent needed','Consentimiento')+'</div><div style="font-size:20px;font-weight:700">'+pct+'</div><div style="font-size:10px;color:#888">'+T('of occupied units','de unidades ocupadas')+'</div></div>'
+    +'</div>'
+    +'<ul class="timeline mt-1">'
+    +ss(1,'#E1F5EE','#085041',T('Receive Notice of Third-Party Purchase Agreement','Recibir el Aviso del Contrato con Tercero'),T('This is day zero — your clock starts when you receive this notice. It must include the full purchase contract. You now have '+fd+' days to organize.','Este es el día cero — tu reloj comienza cuando recibes este aviso. Debe incluir el contrato completo. Tienes '+fd+' días para organizarte.'),stag('tag-green',T('Day 0 — clock starts','Día 0 — comienza el reloj')))
+    +ss(2,'#E6F1FB','#0C447C',
+      u==='1-2'?T('Exercise your right individually','Ejercer tu derecho individualmente'):T('Form tenant association','Formar la asociación de inquilinos'),
+      u==='1-2'?T('For 1–2 unit buildings, any tenant can exercise the right individually — no association required. You have 15 days to notify the owner in writing.','Para edificios de 1–2 unidades, cualquier inquilino puede ejercer el derecho individualmente. Tienes 15 días para notificar al dueño.'):T('Get '+pct+' of occupied units to sign consent forms. Formally register the association with DOH and notify the owner in writing. DOH can help you navigate this step.','Obtener '+pct+' de las unidades ocupadas que firmen formularios de consentimiento. Registrar formalmente la asociación con el DOH y notificar al dueño por escrito.'),
+      stag('tag-blue',fd+T('-day window',' días')))
+    +'</ul>'
+    +'<div class="alert alert-blue">'+T('Ready to formally buy? Move to "Phase 4: Begin purchasing process" to see the ROFR exercise, due diligence, and closing steps.','¿Listo para comprar formalmente? Ve a "Fase 4: Iniciar proceso de compra" para ver los pasos de ejercer el ROFR, la diligencia debida y el cierre.')+'</div>'
+    +'</div></div>';
+  }
+  if(s==='begin_purchase'){
+    var cd=u==='5+'?'120':'60';
+    var tl=timeline([
+      {label:T('Intent to Sell','Intención de venta'),days:'',active:false,done:true},
+      {label:T('Notice of 3rd-party offer','Aviso de oferta'),days:'',active:false,done:true},
+      {label:T('Form association','Formar asociación'),days:'',active:false,done:true},
+      {label:T('Exercise ROFR','Ejercer ROFR'),days:'',active:true,done:false},
+      {label:T('Due diligence & close','Diligencia y cierre'),days:cd+'d',active:true,done:false}
+    ]);
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Phase 4 — Beginning the Purchasing Process','Fase 4 — Inicio del Proceso de Compra')+'</h3></div><div class="card-body">'
+    +tl
+    +'<p class="text-sm"><span style="font-weight:600">'+T('What this means:','Qué significa:')+'</span> '+T('Your association has formed and consented. Now you formally exercise your right of first refusal, begin due diligence, and work to close the transaction.','Su asociación está formada y ha dado su consentimiento. Ahora ejercen formalmente su derecho de primera negativa, inician la diligencia debida y trabajan para cerrar la transacción.')+'</p>'
+    +'<ul class="timeline mt-1">'
+    +ss(1,'#FAEEDA','#633806',T('Send written notice + earnest money deposit','Enviar aviso escrito + depósito de garantía'),T('Send written notice to the owner that you are exercising your right of first refusal. Include an earnest money deposit of up to 5% of the agreed sale price. This deposit must be refunded if you fail to close for good-faith reasons (e.g. financing fell through despite genuine efforts).','Envía aviso escrito al dueño de que estás ejerciendo tu derecho de primera negativa. Incluye un depósito de garantía de hasta el 5% del precio de venta acordado. El depósito debe devolverse si no puedes cerrar de buena fe.'),stag('tag-amber',T('Max 5% deposit','Máx. 5% depósito')))
+    +ss(2,'#FCEBEB','#791F1F',T('Due diligence — inspect and arrange financing','Diligencia debida — inspeccionar y organizar financiamiento'),T('You have '+cd+' days from your notice of intent to close. The owner must provide full property access, financial records, and all requested disclosures. Use the Rental Feasibility and Co-op Calculator tabs to model your financing options. Contact CCLF, TRP, or IHDA for acquisition financing.','Tienes '+cd+' días para cerrar. El dueño debe darte acceso completo a la propiedad y todos los registros financieros. Usa las pestañas de Factibilidad y Co-op para modelar tus opciones de financiamiento.'),stag('tag-red',cd+T(' days to close',' días para cerrar')))
+    +ss(3,'#EAF3DE','#3B6D11',T('Close on the property','Cerrar la compra'),T('Purchase on exactly the same price and terms as the third-party agreement. Any material changes to the deal require the process to restart. If public funds are used, the property must remain affordable for at least 30 years under a restrictive covenant.','Compra al mismo precio y condiciones que el acuerdo con el tercero. Si se usan fondos públicos, la propiedad debe permanecer asequible al menos 30 años bajo un convenio restrictivo.'),stag('tag-green',T('Same terms as 3rd-party deal','Mismos términos que el tercero')))
+    +'</ul>'
+    +'<div class="alert alert-blue">'+T('<strong>Financing tip:</strong> Start financing conversations early — even during Phase 3. Contact the Chicago Community Loan Fund (CCLF), The Resurrection Project (TRP), and IHDA before you formally exercise your ROFR. Pre-approval letters are required for the 606 district (not currently required for Jackson Park).','<strong>Consejo financiero:</strong> Inicia conversaciones de financiamiento temprano — incluso durante la Fase 3. Contacta al CCLF, TRP e IHDA antes de ejercer formalmente tu ROFR.')+'</div>'
+    +'</div></div>';
+  }
+  if(s==='assign'){
+    var pct=u==='5+'?'75%':u==='3-4'?'50%':T('same as forming association','igual que para formar asociación');
+    var tl=timeline([
+      {label:T('Intent to Sell','Intención de venta'),days:'',active:false,done:true},
+      {label:T('Notice of 3rd-party offer','Aviso de oferta'),days:'',active:true,done:false},
+      {label:T('Assign ROFR','Ceder ROFR'),days:'10d',active:true,done:false},
+      {label:T('Assignee buys','Cesionario compra'),days:'',active:false,done:false},
+      {label:T('You stay','Permaneces'),days:'',active:false,done:false}
+    ]);
+    el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Assigning Your Right of First Refusal to a Third Party','Ceder tu Derecho de Primera Negativa a un Tercero')+'</h3></div><div class="card-body">'
+    +tl
+    +'<p class="text-sm"><span style="font-weight:600">'+T('What this means:','Qué significa:')+'</span> '+T('You don\'t have to buy the building yourself. You can transfer your right of first refusal to another organization — a nonprofit, a housing developer, a CLT, or even a for-profit entity — who will purchase the property and (ideally) keep it affordable.','No tienes que comprar el edificio tú mismo. Puedes transferir tu derecho de primera negativa a otra organización — una sin fines de lucro, un desarrollador de vivienda, un CLT, o incluso una entidad con fines de lucro — que comprará la propiedad.')+'</p>'
+    +'<p class="text-sm" style="margin-top:6px;font-weight:600">'+T('Who can you assign to?','¿A quién puedes ceder?')+'</p>'
+    +'<ul class="rights-list">'
+    +'<li>'+T('<strong>Nonprofits</strong> — community land trusts (CLTs), affordable housing developers, tenant organizations (e.g. Here to Stay CLT, The Resurrection Project)','<strong>Sin fines de lucro</strong> — fundaciones de tierra comunitaria (CLTs), desarrolladores de vivienda asequible, organizaciones de inquilinos')+'</li>'
+    +'<li>'+T('<strong>For-profit entities</strong> — any buyer who agrees to your terms (though this offers fewer protections than a mission-driven buyer)','<strong>Entidades con fines de lucro</strong> — cualquier comprador que acepte sus condiciones')+'</li>'
+    +'<li>'+T('<strong>Public entities</strong> — city agencies, housing authorities, or community development organizations','<strong>Entidades públicas</strong> — agencias de la ciudad, autoridades de vivienda')+'</li>'
+    +'</ul>'
+    +'<p class="text-sm" style="margin-top:8px;font-weight:600">'+T('How to assign:','Cómo ceder:')+'</p>'
+    +'<ul class="rights-list">'
+    +'<li>'+T('The same percentage of tenants must consent to the assignment as is required to form the tenant association ('+pct+' of occupied units)','El mismo porcentaje de inquilinos debe consentir la cesión que el requerido para formar la asociación de inquilinos ('+pct+' de unidades ocupadas)')+'</li>'
+    +'<li>'+T('Notify the owner in writing within 10 business days of receiving the Notice of Third-Party Purchase Agreement','Notifica al dueño por escrito dentro de los 10 días hábiles de recibir el Aviso del Contrato con Tercero')+'</li>'
+    +'<li>'+T('The assignee takes on all the rights and responsibilities of the right of first refusal — they must close on the same terms as the third-party offer','El cesionario asume todos los derechos y responsabilidades del derecho de primera negativa — debe cerrar en los mismos términos que la oferta del tercero')+'</li>'
+    +'</ul>'
+    +'<div class="alert alert-amber">'+T('<strong>Strategic note:</strong> Assigning to a CLT or nonprofit keeps the property affordable for current and future tenants even if you can\'t buy it yourself. This is often the most realistic path in high-cost neighborhoods. Contact Here to Stay CLT, TRP, or The Community WEB to explore this option.','<strong>Nota estratégica:</strong> Ceder a un CLT o nonprofit mantiene la propiedad asequible para los inquilinos actuales y futuros incluso si no puedes comprarla tú mismo.')+'</div>'
+    +'</div></div>';
   }
   if(s==='general'){
     el.innerHTML='<div class="card"><div class="card-header"><h3>'+T('Your key protections under the ordinance','Tus protecciones clave bajo la ordenanza')+'</h3></div><div class="card-body"><ul class="rights-list"><li>'+T('Owner cannot evict you or disturb your tenancy during notice and negotiation periods.','El dueño NO puede desalojarte durante los períodos de aviso y negociación.')+'</li><li>'+T('Even if you waive the right of first refusal, a new owner must allow you to stay for at least 6 months from the sale, or until your lease expires — at the same rent and terms.','Incluso si renuncias, el nuevo dueño debe permitirte quedarte por al menos 6 meses — al mismo precio y condiciones.')+'</li><li>'+T('Owner cannot ask you to waive your right of first refusal as a condition of anything.','El dueño NO puede pedirte que renuncies como condición de nada.')+'</li><li>'+T('Owner cannot require a deposit of more than 5% of the sale price. Deposit must be refunded on good-faith failure.','El dueño NO puede requerir un depósito mayor al 5%. El depósito debe devolverse por buena fe.')+'</li><li>'+T('You cannot be required to prove financial ability before entering into a purchase contract.','No se te puede exigir que pruebes capacidad financiera antes de firmar un contrato.')+'</li><li>'+T('The right of first refusal applies every time the property is sold — it is a continuing right.','El derecho de primera negativa aplica cada vez que la propiedad se vende — es un derecho continuo.')+'</li><li>'+T('You may assign your rights to any nonprofit, for-profit, or public entity — with the same tenant consent threshold as forming a tenant association.','Puedes ceder tus derechos a cualquier entidad (sin fines de lucro, con fines de lucro o pública) con el mismo umbral de consentimiento que para formar una asociación de inquilinos.')+'</li></ul><div class="alert alert-red">'+T("Owner violations: $200–$1,000 fine per day. You may sue for injunctive relief, treble damages, and attorney's fees.","Violaciones del dueño: multa de $200–$1,000 por día. Puedes demandar.")+'</div><div class="alert alert-blue" style="margin-top:8px">'+T('<strong>Questions or violations?</strong> Contact DOH: <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> or 312-744-3653. All program forms and rules are at <a href="https://www.chicago.gov/topa" target="_blank">chicago.gov/topa</a>.','<strong>¿Preguntas o violaciones?</strong> Contacta al DOH: <a href="mailto:DOH.TenantPurchase@cityofchicago.org">DOH.TenantPurchase@cityofchicago.org</a> o 312-744-3653. Todos los formularios y reglas en <a href="https://www.chicago.gov/topa" target="_blank">chicago.gov/topa</a>.')+'</div></div></div>';
@@ -1549,7 +1898,82 @@ function selNbhd(key,el){
 }
 
 // ═══════════════════════════════════════════════
-// RENTAL FEASIBILITY
+// EXAMPLES — load preset values into calculators
+// ═══════════════════════════════════════════════
+function loadExample(n){
+  if(n===1){
+    // Example 1: 4-unit Humboldt Park, 60% AMI
+    document.getElementById('f_price').value=600000;
+    document.getElementById('f_units').value=4;
+    document.getElementById('f_rehab').value=20000;
+    document.getElementById('f_soft').value=15;
+    document.getElementById('f_cont').value=10;
+    document.getElementById('f_rent').value=1620;
+    document.getElementById('f_br').value=2;
+    document.getElementById('f_vac').value=5;
+    document.getElementById('f_tax').value=8000;
+    document.getElementById('f_ins').value=4000;
+    document.getElementById('f_maint').value=6000;
+    document.getElementById('f_reserve').value=500;
+    document.getElementById('f_ltv').value=70;
+    document.getElementById('f_rate').value=7.0;
+    document.getElementById('f_term').value=30;
+    document.getElementById('f_dscr_min').value=1.20;
+    calcF(); buildRoll();
+    goPage('finance', document.querySelector('.nav-tab:nth-child(3)'));
+  } else if(n===2){
+    // Example 2: 8-unit Logan Square, blended 60+80% AMI
+    document.getElementById('f_price').value=1400000;
+    document.getElementById('f_units').value=8;
+    document.getElementById('f_rehab').value=30000;
+    document.getElementById('f_soft').value=15;
+    document.getElementById('f_cont').value=10;
+    document.getElementById('f_rent').value=1890;
+    document.getElementById('f_br').value=2;
+    document.getElementById('f_vac').value=5;
+    document.getElementById('f_tax').value=14000;
+    document.getElementById('f_ins').value=7000;
+    document.getElementById('f_maint').value=12000;
+    document.getElementById('f_reserve').value=500;
+    document.getElementById('f_ltv').value=70;
+    document.getElementById('f_rate').value=7.0;
+    document.getElementById('f_term').value=30;
+    document.getElementById('f_dscr_min').value=1.20;
+    calcF(); buildRoll();
+    goPage('finance', document.querySelector('.nav-tab:nth-child(3)'));
+  } else if(n===3){
+    // Example 3: 6-unit co-op, 60% AMI carrying charge
+    document.getElementById('c_price').value=1200000;
+    document.getElementById('c_units').value=6;
+    document.getElementById('c_rehab').value=25000;
+    document.getElementById('c_br').value=2;
+    document.getElementById('c_soft').value=15;
+    document.getElementById('c_cont').value=10;
+    document.getElementById('c_org').value=15000;
+    document.getElementById('c_trainup').value=5000;
+    document.getElementById('c_unit_util').value=75;
+    document.getElementById('c_tax').value=12000;
+    document.getElementById('c_ins').value=6000;
+    document.getElementById('c_maint').value=9000;
+    document.getElementById('c_reserve').value=600;
+    document.getElementById('c_utilities').value=4000;
+    document.getElementById('c_trainyr').value=2000;
+    document.getElementById('c_vac').value=5;
+    document.getElementById('c_carry_growth').value=2.5;
+    document.getElementById('c_ltv').value=70;
+    document.getElementById('c_mrate').value=7.0;
+    document.getElementById('c_mterm').value=30;
+    document.getElementById('c_mdscr').value=1.15;
+    // Set 60% AMI bench
+    document.querySelectorAll('#ami-bench-tabs .stab').forEach(function(b){b.classList.remove('active');});
+    var ami60btn=document.querySelector('[data-bench="60"]');
+    if(ami60btn){ami60btn.classList.add('active');setAmiBench('60',ami60btn);}
+    calcC();
+    goPage('coop', document.querySelector('.nav-tab:nth-child(5)'));
+  }
+}
+
+
 // ═══════════════════════════════════════════════
 function setRentMode(m,btn){rentMode=m;document.querySelectorAll('#rent-mode-tabs .stab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.getElementById('rent-avg-block').style.display=m==='avg'?'':'none';document.getElementById('rent-roll-block').style.display=m==='roll'?'':'none';if(m==='roll')buildRoll();calcF();}
 function setBench(b,btn){bench=b;document.querySelectorAll('#rent-bench-tabs .stab').forEach(function(x){x.classList.remove('active');});btn.classList.add('active');applyBench();}
@@ -1569,7 +1993,7 @@ function updateBenchNote(){
     '60ami':T('60% AMI rent limit for '+brl+'. '+src,'Límite de renta al 60% AMI para '+brl+'. '+src),
     '80ami':T('80% AMI rent limit for '+brl+'. '+src,'Límite de renta al 80% AMI para '+brl+'. '+src),
     '100ami':T('100% AMI rent limit for '+brl+'. '+src,'Límite de renta al 100% AMI para '+brl+'. '+src),
-    'fmr':T('HUD FY2025 Fair Market Rent for Cook County for '+brl+'. Cook County uses zip-level SAFMRs.','Renta Justa de Mercado HUD FY2025 del condado de Cook para '+brl+'.'),
+    'fmr':T('HUD FY2026 Fair Market Rent (est.) for Cook County for '+brl+'. Cook County uses zip-level SAFMRs. FY2026 values estimated at +5% from FY2025 pending HUD publication.','Renta Justa de Mercado HUD FY2025 del condado de Cook para '+brl+'.'),
     'market':T('Custom rent amount — enter any value in the field below.','Monto de renta personalizado — ingresa cualquier valor en el campo de abajo.')
   };
   el.textContent=notes[bench]||'';
@@ -1616,7 +2040,7 @@ function calcF(){
   document.getElementById('finance-output').innerHTML=
     '<div class="calc-result"><h4>'+T('Project summary','Resumen del proyecto')+'</h4>'+
     '<div class="result-section"><div class="result-row"><span>'+T('Purchase price','Precio de compra')+'</span><span class="result-num">'+fmt(price)+' <span style="font-size:10px;color:#999;font-weight:400">('+fmt(Math.round(price/numU))+'/'+T('unit','unidad')+')</span></span></div><div class="result-row"><span>'+T('Rehab','Rehabilitación')+' ('+fmt(rehabPU)+'/unit × '+numU+')</span><span class="result-num">'+fmt(rehab)+'</span></div><div class="result-row"><span>'+T('Soft costs','Costos blandos')+' ('+Math.round(soft*100)+'%)</span><span class="result-num">'+fmt(softC)+'</span></div><div class="result-row"><span>'+T('Contingency','Contingencia')+' ('+Math.round(cont*100)+'%)</span><span class="result-num">'+fmt(contC)+'</span></div><div class="result-row total"><span>'+T('Total project cost','Costo total')+'</span><span class="result-num">'+fmt(totalCost)+'</span></div></div>'+
-    '<div class="result-section"><h5>'+T('Financing','Financiamiento')+'</h5><div class="result-row"><span>'+T('Max LTV loan','Préstamo máx. LTV')+'</span><span class="result-num">'+fmt(loanLTV)+'</span></div><div class="result-row"><span>'+T('Max DSCR loan','Préstamo máx. DSCR')+' ('+dscrMin.toFixed(2)+'x)</span><span class="result-num">'+fmt(loanDSCR)+'</span></div><div class="result-row sub" style="color:'+(limitBy==='DSCR'?'#A32D2D':'#0F6E56')+'"><span>→ '+T('Loan (lower of LTV/DSCR)','Préstamo (menor de LTV/DSCR)')+'</span><span class="result-num">'+fmt(loan)+'</span></div><div class="result-row"><span>'+T('Monthly mortgage payment','Pago mensual de hipoteca')+'</span><span class="result-num">'+fmt(moPmt)+'/mo</span></div><div class="result-row total" style="background:#FFF8E7;margin:4px -4px 0;padding:6px 4px;border-radius:5px;border-top:none"><span style="font-weight:700">'+T('Required subsidy and/or additional equity','Subsidio requerido y/o capital adicional')+'</span><span class="result-num" style="font-weight:700;color:#A32D2D">'+fmt(equity)+'</span></div><div class="result-row" style="font-size:13px;font-weight:700;color:#A32D2D;padding-top:6px"><span>'+T('Per unit','Por unidad')+'</span><span class="result-num">'+fmt(Math.round(equity/numU))+'</span></div></div>'+
+    '<div class="result-section"><h5>'+T('Financing','Financiamiento')+'</h5><div class="result-row"><span>'+T('Max LTV loan','Préstamo máx. LTV')+'</span><span class="result-num">'+fmt(loanLTV)+'</span></div><div class="result-row"><span>'+T('Max DSCR loan','Préstamo máx. DSCR')+' ('+dscrMin.toFixed(2)+'x)</span><span class="result-num">'+fmt(loanDSCR)+'</span></div><div class="result-row sub" style="color:'+(limitBy==='DSCR'?'#A32D2D':'#0F6E56')+'"><span>→ '+T('Loan (lower of LTV/DSCR)','Préstamo (menor de LTV/DSCR)')+'</span><span class="result-num">'+fmt(loan)+'</span></div><div class="result-row"><span>'+T('Monthly mortgage payment','Pago mensual de hipoteca')+'</span><span class="result-num">'+fmt(moPmt)+'/mo</span></div><div class="result-row total" style="background:#FFF8E7;margin:4px -4px 0;padding:6px 4px;border-radius:5px;border-top:none"><span style="font-weight:700">'+T('Required subsidy and/or additional equity — gap','Subsidio requerido y/o capital adicional — brecha')+'</span><span class="result-num" style="font-weight:700;color:#A32D2D">'+fmt(equity)+'</span></div><div class="result-row" style="font-size:13px;font-weight:700;color:#A32D2D;padding-top:6px"><span>'+T('Per unit','Por unidad')+'</span><span class="result-num">'+fmt(Math.round(equity/numU))+'</span></div></div>'+
     '<div class="result-section"><h5>'+T('Pro forma','Pro forma')+'</h5><div class="result-row"><span>'+T('Gross potential rent','Renta bruta potencial')+'</span><span class="result-num">'+fmt(grossRent)+'/yr</span></div><div class="result-row"><span>'+T('Effective gross income','Ingreso bruto efectivo')+'</span><span class="result-num">'+fmt(egi)+'/yr</span></div><div class="result-row"><span>'+T('Operating expenses','Gastos operativos')+'</span><span class="result-num">('+fmt(opex)+')/yr</span></div><div class="result-row sub"><span>NOI</span><span class="result-num">'+fmt(noi)+'/yr</span></div><div class="result-row"><span>'+T('Annual debt service','Servicio de deuda anual')+'</span><span class="result-num">('+fmt(annDebt)+')/yr</span></div><div class="result-row '+cfc+'"><span>'+T('Cash flow','Flujo de efectivo')+'</span><span class="result-num">'+(cf>=0?'':'(')+fmt(Math.abs(cf))+'/yr'+(cf<0?')':'')+'</span></div></div>'+
     '<div class="result-section"><h5>'+T('Metrics','Indicadores')+'</h5><div class="result-row"><span>'+T('Cap rate','Tasa de capitalización')+'</span><span class="result-num">'+cap.toFixed(2)+'%</span></div><div class="result-row"><span>DSCR</span><span class="result-num" style="color:'+dc+';font-weight:700">'+dscr.toFixed(2)+'x</span></div><div class="result-row"><span>'+T('Cost per unit','Costo por unidad')+'</span><span class="result-num">'+fmt(totalCost/numU)+'</span></div></div>'+
     (dscr<1.2?'<div class="alert alert-'+(dscr>=1.0?'amber':'red')+'">'+T(dscr<1.0?'⚠ NOI does not cover debt service.':'DSCR below 1.25 lender threshold.',dscr<1.0?'⚠ El NOI no cubre el servicio de deuda.':'DSCR por debajo del umbral de 1.25.')+'</div>':'<div class="alert alert-green">'+T('DSCR ≥ 1.2. Project may be financeable.','DSCR ≥ 1.2. El proyecto puede ser financiable.')+'</div>')+
